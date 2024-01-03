@@ -1,8 +1,8 @@
-import { StatusBar } from 'expo-status-bar';
-import { StyleSheet, Text, View } from 'react-native';
+import { StyleSheet, Image, } from 'react-native';
 import { createMaterialTopTabNavigator } from "@react-navigation/material-top-tabs";
 import { NavigationContainer } from '@react-navigation/native';
-
+import Constants from "expo-constants";
+import{ PaperProvider, Appbar, } from "react-native-paper";
 import Map from "./components/map";
 import Home from "./components/home";
 import PlanTrip from './components/plan-trip';
@@ -12,6 +12,17 @@ const Tab = createMaterialTopTabNavigator();
 
 export default function App() {
   return (
+    <PaperProvider>
+    <>
+    <Appbar style={{ marginTop: Constants.statusBarHeight }}>
+      <Appbar.Content title="Travel Chum" />
+      <Image
+        style={styles.Image}
+        source={require("./assets/Travel-Chum-Logo.png")}
+      />
+    </Appbar>
+  </>
+
     <NavigationContainer>
     <Tab.Navigator>
       <Tab.Screen name="Home" component={Home} />
@@ -19,6 +30,7 @@ export default function App() {
       <Tab.Screen name="Map" component={Map} />
     </Tab.Navigator>
     </NavigationContainer>
+    </PaperProvider>
   )
     
 }
