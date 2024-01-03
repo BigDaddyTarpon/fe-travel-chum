@@ -41,7 +41,7 @@ export default function PlanTrip() {
       )}
       name="origin"
     />
-    {errors.origin && <Text style={{color: 'black'}}>An origin is required. <Text style={{color: 'white'}} >An origin is required.</Text></Text>}
+    {errors.origin && <Text>An origin is required.</Text>}
 
     <Controller
         control={control}
@@ -59,7 +59,7 @@ export default function PlanTrip() {
       )}
       name="destination"
     />
-    {errors.destination && <Text style={{color: 'black'}}>A destination is required. <Text style={{color: 'white'}} >A destination is required.</Text></Text>}
+    {errors.destination && <Text>A destination is required.</Text>}
     
     <Controller
         control={control}
@@ -78,9 +78,9 @@ export default function PlanTrip() {
       )}
       name="stops"
     />
-    {errors.stops && <Text style={{color: 'black'}}>A number between 1 and 9 required. <Text style={{color: 'white'}} >A number between 1 and 9 is required.</Text></Text>}
+    {errors.stops && <Text>A number between 1 and 9 required.</Text>}
 
-    <Button title="Submit" onPress={handleSubmit(onSubmit)} />
+    <Button style={styles.button} title="Submit" onPress={handleSubmit(onSubmit)}>Start your journey</Button>
     </>
   )
 }
@@ -92,4 +92,7 @@ const styles = StyleSheet.create({
     alignItems: "center",
     justifyContent: "center",
   },
+  button: {
+    backgroundColor: "beige"
+  }
 });

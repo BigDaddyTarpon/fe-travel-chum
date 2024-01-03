@@ -3,7 +3,6 @@ import { createMaterialTopTabNavigator } from "@react-navigation/material-top-ta
 import { NavigationContainer } from '@react-navigation/native';
 import Constants from "expo-constants";
 import{ PaperProvider, Appbar, } from "react-native-paper";
-import Map from "./components/map";
 import Home from "./components/home";
 import PlanTrip from './components/plan-trip';
 
