@@ -3,6 +3,7 @@ const {
   applicationDefault,
   cert,
 } = require("firebase-admin/app");
+
 const {
   getFirestore,
   Timestamp,
@@ -10,7 +11,7 @@ const {
   Filter,
 } = require("firebase-admin/firestore");
 
-const serviceAccount = require("./travel-chum-4a5c3-c342bd52f360.json");
+const serviceAccount = require("../travel-chum-4a5c3-4cdab0770d10.json");
 
 initializeApp({
   credential: cert(serviceAccount),
@@ -27,13 +28,14 @@ async function getTrips() {
 
 async function postTrip() {
   const addTrip = db.collection("trips").doc();
-
-  await addTrip.set({
+  return await addTrip.create({
     polyline: "afgagadfgadfghadfhadfafhga!!",
-    tripName: "5th Trip!",
     userId: ["user1","user2","user3"],
     timestamp: FieldValue.serverTimestamp()
   });
+
+  
+
 }
 
 async function updateTrip() {
@@ -50,3 +52,4 @@ async function updateTrip() {
     const updateTrip = await db.collection("trips").doc("UfSsRVUZKrUkLwCYy6Zs").delete();
   }
 
+postTrip().catch(err => console.log(err))
