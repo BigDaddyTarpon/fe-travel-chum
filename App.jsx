@@ -26,8 +26,7 @@ export default function App() {
     <NavigationContainer>
     <Tab.Navigator>
       <Tab.Screen name="Home" component={Home} />
-      <Tab.Screen name="Plan-Trip" component={PlanTrip} />
-      <Tab.Screen name="Map" component={Map} />
+      <Tab.Screen name="Trip Planner" component={PlanTrip} />
     </Tab.Navigator>
     </NavigationContainer>
     </PaperProvider>
