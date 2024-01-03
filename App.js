@@ -1,11 +1,37 @@
-import { StatusBar } from 'expo-status-bar';
-import { StyleSheet, Text, View } from 'react-native';
+import { StyleSheet, Text, View } from "react-native";
+import { useEffect, useState } from "react";
+import * as Location from "expo-location";
+import { PolylineContext, UserLocationContext } from "./components/Contexts";
+import GoogleMapView from "./components/GoogleMapView";
+import GooglePlacesInput from "./components/DestinationInput";
+import Search from "./components/Search";
 
 export default function App() {
+  const [location, setLocation] = useState(null);
+  const [errorMsg, setErrorMsg] = useState(null);
+  const [polylineCoordinates, setPolylineCoordinates] = useState(null)
+
+  useEffect(() => {
+    (async () => {
+      let { status } = await Location.requestForegroundPermissionsAsync();
+      if (status !== "granted") {
+        setErrorMsg("Permission to access location was denied");
+        return;
+      }
+
+      let location = await Location.getCurrentPositionAsync({});
+      setLocation(location);
+    })();
+  }, []);
+
   return (
     <View style={styles.container}>
-      <Text>Open up App.js to start working on your app!</Text>
-      <StatusBar style="auto" />
+      <UserLocationContext.Provider value={{ location, setLocation }}>
+      <PolylineContext.Provider value={{polylineCoordinates, setPolylineCoordinates}}>
+        <Search />
+        <GoogleMapView></GoogleMapView>
+      </PolylineContext.Provider>
+      </UserLocationContext.Provider>
     </View>
   );
 }
@@ -13,8 +39,10 @@ export default function App() {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: '#fff',
-    alignItems: 'center',
-    justifyContent: 'center',
+    flexDirection: "column",
+    justifyContent: "center",
+    alignItems: "center",
+    paddingTop: 300,
+    backgroundColor: "#fff",
   },
 });
