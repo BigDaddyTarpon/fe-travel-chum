@@ -3,7 +3,6 @@ import { createMaterialTopTabNavigator } from "@react-navigation/material-top-ta
 import { NavigationContainer } from '@react-navigation/native';
 import Constants from "expo-constants";
 import{ PaperProvider, Appbar, } from "react-native-paper";
-import Map from "./components/map";
 import Home from "./components/home";
 import PlanTrip from './components/plan-trip';
 
@@ -26,8 +25,7 @@ export default function App() {
     <NavigationContainer>
     <Tab.Navigator>
       <Tab.Screen name="Home" component={Home} />
-      <Tab.Screen name="Plan-Trip" component={PlanTrip} />
-      <Tab.Screen name="Map" component={Map} />
+      <Tab.Screen name="Trip Planner" component={PlanTrip} />
     </Tab.Navigator>
     </NavigationContainer>
     </PaperProvider>
