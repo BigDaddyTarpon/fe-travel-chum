@@ -30,6 +30,7 @@ export default function PlanTrip() {
   return (
     <>
     <Map routeOptions={routeOptions}/>
+    <Button style={styles.button} title="Submit" onPress={handleSubmit(onSubmit)}>Start your journey</Button>
 
     <ScrollView>
     <Controller
@@ -87,7 +88,6 @@ export default function PlanTrip() {
     />
     {errors.stops && <Text>A number between 1 and 9 required.</Text>}
 
-    <Button style={styles.button} title="Submit" onPress={handleSubmit(onSubmit)}>Start your journey</Button>
     
     <View>
         <List.Accordion
@@ -147,6 +147,7 @@ const styles = StyleSheet.create({
     justifyContent: "center",
   },
   button: {
-    backgroundColor: "beige"
+    backgroundColor: "beige",
+    git 
   }
 });
