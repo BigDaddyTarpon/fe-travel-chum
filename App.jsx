@@ -5,9 +5,9 @@ import Constants from "expo-constants";
 import{ PaperProvider, Appbar, } from "react-native-paper";
 import Home from "./components/home";
 import PlanTrip from './components/plan-trip';
+import Login from './components/Login';
 
 const Tab = createMaterialTopTabNavigator();
-
 
 export default function App() {
   return (
@@ -26,6 +26,7 @@ export default function App() {
     <Tab.Navigator>
       <Tab.Screen name="Home" component={Home} />
       <Tab.Screen name="Trip Planner" component={PlanTrip} />
+      <Tab.Screen name="Login" component={Login} />
     </Tab.Navigator>
     </NavigationContainer>
     </PaperProvider>

@@ -1,6 +1,5 @@
-const { initializeApp, getApps } = require("firebase/app");
 const {
-	getFirestore,
+  getFirestore,
 	doc,
 	getDocs,
 	getDoc,
@@ -9,19 +8,11 @@ const {
 	deleteDoc,
 	serverTimestamp,
 	collection,
+  query,
+  where
 } = require("firebase/firestore");
 
-const firebaseConfig = {
-	apiKey: "AIzaSyB-7qgePH4hFCgRS_hwhHeImCzLDlckvZg",
-	authDomain: "travel-chum-4a5c3.firebaseapp.com",
-	projectId: "travel-chum-4a5c3",
-	storageBucket: "travel-chum-4a5c3.appspot.com",
-	messagingSenderId: "794247707174",
-	appId: "1:794247707174:web:eb8963feff451871be44e7",
-	measurementId: "G-RWM40W707P",
-};
-
-const app = !getApps().length ? initializeApp(firebaseConfig) : getApps()[0];
+const { app, auth } = require("../config/firebase");
 const db = getFirestore(app);
 
 async function getTripById(tripId) {
@@ -38,13 +29,14 @@ async function getTripById(tripId) {
 	}
 }
 
-async function getTripsByUserId(userId = "user1") {
-	const querySnapshot = await getDocs(collection(db, "trips"));
+export async function getTripsByCurrentUser() {
+
+  const q = query(collection(db, "trips"), where("userId", "==", auth.currentUser.uid));
+  const querySnapshot = await getDocs(q);
 	const trips = [];
 	querySnapshot.forEach((doc) => {
-		if (userId === doc.data().userId) trips.push({ id: doc.id, ...doc.data() });
+		trips.push({ id: doc.id, ...doc.data() });
 	});
-	console.log(trips);
 	return trips;
 }
 
@@ -55,15 +47,14 @@ async function getTrips() {
 	querySnapshot.forEach((doc) => {
 		trips.push({ id: doc.id, ...doc.data() });
 	});
-	console.log(trips);
 	return trips;
 }
 
-async function postTrip({ polyline, userId, origin, destination, tripName }) {
+export async function postTrip({ polyline, origin, destination, tripName }) {
 	const tripRef = doc(collection(db, "trips"));
 	return await setDoc(tripRef, {
 		polyline: polyline,
-		userId: userId,
+		userId: auth.currentUser.uid,
 		timestamp: serverTimestamp(),
 		origin: origin,
 		destination: destination,
@@ -81,7 +72,7 @@ async function deleteTrip(tripId) {
 	return await deleteDoc(tripRef);
 }
 
-getTripsByUserId();
+
 
 // Example trip objects for testing functions - remove on merge
 
