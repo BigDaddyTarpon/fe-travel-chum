@@ -1,9 +1,9 @@
 import { StyleSheet, Text, View } from "react-native";
 import { useEffect, useState } from "react";
 import * as Location from "expo-location";
-import { DestinationContext, PolylineContext, UserLocationContext } from "./components/Contexts";
-import GoogleMapView from "./components/GoogleMapView";
-import Search from "./components/Search";
+import { DestinationContext, PolylineContext, UserLocationContext } from "./Contexts";
+import GoogleMapView from "./GoogleMapView";
+import Search from "./Search";
 
 export default function Home() {
   const [location, setLocation] = useState(null);
