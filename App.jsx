@@ -30,6 +30,7 @@ export default function App() {
     reactNavigationDark: NavigationDarkTheme,
   });
 
+  //merge themes using deepmerge
   const CombinedDefaultTheme = merge(MD3LightTheme, LightTheme);
   const CombinedDarkTheme = merge(MD3DarkTheme, DarkTheme);
 
