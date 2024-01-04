@@ -4,30 +4,31 @@ import { GOOGLE_API_KEY } from '../environments';
 import Colours from '../SharedStyling/Colours';
 import { Dimensions } from 'react-native';
 import getPolylineCoordinates from '../Utils/utils';
-import { PolylineContext } from './Contexts';
+import { DestinationContext, PolylineContext } from './Contexts';
 
 const DestinationInput = ({placeholder}) => {
-  const [ destination, setDestination ] = useState(null);
+  const { destination, setDestination } = useContext(DestinationContext);
   const {polylineCoordinates, setPolylineCoordinates} = useContext(PolylineContext)
+ 
 
   
-  useEffect(() => {
-    if (destination) {
-    getPolylineCoordinates(origin).then(
-      (res) => {
-        setPolylineCoordinates(res)
-        setOrigin(null)
-      }
-    )
-    }
-  }, [origin])
+  // useEffect(() => {
+  //   if (destination) {
+  //   getPolylineCoordinates(origin).then(
+  //     (res) => {
+  //       setPolylineCoordinates(res)
+  //       setOrigin(null)
+  //     }
+  //   )
+  //   }
+  // }, [origin])
 
   return (
     <GooglePlacesAutocomplete
       placeholder= {placeholder}
       onPress={(data, details = null) => {
         // 'details' is provided when fetchDetails = true
-        setOrigin(data.place_id)
+        setDestination(data.place_id)
       }}
       query={{
         key: GOOGLE_API_KEY,

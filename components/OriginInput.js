@@ -5,22 +5,24 @@ import Colours from '../SharedStyling/Colours';
 import { Dimensions } from 'react-native';
 import getPolylineCoordinates from '../Utils/utils';
 import { PolylineContext } from './Contexts';
+import { DestinationContext } from './Contexts';
 
 const OriginInput = ({placeholder}) => {
   const [ origin, setOrigin ] = useState(null);
   const {polylineCoordinates, setPolylineCoordinates} = useContext(PolylineContext)
+  const { destination, setDestination } = useContext(DestinationContext);
 
   
   useEffect(() => {
-    if (origin) {
-    getPolylineCoordinates(origin).then(
+    if (origin && destination) {
+    getPolylineCoordinates(origin, destination).then(
       (res) => {
         setPolylineCoordinates(res)
         setOrigin(null)
       }
     )
     }
-  }, [origin])
+  }, [origin, destination])
 
   return (
     <GooglePlacesAutocomplete
