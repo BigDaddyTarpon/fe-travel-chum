@@ -9,7 +9,6 @@ export default function Search() {
   return (
     <>
     <View style={styles.searchContainer}>
-      <Text style={{marginRight:5}}>Origin:</Text>
       <OriginInput placeholder={"Origin..."}/>
     </View>
     <View style={styles.searchContainer}>
@@ -32,6 +31,7 @@ const styles = StyleSheet.create({
   },
 
   searchContainer:{
+    paddingLeft:50,
     display:'flex',
     flexWrap: 'wrap', 
     flexDirection:'row', 

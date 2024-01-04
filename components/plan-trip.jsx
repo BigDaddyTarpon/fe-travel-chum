@@ -7,6 +7,7 @@ import GoogleMapView from './GoogleMapView';
 import OriginInput from './OriginInput';
 import { PolylineContext } from './Contexts';
 import DestinationInput from './DestinationInput';
+import Search from './Search';
 
 export default function PlanTrip() {
   const {
@@ -38,10 +39,11 @@ export default function PlanTrip() {
 
   return (
     <>
-    <View style={styles.destinationcontainer}>
-    <OriginInput placeholder={"...Origin"}/>
-    <DestinationInput placeholder={"...Destination"}/>
-    </View> 
+    {/* <View style={styles.destinationcontainer}> */}
+      <Search></Search>
+    {/* <OriginInput placeholder={"...Origin"}/>
+    <DestinationInput placeholder={"...Destination"}/> */}
+    {/* </View>     */}
      {/* <Controller
         control={control}
         rules={{
@@ -101,7 +103,6 @@ export default function PlanTrip() {
           name="stops"
           />
           {errors.stops && <Text>A number between 1 and 9 required.</Text>}
-             
     <Map routeOptions={routeOptions}/>
     {/* <GoogleMapView/>  */}
       <Button style={styles.button} title="Submit" onPress={handleSubmit(onSubmit)}>Start your Journey</Button>
@@ -270,15 +271,6 @@ const styles = StyleSheet.create({
     backgroundColor: "beige",
   },
   destinationcontainer:{
-   
-    flexWrap: 'wrap',
-   overflow: 'visible',
-    // minHeight: 150,
-    display:'flex',
-     
-    flexDirection:'row', 
-    justifyContent: 'center', 
-    alignItems:'left', 
-    marginTop:2
+    minHeight: 200
   }
 });
