@@ -8,7 +8,6 @@ export default function GoogleMapView() {
   const {polylineCoordinates, setPolylineCoordinates} = useContext(PolylineContext)
   const [mapView, setMapView] = useState()
   
-
   const { location, setUserLocation } = useContext(UserLocationContext);
 
   useEffect(() => {

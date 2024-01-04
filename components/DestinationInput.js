@@ -1,27 +1,14 @@
-import React, { useContext, useEffect, useState } from 'react';
+import React, { useContext, useState } from 'react';
 import { GooglePlacesAutocomplete } from 'react-native-google-places-autocomplete';
 import { GOOGLE_API_KEY } from '../environments';
 import Colours from '../SharedStyling/Colours';
 import { Dimensions } from 'react-native';
-import getPolylineCoordinates from '../Utils/utils';
 import { DestinationContext, PolylineContext } from './Contexts';
 
 const DestinationInput = ({placeholder}) => {
   const { destination, setDestination } = useContext(DestinationContext);
   const {polylineCoordinates, setPolylineCoordinates} = useContext(PolylineContext)
  
-
-  
-  // useEffect(() => {
-  //   if (destination) {
-  //   getPolylineCoordinates(origin).then(
-  //     (res) => {
-  //       setPolylineCoordinates(res)
-  //       setOrigin(null)
-  //     }
-  //   )
-  //   }
-  // }, [origin])
 
   return (
     <GooglePlacesAutocomplete

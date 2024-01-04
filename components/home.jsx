@@ -3,10 +3,9 @@ import { useEffect, useState } from "react";
 import * as Location from "expo-location";
 import { DestinationContext, PolylineContext, UserLocationContext } from "./components/Contexts";
 import GoogleMapView from "./components/GoogleMapView";
-import GooglePlacesInput from "./components/DestinationInput";
 import Search from "./components/Search";
 
-export default function App() {
+export default function Home() {
   const [location, setLocation] = useState(null);
   const [errorMsg, setErrorMsg] = useState(null);
   const [polylineCoordinates, setPolylineCoordinates] = useState(null)
