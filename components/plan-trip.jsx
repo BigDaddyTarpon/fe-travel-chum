@@ -40,7 +40,7 @@ export default function PlanTrip() {
   return (
     <>
     {/* <View style={styles.destinationcontainer}> */}
-      <Search></Search>
+      <Search/>
     {/* <OriginInput placeholder={"...Origin"}/>
     <DestinationInput placeholder={"...Destination"}/> */}
     {/* </View>     */}
