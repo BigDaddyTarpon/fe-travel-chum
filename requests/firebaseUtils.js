@@ -1,55 +1,87 @@
-const {
-  initializeApp,
-  applicationDefault,
-  cert,
-} = require("firebase-admin/app");
-
+const { initializeApp, getApps } = require("firebase/app");
 const {
   getFirestore,
-  Timestamp,
-  FieldValue,
-  Filter,
-} = require("firebase-admin/firestore");
+  doc,
+  getDocs,
+  getDoc,
+  setDoc,
+  updateDoc,
+  deleteDoc,
+  serverTimestamp,
+  collection,
+} = require("firebase/firestore");
 
-const serviceAccount = require("../travel-chum-4a5c3-4cdab0770d10.json");
+const firebaseConfig = {
+  apiKey: "AIzaSyB-7qgePH4hFCgRS_hwhHeImCzLDlckvZg",
+  authDomain: "travel-chum-4a5c3.firebaseapp.com",
+  projectId: "travel-chum-4a5c3",
+  storageBucket: "travel-chum-4a5c3.appspot.com",
+  messagingSenderId: "794247707174",
+  appId: "1:794247707174:web:eb8963feff451871be44e7",
+  measurementId: "G-RWM40W707P",
+};
 
-initializeApp({
-  credential: cert(serviceAccount),
-});
+const app = !getApps().length ? initializeApp(firebaseConfig) : getApps()[0];
+const db = getFirestore(app);
 
-const db = getFirestore();
+async function getTrip(tripId) {
+  const tripRef = doc(db, "trips", tripId);
+  const docSnap = await getDoc(tripRef);
+
+  if (docSnap.exists()) {
+    const tripData = { [tripId]: docSnap.data() };
+    console.log(tripData);
+    return tripData;
+  } else {
+    console.log("Trip doesn't exist!");
+    return "Trip doesn't exist!"
+  }
+}
 
 async function getTrips() {
-  const snapshot = await db.collection("trips").get();
-  snapshot.forEach((doc) => {
-    console.log(doc.id, "=>", doc.data());
+  const querySnapshot = await getDocs(collection(db, "trips"));
+  const trips = [];
+
+  querySnapshot.forEach((doc) => {
+    trips.push({ id: doc.id, ...doc.data() });
+  });
+  console.log(trips)
+  return trips;
+}
+
+async function postTrip({polyline, userId, origin, destination, tripName}) {
+  const tripRef = doc(collection(db, "trips"));
+  return await setDoc(tripRef, {
+    polyline: polyline,
+    userId: userId,
+    timestamp: serverTimestamp(),
+    origin: origin,
+    destination: destination,
+    tripName: tripName
   });
 }
 
-async function postTrip() {
-  const addTrip = db.collection("trips").doc();
-  return await addTrip.create({
-    polyline: "afgagadfgadfghadfhadfafhga!!",
-    userId: ["user1","user2","user3"],
-    timestamp: FieldValue.serverTimestamp()
-  });
-
-  
-
+async function updateTrip(tripId, updatedTrip) {
+const tripRef = doc(db, "trips", tripId)
+  return await updateDoc(tripRef, updatedTrip);
 }
 
-async function updateTrip() {
-    const updateTrip = db.collection("trips").doc("QHKrglpbTGBms3K2UWM9");
-  
-    await updateTrip.update({
-      tripName: "5th Trip-part2!",
-      userId: ["user1","user2","user3","user4"],
-      timestamp: FieldValue.serverTimestamp()
-    });
-  }
+async function deleteTrip(tripId) {
+  const tripRef = doc(db, "trips", tripId);
+  return await deleteDoc(tripRef);
+}
 
-  async function deleteTrip() {
-    const updateTrip = await db.collection("trips").doc("UfSsRVUZKrUkLwCYy6Zs").delete();
-  }
+// Example trip objects for testing functions - remove on merge
 
-postTrip().catch(err => console.log(err))
+// const newTrip = {
+//   polyline: '123',
+//   userId: "user99999",
+//   origin: 'start',
+//   destination: 'end',
+//   tripName: 'newTrip!'
+// }
+
+// const updatedTrip = {
+//   polyline: '2',
+//   tripName: 'updatedTrip!'
+// }
