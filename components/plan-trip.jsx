@@ -41,6 +41,7 @@ export default function PlanTrip() {
     <View style={styles.destinationcontainer}>
     <OriginInput placeholder={"...Origin"}/>
     <DestinationInput placeholder={"...Destination"}/>
+    </View> 
      {/* <Controller
         control={control}
         rules={{
@@ -100,7 +101,7 @@ export default function PlanTrip() {
           name="stops"
           />
           {errors.stops && <Text>A number between 1 and 9 required.</Text>}
-          </View>    
+             
     <Map routeOptions={routeOptions}/>
     {/* <GoogleMapView/>  */}
       <Button style={styles.button} title="Submit" onPress={handleSubmit(onSubmit)}>Start your Journey</Button>
@@ -269,7 +270,15 @@ const styles = StyleSheet.create({
     backgroundColor: "beige",
   },
   destinationcontainer:{
-    flex:1,
-    minHeight: 200
+   
+    flexWrap: 'wrap',
+   overflow: 'visible',
+    // minHeight: 150,
+    display:'flex',
+     
+    flexDirection:'row', 
+    justifyContent: 'center', 
+    alignItems:'left', 
+    marginTop:2
   }
 });

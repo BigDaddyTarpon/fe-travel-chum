@@ -28,7 +28,7 @@ export default function GoogleMapView() {
       <MapView
         style={{
           width: Dimensions.get("screen").width * 0.9,
-          height: Dimensions.get("screen").height * 0.2,
+          height: Dimensions.get("screen").height * 0.35,
           marginTop: 20,
           marginBottom: 0,
         }}
