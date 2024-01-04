@@ -38,19 +38,18 @@ export default function PlanTrip() {
 
   return (
     <>
-    <Map routeOptions={routeOptions}/>
-    {/* <GoogleMapView/>  */}
-      <Button style={styles.button} title="Submit" onPress={handleSubmit(onSubmit)}>Start your Journey</Button>
-      
-      
-    <ScrollView>
-     <Controller
+    <View style={styles.destinationcontainer}>
+    <OriginInput placeholder={"...Origin"}/>
+    <DestinationInput placeholder={"...Destination"}/>
+     {/* <Controller
         control={control}
         rules={{
           required: true,
         }}
-        render={({ field: { onChange, onBlur, value } }) => (
-          <OriginInput placeholder={"...Origin"}/>
+        render={({ field: { onChange, onBlur, value } }) => ( 
+          <>
+          
+          </>
           // <TextInput
           // label="Origin"
           // placeholder="enter an address or postcode here"
@@ -58,10 +57,10 @@ export default function PlanTrip() {
           // onChangeText={onChange}
           // value={value}
           // />
-          )}
-          name="origin"
-        />
-    {errors.origin && <Text>An origin is required.</Text>}
+    //       )}
+    //       name="origin"
+    //       />
+    // {errors.origin && <Text>An origin is required.</Text>}
 
 
     <Controller
@@ -70,7 +69,7 @@ export default function PlanTrip() {
           required: true,
         }}
         render={({ field: { onChange, onBlur, value } }) => (
-          <DestinationInput placeholder={"...Destination"}/>
+          
           // <TextInput
           // label="Destination"
           // placeholder="enter an address or postcode here"
@@ -82,7 +81,7 @@ export default function PlanTrip() {
           name="destination"
           />
         {errors.destination && <Text>A destination is required.</Text>}
-    
+    */}
     <Controller
         control={control}
         rules={{ 
@@ -101,8 +100,14 @@ export default function PlanTrip() {
           name="stops"
           />
           {errors.stops && <Text>A number between 1 and 9 required.</Text>}
+          </View>    
+    <Map routeOptions={routeOptions}/>
+    {/* <GoogleMapView/>  */}
+      <Button style={styles.button} title="Submit" onPress={handleSubmit(onSubmit)}>Start your Journey</Button>
+      
+      
           
-          
+          <ScrollView>
           <View>
           <List.Accordion
           title="Mode of Transport"
@@ -262,5 +267,9 @@ const styles = StyleSheet.create({
   },
   button: {
     backgroundColor: "beige",
+  },
+  destinationcontainer:{
+    flex:1,
+    minHeight: 200
   }
 });
