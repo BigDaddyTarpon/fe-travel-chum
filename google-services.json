@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "794247707174",
+    "project_id": "travel-chum-4a5c3",
+    "storage_bucket": "travel-chum-4a5c3.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:794247707174:android:b39ee541e15ff9cdbe44e7",
+        "android_client_info": {
+          "package_name": "com.twentyfoureyes.travelchum"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyAeyr0nvXxs3Ov0CEPxPfb4T1XzKPQDZfA"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

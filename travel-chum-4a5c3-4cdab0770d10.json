@@ -1,0 +1,13 @@
+{
+  "type": "service_account",
+  "project_id": "travel-chum-4a5c3",
+  "private_key_id": "4cdab0770d100ef22e023f290146f29bcfc26fcb",
+  "private_key": "-----BEGIN PRIVATE KEY-----\nMIIEvQIBADANBgkqhkiG9w0BAQEFAASCBKcwggSjAgEAAoIBAQC/eUoujjiiIx9f\nrc88UYBmbC5Rf8mt754+eKiNUVGNs699L7xcBaK0WZSVKawGT5HRIqEnXhfpaWTi\n0/yDKskwLD61IHscSWNU66EqypfVxpCfOVtagA5HcomDj/PofJlXQfgvU+AMnoD6\ntDCA6VrrnhLnjrSnuv/vsVKxm/qKkyN70nq2taU22hZAG9UDuEWyRusZQMHdiC9P\nmvOlFSJw4nGMaSmavCJ9EaqB7x83pn3dZROgRowGWfDRmUOgxd8tCiXJfn80s/jI\nOj15XorGCL+wp7tJGJHTaM1rOHC27wF1YLj0fXuHmdr+Sn+vswXpQz/am5OJ5AOr\nGUID48FFAgMBAAECggEACuX6MzKspgvmPAGuX0JLUuka7NAfeFtAcFFZVKvZfr2I\nwlEegUVf2LCVnLThwf0y8UqtjgpUxZgWYjPLNmMPzwJhslkOMNK7iOidhIxB/qy9\n7BYtbTYHOglaquadbTD0YGtUl0sIoGdAM6TgcuH1Zx5Y+J2eikKCUVAQQyQ76zmx\n9fgUKNhCLc+vKhaMYqLTCvB48noEaBZmuvtAfXJIspu5kybdBhPF7vWllPkvh/QE\nsP3u7Rysrr8EhIAujOfeYhlhZNLXKaybswqzqm66hqbpnaewI2viviYIaGBiwiT9\nJ6GVyXsmDJBvJ6JU3ebQ3DIM4DfGuSkTBHh2d0JW4QKBgQDzApy5/gWOSzn6MAz/\nU+QTUT4a/lLfhBQ7vQPywvByBlMX8uE+gxexMtcv6XZ0Ve/G8aFW1F+ytvPGWW2D\n3tWomsJNcbbsY01Hes5jAxofpyFvFRCOrOAHERh6ViAPl1b2iPrXms86SBrZ7slo\n2vZ4/6/PqKgsEuiNNIjU1GBu4QKBgQDJtXIRbu93SWF89s4r9PUTFWwgJW6JG8lf\nI1hL5b6hFdOjuf8Lb/sM7CsI40H0FMlsRSCC2qZepJHqVc8QM2ujXcd6CKtrdXAj\nO2D+8h0qf5Zvd/gFz4kvmfVsOUJe20q/M4O40iUDhQR86ZaR2RlaHBNA0sU0To6b\nOkIx4CzS5QKBgBcDAlBii6gj24OjlTeAfDKQGO95ceOUoE3f4kXUy+wgSTIVX9sJ\nku7Gv7Xbx8nQcXpHW13bkoxb4s2/ni1EprrmnMu0nvvXk3PXXz/lBU5GB1Z7iivY\nlwZUShsbmMGhNSz3X7mXAVSli1Vj1VLGmVxv6fgiInq596eXd/WfftpBAoGAHaX2\n80sMFcuKcdTRLzLdRwXSE9OMsMiNy9clJlrJr2HG7vzq2SKHkzmvhanpyte3V5u9\nkJ5U7/penEQqoGX+f0/Mf0qA79WeOv+CXVb3JIUGdrH6mdgMgRuvME4mTE0NapdG\n2EbDPAY0R6wJ/rwbdtxDlDam1+5oFbb1feFGlWUCgYEA73UImE4UGNbox/d5HFAP\nqVVwUcJKh4W8+bziYspyyvlv0GGdgD7E5Bi6mofr22HF7pgIFPigNXk8mGs4NdlP\nAO1bv8KVVWZOqlLv+0KMWI9aitSHO7U6MGg+5G3nypyySqhw9wjAwFyCHt+EyevY\n1WrY1MD9YbhWV92NjNYWsxI=\n-----END PRIVATE KEY-----\n",
+  "client_email": "travel-chum-2@travel-chum-4a5c3.iam.gserviceaccount.com",
+  "client_id": "107911152495852531470",
+  "auth_uri": "https://accounts.google.com/o/oauth2/auth",
+  "token_uri": "https://oauth2.googleapis.com/token",
+  "auth_provider_x509_cert_url": "https://www.googleapis.com/oauth2/v1/certs",
+  "client_x509_cert_url": "https://www.googleapis.com/robot/v1/metadata/x509/travel-chum-2%40travel-chum-4a5c3.iam.gserviceaccount.com",
+  "universe_domain": "googleapis.com"
+}
