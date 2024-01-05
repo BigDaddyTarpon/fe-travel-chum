@@ -1,4 +1,11 @@
-import { StyleSheet, View, Text, ScrollView, SafeAreaView } from "react-native";
+import {
+  StyleSheet,
+  View,
+  Text,
+  ScrollView,
+  SafeAreaView,
+  Image,
+} from "react-native";
 import { useForm, Controller } from "react-hook-form";
 import { useState } from "react";
 import { Button, TextInput, List, SegmentedButtons } from "react-native-paper";
@@ -29,16 +36,37 @@ export default function PlanTrip() {
   const [group3, setGroup3] = useState([]);
   const [group4, setGroup4] = useState([]);
   const [polylineCoordinates, setPolylineCoordinates] = useState(null);
+  const [viewMap, setViewMap] = useState(true);
 
   const handlePress = () => setExpanded(!expanded);
 
   function onSubmit(data) {
     if (origin && destination) {
-      getPolylineCoordinates(origin.place_id, destination.place_id).then((data) => {
-        setPolylineCoordinates(formatPolyline(data));
-        postTrip({polyline: data.routes[0].overview_polyline.points, origin: origin.description, destination: destination.description, tripName: "Leeds-Manchester"}, )
-      });
+      getPolylineCoordinates(origin.place_id, destination.place_id).then(
+        (data) => {
+          setPolylineCoordinates(formatPolyline(data));
+        }
+      );
     }
+  }
+
+  function onSave(data) {
+    if (origin && destination) {
+      getPolylineCoordinates(origin.place_id, destination.place_id).then(
+        (data) => {
+          postTrip({
+            polyline: data.routes[0].overview_polyline.points,
+            origin: origin.description,
+            destination: destination.description,
+            tripName: `${origin.description} to ${destination.description}` ,
+          });
+        }
+      );
+    }
+  }
+
+  function toggleView() {
+    setViewMap(!viewMap);
   }
 
   return (
@@ -63,16 +91,17 @@ export default function PlanTrip() {
         name="stops"
       />
       {errors.stops && <Text>A number between 1 and 9 required.</Text>}
-      <Map polylineCoordinates={polylineCoordinates} />
-      <Button
-        style={styles.button}
-        title="Submit"
-        onPress={handleSubmit(onSubmit)}
-      >
-        Start your Journey
+
+      <Button style={styles.button} title="ToggleView" onPress={toggleView}>
+        More trip options
       </Button>
 
-      <ScrollView>
+      
+
+      {viewMap ? (
+        <Map polylineCoordinates={polylineCoordinates} />
+      ) : (
+        <ScrollView>
         <View>
           <List.Accordion
             title="Mode of Transport"
@@ -209,6 +238,23 @@ export default function PlanTrip() {
           />
         </SafeAreaView>
       </ScrollView>
+      )}
+
+      <Button
+        style={styles.button}
+        title="Submit"
+        onPress={handleSubmit(onSubmit)}
+      >
+        Start your Journey
+      </Button>
+
+      <Button
+        style={styles.button}
+        title="SaveTrip"
+        onPress={handleSubmit(onSave)}
+      >
+        Save Trip
+      </Button>
     </>
   );
 }
