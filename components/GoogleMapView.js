@@ -23,14 +23,8 @@ export default function GoogleMapView({ polylineCoordinates }) {
       setTimeout(() => {
         mapRef.current.fitToSuppliedMarkers(["origin", "destination"], {
           animated: true,
-          edgePadding: {
-            top: 100,
-            right: 50,
-            bottom: 100,
-            left: 50,
-          },
         }),
-          1500;
+          1500
       });
     }
   }, [polylineCoordinates]);
