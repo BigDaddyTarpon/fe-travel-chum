@@ -1,12 +1,11 @@
 import React from "react";
 import { StyleSheet, Image } from "react-native";
-import { useState, useContext } from "react";
+import { useState } from "react";
 import { createMaterialTopTabNavigator } from "@react-navigation/material-top-tabs";
 import {
   NavigationContainer,
   DarkTheme as NavigationDarkTheme,
   DefaultTheme as NavigationDefaultTheme,
-  useTheme,
 } from "@react-navigation/native";
 import Constants from "expo-constants";
 import {
