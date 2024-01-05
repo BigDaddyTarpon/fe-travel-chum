@@ -21,11 +21,18 @@ export default function GoogleMapView({polylineCoordinates}) {
       }
       )}
       else if (polylineCoordinates){
-        mapRef.current.animateToRegion({
-          latitude: polylineCoordinates[Math.round(polylineCoordinates.length/2)].latitude,
-          longitude: polylineCoordinates[Math.round(polylineCoordinates.length/2)].longitude,
-          latitudeDelta: 0.6,
-          longitudeDelta: 0.1
+        mapRef.current.fitToSuppliedMarkers({
+        //marker array here,
+        animated: true,
+        edgePadding: {
+        top: 100,
+        right: 100,
+        bottom: 200,
+        left: 100}
+          // latitude: polylineCoordinates[Math.round(polylineCoordinates.length/2)].latitude,
+          // longitude: polylineCoordinates[Math.round(polylineCoordinates.length/2)].longitude,
+          // latitudeDelta: 0.6,
+          // longitudeDelta: 0.1
         })
       }
   }, [polylineCoordinates]);
