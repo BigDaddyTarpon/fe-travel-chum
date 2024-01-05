@@ -34,10 +34,26 @@ export default function PlanTrip() {
 
   function onSubmit(data) {
     if (origin && destination) {
-      getPolylineCoordinates(origin.place_id, destination.place_id).then((data) => {
-        setPolylineCoordinates(formatPolyline(data));
-        postTrip({polyline: data.routes[0].overview_polyline.points, origin: origin.description, destination: destination.description, tripName: "Leeds-Manchester"}, )
-      });
+      getPolylineCoordinates(origin.place_id, destination.place_id).then(
+        (data) => {
+          setPolylineCoordinates(formatPolyline(data));
+        }
+      );
+    }
+  }
+
+  function onSave(data) {
+    if (origin && destination) {
+      getPolylineCoordinates(origin.place_id, destination.place_id).then(
+        (data) => {
+          postTrip({
+            polyline: data.routes[0].overview_polyline.points,
+            origin: origin.description,
+            destination: destination.description,
+            tripName: "Leeds-Manchester",
+          });
+        }
+      );
     }
   }
 
@@ -63,14 +79,6 @@ export default function PlanTrip() {
         name="stops"
       />
       {errors.stops && <Text>A number between 1 and 9 required.</Text>}
-      <Map polylineCoordinates={polylineCoordinates} />
-      <Button
-        style={styles.button}
-        title="Submit"
-        onPress={handleSubmit(onSubmit)}
-      >
-        Start your Journey
-      </Button>
 
       <ScrollView>
         <View>
@@ -209,6 +217,24 @@ export default function PlanTrip() {
           />
         </SafeAreaView>
       </ScrollView>
+
+      <Map polylineCoordinates={polylineCoordinates} />
+      <Button
+        style={styles.button}
+        title="Submit"
+        onPress={handleSubmit(onSubmit)}
+      >
+        Start your Journey
+      </Button>
+
+      <Button
+        style={styles.button}
+        title="SaveTrip"
+        onPress={handleSubmit(onSave)}
+      >
+        Save Trip
+      </Button>
+      
     </>
   );
 }
