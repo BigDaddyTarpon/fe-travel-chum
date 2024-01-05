@@ -13,6 +13,7 @@ const OriginInput = ({setOrigin}) => {
         setOrigin(data)
       }}
       query={{
+        input: {fields: ['place_id', 'name', 'Location']},
         key: GOOGLE_API_KEY,
         language: 'en',
       }}
