@@ -31,11 +31,22 @@ export const formatPolyline = (data) => {
 export const getPoisFromMarker = (coordinates) => {
   return axios
     .get(
-      `https://maps.googleapis.com/maps/api/place/nearbysearch/json?location=${coordinates.latitude},${coordinates.longitude}&radius=1000&type=point_of_interest&key=`
+      `https://maps.googleapis.com/maps/api/place/nearbysearch/json?location=${coordinates.latitude},${coordinates.longitude}&radius=1000&type=point_of_interest|museum&key=${GOOGLE_API_KEY}` 
     )
     .then(({ data }) => {
+        console.log(data.results)
       return data.results;
     });
 };
+
+export const getStopMarkerCoordinates = (arr, stops) => {
+    let markerCoordinates = [];
+    for (let i = 0; i < stops; i++) {
+      const markerCoordinate =
+        arr[Math.floor(arr.length * ((i + 1) / (stops + 1)))];
+      markerCoordinates.push(markerCoordinate);
+    }
+    return markerCoordinates;
+  };
 
 export default getPolylineCoordinates;
