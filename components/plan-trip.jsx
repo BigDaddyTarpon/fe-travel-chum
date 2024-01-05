@@ -4,7 +4,7 @@ import { useState } from "react";
 import { Button, TextInput, List, SegmentedButtons } from "react-native-paper";
 import Map from "./map";
 import Search from "./Search";
-import getPolylineCoordinates from "../Utils/utils";
+import getPolylineCoordinates, { formatPolyline } from "../Utils/utils";
 import { postTrip } from "../requests/firebaseUtils";
 
 export default function PlanTrip() {
@@ -34,9 +34,9 @@ export default function PlanTrip() {
 
   function onSubmit(data) {
     if (origin && destination) {
-      getPolylineCoordinates(origin.place_id, destination.place_id).then((res) => {
-        setPolylineCoordinates(res);
-        postTrip({polyline: res.toString(), origin: origin.description, destination: destination.description, tripName: "Leeds-Manchester"}, )
+      getPolylineCoordinates(origin.place_id, destination.place_id).then((data) => {
+        setPolylineCoordinates(formatPolyline(data));
+        postTrip({polyline: data.routes[0].overview_polyline.points, origin: origin.description, destination: destination.description, tripName: "Leeds-Manchester"}, )
       });
     }
   }
