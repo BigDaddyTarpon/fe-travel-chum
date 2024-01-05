@@ -3,7 +3,7 @@ import { useState } from "react";
 import { auth } from "../config/firebase";
 import { Controller, useForm } from "react-hook-form";
 import { StyleSheet, TextInput } from "react-native";
-import { Button } from "react-native-paper";
+import { Button, Text } from "react-native-paper";
 import { getTripsByCurrentUser, postTrip } from "../requests/firebaseUtils";
 
 export default function Login() {
@@ -39,6 +39,7 @@ export default function Login() {
 
 	return (
 		<>
+			<Text>User: {isLoggedIn && auth.currentUser.email}</Text>
 			<Button onPress={logout}>Logout</Button>
 			<Button
 				title="Submit"
