@@ -8,10 +8,6 @@ function getPolylineCoordinates(origin, destination) {
       `https://maps.googleapis.com/maps/api/directions/json?origin=place_id:${origin}&destination=place_id:${destination}&key=${GOOGLE_API_KEY}`
     )
     .then(({ data }) => {
-      console.log(
-        data.routes[0].overview_polyline.points,
-        "<<<< in utils component"
-      );
       return data;
     });
 }
@@ -33,7 +29,6 @@ export const formatPolyline = (data) => {
 };
 
 export const getPoisFromMarker = (coordinates) => {
-  // add api key in here too
   return axios
     .get(
       `https://maps.googleapis.com/maps/api/place/nearbysearch/json?location=${coordinates.latitude},${coordinates.longitude}&radius=1000&type=point_of_interest&key=`
