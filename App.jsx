@@ -21,16 +21,22 @@ import {
 import Home from "./components/home";
 import PlanTrip from "./components/plan-trip";
 import merge from "deepmerge";
+import {
+  UserLocationContext,
+  PolylineContext,
+  DestinationContext,
+} from "./components/Contexts";
 
 const Tab = createMaterialTopTabNavigator();
 
 export default function App() {
+  const [location, setLocation] = useState(null);
+  const [polylineCoordinates, setPolylineCoordinates] = useState(null)
+  const [destination, setDestination] = useState(null)
   const { LightTheme, DarkTheme } = adaptNavigationTheme({
     reactNavigationLight: NavigationDefaultTheme,
     reactNavigationDark: NavigationDarkTheme,
   });
-
-  //merge themes using deepmerge
   const CombinedDefaultTheme = merge(MD3LightTheme, LightTheme);
   const CombinedDarkTheme = merge(MD3DarkTheme, DarkTheme);
 
@@ -49,15 +55,20 @@ export default function App() {
     [toggleTheme, isThemeDark]
   );
   return (
-    <PaperProvider theme={theme}>
-      <>
-        <Appbar style={{ marginTop: Constants.statusBarHeight }}>
-          <Appbar.Content title="Travel Chum" />
-          <Image
-            style={styles.Image}
-            source={require("./assets/Travel-Chum-Logo.png")}
-          />
-
+    <UserLocationContext.Provider value={{ location, setLocation }}>
+      <PolylineContext.Provider
+        value={{ polylineCoordinates, setPolylineCoordinates }}
+      >
+        <DestinationContext.Provider value={{ destination, setDestination }}>
+          <PaperProvider theme={theme}>
+              <>
+                  <Appbar style={{ marginTop: Constants.statusBarHeight }}>
+                    <Appbar.Content title="Travel Chum" />
+                    <Image
+                      style={styles.Image}
+                      source={require("./assets/Travel-Chum-Logo.png")}
+                    />
+          
           <Appbar.Action icon="theme-light-dark" />
           <Switch
             color={"purple"}
@@ -68,14 +79,17 @@ export default function App() {
 
           <Appbar.Action icon="lightbulb-off-outline" />
         </Appbar>
-      </>
-      <NavigationContainer>
-        <Tab.Navigator>
-          <Tab.Screen name="Home" component={Home} />
-          <Tab.Screen name="Trip Planner" component={PlanTrip} />
-        </Tab.Navigator>
-      </NavigationContainer>
-    </PaperProvider>
+                </>
+              <NavigationContainer>
+                  <Tab.Navigator>
+                    <Tab.Screen name="Home" component={Home} />
+                    <Tab.Screen name="Trip Planner" component={PlanTrip} />
+                  </Tab.Navigator>
+              </NavigationContainer>
+          </PaperProvider>
+        </DestinationContext.Provider>
+      </PolylineContext.Provider>
+      </UserLocationContext.Provider>
   );
 }
 
@@ -94,7 +108,6 @@ const styles = StyleSheet.create({
     height: "100%",
     width: "15%",
     alignSelf: "center",
-
     resizeMode: "contain",
   },
 });
