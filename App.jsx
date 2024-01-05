@@ -19,6 +19,7 @@ import {
   Badge,
 } from "react-native-paper";
 import Home from "./components/home";
+import Login from './components/Login';
 import PlanTrip from "./components/plan-trip";
 import merge from "deepmerge";
 import {
