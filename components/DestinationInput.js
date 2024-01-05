@@ -13,7 +13,7 @@ const DestinationInput = ({setDestination}) => {
       placeholder= "destination..."
       onPress={(data, details = null) => {
         // 'details' is provided when fetchDetails = true
-        setDestination(data.place_id)
+        setDestination(data)
       }}
       query={{
         key: GOOGLE_API_KEY,

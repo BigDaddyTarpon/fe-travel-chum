@@ -10,6 +10,7 @@ function getPolylineCoordinates(origin, destination) {
 // make sure to add your api key to the end of the query string
     return axios.get(`https://maps.googleapis.com/maps/api/directions/json?origin=place_id:${origin}&destination=place_id:${destination}&key=${GOOGLE_API_KEY}`)
     .then(({data}) => {
+        console.log(data, "<<<< in utils component")
         const steps =  data.routes[0].legs[0].steps;
         let coordinates = [];
         steps.forEach(step => {

@@ -11,7 +11,8 @@ const OriginInput = ({setOrigin}) => {
       placeholder= "origin..."
       onPress={(data, details = null) => {
         // 'details' is provided when fetchDetails = true
-        setOrigin(data.place_id)
+        setOrigin(data)
+        console.log(data, "<<<< in origin component")
       }}
       query={{
         key: GOOGLE_API_KEY,
