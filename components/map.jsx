@@ -1,13 +1,11 @@
-import { StyleSheet, Text, View } from 'react-native'
-// import MapView, { Marker } from 'react-native-maps'
-import GoogleMapView from './GoogleMapView';
+import { StyleSheet } from "react-native";
+import GoogleMapView from "./GoogleMapView";
 import { useContext, useEffect, useState } from "react";
 import * as Location from "expo-location";
-import { DestinationContext, UserLocationContext, PolylineContext } from "./Contexts";
+import { UserLocationContext } from "./Contexts";
 
-
-export default function Map({polylineCoordinates}) {
-  const {location, setLocation} = useContext(UserLocationContext);
+export default function Map({ polylineCoordinates }) {
+  const { location, setLocation } = useContext(UserLocationContext);
   const [errorMsg, setErrorMsg] = useState(null);
 
   useEffect(() => {
@@ -25,10 +23,9 @@ export default function Map({polylineCoordinates}) {
 
   return (
     <UserLocationContext.Provider value={{ location, setLocation }}>
-        <GoogleMapView polylineCoordinates={polylineCoordinates}></GoogleMapView>
-     
-      </UserLocationContext.Provider>
-     );
+      <GoogleMapView polylineCoordinates={polylineCoordinates}></GoogleMapView>
+    </UserLocationContext.Provider>
+  );
 }
 
 const styles = StyleSheet.create({
@@ -42,5 +39,4 @@ const styles = StyleSheet.create({
     width: "100%",
     height: "40%",
   },
-  
 });

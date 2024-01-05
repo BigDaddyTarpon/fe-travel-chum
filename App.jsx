@@ -1,12 +1,11 @@
 import React from "react";
 import { StyleSheet, Image, TouchableOpacity } from "react-native";
-import { useState, useContext } from "react";
+import { useState } from "react";
 import { createMaterialTopTabNavigator } from "@react-navigation/material-top-tabs";
 import {
   NavigationContainer,
   DarkTheme as NavigationDarkTheme,
   DefaultTheme as NavigationDefaultTheme,
-  useTheme,
 } from "@react-navigation/native";
 import Constants from "expo-constants";
 import {
@@ -24,16 +23,12 @@ import PlanTrip from "./components/plan-trip";
 import merge from "deepmerge";
 import {
   UserLocationContext,
-  PolylineContext,
-  DestinationContext,
 } from "./components/Contexts";
 
 const Tab = createMaterialTopTabNavigator();
 
 export default function App() {
   const [location, setLocation] = useState(null);
-  const [polylineCoordinates, setPolylineCoordinates] = useState(null);
-  const [destination, setDestination] = useState(null);
   const { LightTheme, DarkTheme } = adaptNavigationTheme({
     reactNavigationLight: NavigationDefaultTheme,
     reactNavigationDark: NavigationDarkTheme,
@@ -57,10 +52,6 @@ export default function App() {
   );
   return (
     <UserLocationContext.Provider value={{ location, setLocation }}>
-      <PolylineContext.Provider
-        value={{ polylineCoordinates, setPolylineCoordinates }}
-      >
-        <DestinationContext.Provider value={{ destination, setDestination }}>
           <PaperProvider theme={theme}>
             <>
               <Appbar style={{ marginTop: Constants.statusBarHeight }}>
@@ -94,8 +85,6 @@ export default function App() {
               </Tab.Navigator>
             </NavigationContainer>
           </PaperProvider>
-        </DestinationContext.Provider>
-      </PolylineContext.Provider>
     </UserLocationContext.Provider>
   );
 }
