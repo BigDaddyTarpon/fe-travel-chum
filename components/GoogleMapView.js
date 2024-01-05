@@ -27,7 +27,7 @@ export default function GoogleMapView({polylineCoordinates}) {
       <MapView
         style={{
           width: Dimensions.get("screen").width * 0.9,
-          height: Dimensions.get("screen").height * 0.35,
+          height: Dimensions.get("screen").height * 0.45,
           marginTop: 20,
           marginBottom: 0,
         }}

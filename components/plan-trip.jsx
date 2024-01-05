@@ -1,4 +1,11 @@
-import { StyleSheet, View, Text, ScrollView, SafeAreaView } from "react-native";
+import {
+  StyleSheet,
+  View,
+  Text,
+  ScrollView,
+  SafeAreaView,
+  Image,
+} from "react-native";
 import { useForm, Controller } from "react-hook-form";
 import { useState } from "react";
 import { Button, TextInput, List, SegmentedButtons } from "react-native-paper";
@@ -29,6 +36,7 @@ export default function PlanTrip() {
   const [group3, setGroup3] = useState([]);
   const [group4, setGroup4] = useState([]);
   const [polylineCoordinates, setPolylineCoordinates] = useState(null);
+  const [viewMap, setViewMap] = useState(true);
 
   const handlePress = () => setExpanded(!expanded);
 
@@ -50,11 +58,15 @@ export default function PlanTrip() {
             polyline: data.routes[0].overview_polyline.points,
             origin: origin.description,
             destination: destination.description,
-            tripName: "Leeds-Manchester",
+            tripName: `${origin.description} to ${destination.description}` ,
           });
         }
       );
     }
+  }
+
+  function toggleView() {
+    setViewMap(!viewMap);
   }
 
   return (
@@ -80,7 +92,16 @@ export default function PlanTrip() {
       />
       {errors.stops && <Text>A number between 1 and 9 required.</Text>}
 
-      <ScrollView>
+      <Button style={styles.button} title="ToggleView" onPress={toggleView}>
+        More trip options
+      </Button>
+
+      
+
+      {viewMap ? (
+        <Map polylineCoordinates={polylineCoordinates} />
+      ) : (
+        <ScrollView>
         <View>
           <List.Accordion
             title="Mode of Transport"
@@ -217,8 +238,8 @@ export default function PlanTrip() {
           />
         </SafeAreaView>
       </ScrollView>
+      )}
 
-      <Map polylineCoordinates={polylineCoordinates} />
       <Button
         style={styles.button}
         title="Submit"
@@ -234,7 +255,6 @@ export default function PlanTrip() {
       >
         Save Trip
       </Button>
-      
     </>
   );
 }
