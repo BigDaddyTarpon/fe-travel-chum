@@ -10,9 +10,7 @@ const OriginInput = ({setOrigin}) => {
     <GooglePlacesAutocomplete
       placeholder= "origin..."
       onPress={(data, details = null) => {
-        // 'details' is provided when fetchDetails = true
         setOrigin(data)
-        console.log(data, "<<<< in origin component")
       }}
       query={{
         key: GOOGLE_API_KEY,
