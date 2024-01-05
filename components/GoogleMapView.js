@@ -1,11 +1,10 @@
 import { View, Dimensions } from "react-native";
 import React, { useContext, useEffect, useState } from "react";
 import MapView, { PROVIDER_GOOGLE, Polyline } from "react-native-maps";
-import { PolylineContext, UserLocationContext } from "./Contexts";
+import { UserLocationContext } from "./Contexts";
 
-export default function GoogleMapView() {
+export default function GoogleMapView({polylineCoordinates}) {
   const [mapRegion, setMapRegion] = useState([]);
-  const {polylineCoordinates, setPolylineCoordinates} = useContext(PolylineContext)
   const [mapView, setMapView] = useState()
   
   const { location, setUserLocation } = useContext(UserLocationContext);

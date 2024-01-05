@@ -5,14 +5,14 @@ import React from 'react'
 import OriginInput from './OriginInput'
 import DestinationInput from './DestinationInput'
 
-export default function Search() {
+export default function Search({setOrigin, setDestination}) {
   return (
     <>
     <View style={styles.searchContainer}>
-      <OriginInput placeholder={"Origin..."}/>
+      <OriginInput setOrigin={setOrigin}/>
     </View>
     <View style={styles.searchContainer}>
-      <DestinationInput placeholder={"Destination..."}/>
+      <DestinationInput setDestination={setDestination}/>
     </View>
     </>
   )

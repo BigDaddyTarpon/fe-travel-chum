@@ -1,18 +1,16 @@
-import React, { useContext, useState } from 'react';
+import React from 'react';
 import { GooglePlacesAutocomplete } from 'react-native-google-places-autocomplete';
 import { GOOGLE_API_KEY } from '../environments';
 import Colours from '../SharedStyling/Colours';
 import { Dimensions } from 'react-native';
-import { DestinationContext, PolylineContext } from './Contexts';
 
-const DestinationInput = ({placeholder}) => {
-  const { destination, setDestination } = useContext(DestinationContext);
-  const {polylineCoordinates, setPolylineCoordinates} = useContext(PolylineContext)
+const DestinationInput = ({setDestination}) => {
+
  
 
   return (
     <GooglePlacesAutocomplete
-      placeholder= {placeholder}
+      placeholder= "destination..."
       onPress={(data, details = null) => {
         // 'details' is provided when fetchDetails = true
         setDestination(data.place_id)
