@@ -31,8 +31,8 @@ const Tab = createMaterialTopTabNavigator();
 
 export default function App() {
   const [location, setLocation] = useState(null);
-  const [polylineCoordinates, setPolylineCoordinates] = useState(null)
-  const [destination, setDestination] = useState(null)
+  const [polylineCoordinates, setPolylineCoordinates] = useState(null);
+  const [destination, setDestination] = useState(null);
   const { LightTheme, DarkTheme } = adaptNavigationTheme({
     reactNavigationLight: NavigationDefaultTheme,
     reactNavigationDark: NavigationDarkTheme,
@@ -61,35 +61,36 @@ export default function App() {
       >
         <DestinationContext.Provider value={{ destination, setDestination }}>
           <PaperProvider theme={theme}>
-              <>
-                  <Appbar style={{ marginTop: Constants.statusBarHeight }}>
-                    <Appbar.Content title="Travel Chum" />
-                    <Image
-                      style={styles.Image}
-                      source={require("./assets/Travel-Chum-Logo.png")}
-                    />
-          
-          <Appbar.Action icon="theme-light-dark" />
-          <Switch
-            color={"purple"}
-            value={isThemeDark}
-            onValueChange={toggleTheme}
-          />
-          <Badge>dark</Badge>
+            <>
+              <Appbar style={{ marginTop: Constants.statusBarHeight }}>
+                <Appbar.Content title="Travel Chum" />
+                <Image
+                  style={styles.Image}
+                  source={require("./assets/Travel-Chum-Logo.png")}
+                />
 
-          <Appbar.Action icon="lightbulb-off-outline" />
-        </Appbar>
-                </>
-              <NavigationContainer>
-                  <Tab.Navigator>
-                    <Tab.Screen name="Home" component={Home} />
-                    <Tab.Screen name="Trip Planner" component={PlanTrip} />
-                  </Tab.Navigator>
-              </NavigationContainer>
+                
+                <Switch
+                  color={"purple"}
+                  value={isThemeDark}
+                  onValueChange={toggleTheme}
+                />
+                <Badge>dark</Badge>
+
+                <Appbar.Action icon="account" />
+                <Badge>login</Badge>
+              </Appbar>
+            </>
+            <NavigationContainer>
+              <Tab.Navigator>
+                <Tab.Screen name="Home" component={Home} />
+                <Tab.Screen name="Trip Planner" component={PlanTrip} />
+              </Tab.Navigator>
+            </NavigationContainer>
           </PaperProvider>
         </DestinationContext.Provider>
       </PolylineContext.Provider>
-      </UserLocationContext.Provider>
+    </UserLocationContext.Provider>
   );
 }
 

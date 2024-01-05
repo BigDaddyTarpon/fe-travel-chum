@@ -31,12 +31,12 @@ const styles = StyleSheet.create({
   },
 
   searchContainer:{
-    paddingLeft:50,
+    paddingLeft:2,
     display:'flex',
     flexWrap: 'wrap', 
     flexDirection:'row', 
-    justifyContent: 'center', 
-    alignItems:'center', 
-    marginTop:20
+    justifyContent: 'left', 
+    alignItems:'left', 
+    marginTop:2
   }
 })
