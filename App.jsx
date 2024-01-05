@@ -1,5 +1,5 @@
 import React from "react";
-import { StyleSheet, Image } from "react-native";
+import { StyleSheet, Image, TouchableOpacity } from "react-native";
 import { useState, useContext } from "react";
 import { createMaterialTopTabNavigator } from "@react-navigation/material-top-tabs";
 import {
@@ -76,9 +76,13 @@ export default function App() {
                   onValueChange={toggleTheme}
                 />
                 <Badge>dark</Badge>
-
+                <TouchableOpacity
+              style={styles.iconContainer}
+              onPress={() => alert("ff")}
+            >
                 <Appbar.Action icon="account" />
                 <Badge>login</Badge>
+                </TouchableOpacity>
               </Appbar>
             </>
             <NavigationContainer>
