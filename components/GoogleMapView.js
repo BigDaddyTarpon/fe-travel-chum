@@ -22,13 +22,13 @@ export default function GoogleMapView({polylineCoordinates}) {
 
   return (
     <View
-    style={{ display: "flex", flexDirection: "column", alignItems: "center" }}
+    style={{display: "flex", flexDirection: "column", alignItems: "center" }}
     >
       <MapView
         style={{
-          width: Dimensions.get("screen").width * 0.9,
+          width: Dimensions.get("screen").width * 0.96,
           height: Dimensions.get("screen").height * 0.45,
-          marginTop: 20,
+          marginTop: 10,
           marginBottom: 0,
         }}
         provider={PROVIDER_GOOGLE}
