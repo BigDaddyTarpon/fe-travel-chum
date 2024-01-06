@@ -7,14 +7,19 @@ import {
 
 } from "react-native";
 import { useForm, Controller } from "react-hook-form";
-import { useState } from "react";
-import { Button, TextInput, List, SegmentedButtons, IconButton } from "react-native-paper";
+import { useState, useContext } from "react";
+import { PreferencesContext } from '../PreferencesContext';
+import { Button, TextInput, List, SegmentedButtons, useTheme, IconButton } from "react-native-paper";
 import Map from "./map";
 import Search from "./Search";
 import getPolylineCoordinates, { formatPolyline } from "../Utils/utils";
 import { postTrip } from "../requests/firebaseUtils";
 
 export default function PlanTrip() {
+
+  const theme = useTheme();
+const preferences=useContext(PreferencesContext)
+console.log(preferences, "pref line 22")
   const {
     control,
     handleSubmit,
@@ -71,13 +76,13 @@ export default function PlanTrip() {
 
   return (
     <>
-    <View style={{ flex: 1, flexDirection: 'row', zIndex:3, minHeight:130 }}>
-        <View style={{ flex: 0.7 }}>
+    <View theme={theme} style={{ flex: 1, flexDirection: 'row', zIndex:3, minHeight:130 }}>
+        <View theme={theme} style={{ flex: 0.7 }}>
       <Search setOrigin={setOrigin} setDestination={setDestination} />
       </View> 
-      <View style={{ flex: 0.3, minHeight:100,  }} >
+      <View theme={theme} style={{ flex: 0.3, minHeight:100,  }} >
         <IconButton style={{ width:100, minHeight:100 }} mode="outlined"  onPress={toggleView} icon={()=>(
-          <Text numberOflines={3}>{viewMap ? 'More Trip Options' : 'View Map'}</Text>
+          <Text style={{ color: preferences.isThemeDark ? 'white' : 'black' }}numberOflines={3}>{viewMap ? 'More Trip Options' : 'View Map'}</Text>
         )}>
         
         </IconButton>
