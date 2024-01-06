@@ -17,7 +17,7 @@ import { postTrip } from "../requests/firebaseUtils";
 
 export default function PlanTrip() {
 
-  const theme = useTheme();
+  
 const preferences=useContext(PreferencesContext)
 
   const {
