@@ -45,15 +45,15 @@ export default function App() {
     return setIsThemeDark(!isThemeDark);
   }, [isThemeDark]);
 
-  // const preferences = React.useMemo(
-  //   () => ({
-  //     toggleTheme,
-  //     isThemeDark,
-  //   }),
-  //   [toggleTheme, isThemeDark]
-  // );
+  const preferences = React.useMemo(
+    () => ({
+      toggleTheme,
+      isThemeDark,
+    }),
+    [toggleTheme, isThemeDark]
+  );
   return (
-    // <PreferencesContext.Provider value={preferences}>
+    <PreferencesContext.Provider value={preferences}>
       <PaperProvider theme={theme}>
         <UserLocationContext.Provider value={{ location, setLocation }}>
           <>
@@ -79,7 +79,7 @@ export default function App() {
               </TouchableOpacity>
             </Appbar>
           </>
-          <NavigationContainer>
+          <NavigationContainer theme={theme}>
             <Tab.Navigator>
               <Tab.Screen name="Home" component={Home} />
               <Tab.Screen name="Trip Planner" component={PlanTrip} />
@@ -88,7 +88,7 @@ export default function App() {
           </NavigationContainer>
         </UserLocationContext.Provider>
       </PaperProvider>
-    // </PreferencesContext.Provider>
+    </PreferencesContext.Provider>
   );
 }
 
