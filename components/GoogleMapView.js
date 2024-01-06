@@ -2,6 +2,7 @@ import { View, Dimensions } from "react-native";
 import React, { useContext, useEffect, useState } from "react";
 import MapView, { PROVIDER_GOOGLE, Polyline } from "react-native-maps";
 import { UserLocationContext } from "./Contexts";
+import { PreferencesContext } from '../PreferencesContext';
 
 const mapStyle = [
   {
@@ -165,6 +166,7 @@ const mapStyle = [
   }
 ]
 export default function GoogleMapView({polylineCoordinates}) {
+  const preferences=useContext(PreferencesContext)
   const [mapRegion, setMapRegion] = useState([]);
   const [mapView, setMapView] = useState()
   
@@ -196,7 +198,8 @@ export default function GoogleMapView({polylineCoordinates}) {
         showsUserLocation={true}
         showsMyLocationButton={true}
         region={mapRegion}
-        customMapStyle={mapStyle}
+        customMapStyle={preferences.isThemeDark ? mapStyle : null}
+       
       >
       {polylineCoordinates ? 
       <Polyline
