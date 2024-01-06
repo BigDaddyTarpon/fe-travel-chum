@@ -8,7 +8,7 @@ import {
 } from "react-native";
 import { useForm, Controller } from "react-hook-form";
 import { useState } from "react";
-import { Button, TextInput, List, SegmentedButtons } from "react-native-paper";
+import { Button, TextInput, List, SegmentedButtons, IconButton } from "react-native-paper";
 import Map from "./map";
 import Search from "./Search";
 import getPolylineCoordinates, { formatPolyline } from "../Utils/utils";
@@ -68,11 +68,50 @@ export default function PlanTrip() {
   function toggleView() {
     setViewMap(!viewMap);
   }
-
+/* this
+<View style={{ flex: 1, flexDirection: 'row', zIndex:3 }}>
+        <View style={{ flex: 0.71 }}>
+      <Search setOrigin={setOrigin} setDestination={setDestination} />
+      </View> 
+      <View style={{ flex: 0.29 }} >
+      <Text>Enter</Text>
+        
+      <Controller
+        control={control}
+        rules={{
+          pattern: { value: /^[1-9]$/ },
+          required: true,
+        }}
+        render={({ field: { onChange, onBlur, value } }) => (
+          <TextInput style={{flex:1, maxWidth:100}}
+            label="here"
+            placeholder="1-9 here"
+            onBlur={onBlur}
+            onChangeText={onChange}
+            value={value}
+          />
+        )}
+        name="stops"
+      />
+      {errors.stops && <Text>A number between 1 and 9 required.</Text>}
+      </View>
+      </View>
+this*/
   return (
     <>
+    <View style={{ flex: 1, flexDirection: 'row', zIndex:3, minHeight:130 }}>
+        <View style={{ flex: 0.7 }}>
       <Search setOrigin={setOrigin} setDestination={setDestination} />
-
+      </View> 
+      <View style={{ flex: 0.3, minHeight:100,  }} >
+        <IconButton style={{ width:100, minHeight:100 }} mode="outlined"  onPress={toggleView} icon={()=>(
+          <Text numberOflines={3}>{viewMap ? 'More Trip Options' : 'View Map'}</Text>
+        )}>
+        
+        </IconButton>
+        </View>
+      </View>
+      
       <Controller
         control={control}
         rules={{
@@ -92,9 +131,6 @@ export default function PlanTrip() {
       />
       {errors.stops && <Text>A number between 1 and 9 required.</Text>}
 
-      <Button mode="contained" title="ToggleView" onPress={toggleView}>
-      {viewMap ? 'More Trip Options' : 'View Map'}
-      </Button>
 
       
 
