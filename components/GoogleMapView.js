@@ -169,6 +169,7 @@ export default function GoogleMapView({polylineCoordinates}) {
   const preferences=useContext(PreferencesContext)
   const [mapRegion, setMapRegion] = useState([]);
   const [mapView, setMapView] = useState()
+  const [forceToggle, setForceToggle] = useState(!preferences.isThemeDark)
   
   const { location, setUserLocation } = useContext(UserLocationContext);
 
@@ -198,7 +199,7 @@ export default function GoogleMapView({polylineCoordinates}) {
         showsUserLocation={true}
         showsMyLocationButton={true}
         region={mapRegion}
-        customMapStyle={preferences.isThemeDark ? mapStyle : null}
+        customMapStyle={preferences.isThemeDark ? mapStyle : []}
        
       >
       {polylineCoordinates ? 
