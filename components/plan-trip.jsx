@@ -4,7 +4,7 @@ import {
   Text,
   ScrollView,
   SafeAreaView,
-  Image,
+
 } from "react-native";
 import { useForm, Controller } from "react-hook-form";
 import { useState } from "react";
@@ -68,35 +68,7 @@ export default function PlanTrip() {
   function toggleView() {
     setViewMap(!viewMap);
   }
-/* this
-<View style={{ flex: 1, flexDirection: 'row', zIndex:3 }}>
-        <View style={{ flex: 0.71 }}>
-      <Search setOrigin={setOrigin} setDestination={setDestination} />
-      </View> 
-      <View style={{ flex: 0.29 }} >
-      <Text>Enter</Text>
-        
-      <Controller
-        control={control}
-        rules={{
-          pattern: { value: /^[1-9]$/ },
-          required: true,
-        }}
-        render={({ field: { onChange, onBlur, value } }) => (
-          <TextInput style={{flex:1, maxWidth:100}}
-            label="here"
-            placeholder="1-9 here"
-            onBlur={onBlur}
-            onChangeText={onChange}
-            value={value}
-          />
-        )}
-        name="stops"
-      />
-      {errors.stops && <Text>A number between 1 and 9 required.</Text>}
-      </View>
-      </View>
-this*/
+
   return (
     <>
     <View style={{ flex: 1, flexDirection: 'row', zIndex:3, minHeight:130 }}>
