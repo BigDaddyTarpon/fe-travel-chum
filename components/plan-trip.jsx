@@ -92,7 +92,7 @@ export default function PlanTrip() {
       />
       {errors.stops && <Text>A number between 1 and 9 required.</Text>}
 
-      <Button mode="contained-tonal" title="ToggleView" onPress={toggleView}>
+      <Button mode="contained" title="ToggleView" onPress={toggleView}>
       {viewMap ? 'More Trip Options' : 'View Map'}
       </Button>
 
@@ -251,7 +251,7 @@ export default function PlanTrip() {
 
       <Button
         // style={styles.button}
-        mode="contained-tonal"
+        mode="outlined"
         title="SaveTrip"
         onPress={handleSubmit(onSave)}
       >
