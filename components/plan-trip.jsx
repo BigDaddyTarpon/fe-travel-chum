@@ -93,7 +93,7 @@ export default function PlanTrip() {
       {errors.stops && <Text>A number between 1 and 9 required.</Text>}
 
       <Button mode="contained-tonal" title="ToggleView" onPress={toggleView}>
-        More trip options
+      {viewMap ? 'More Trip Options' : 'View Map'}
       </Button>
 
       
