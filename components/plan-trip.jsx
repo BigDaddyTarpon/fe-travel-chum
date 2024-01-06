@@ -19,7 +19,7 @@ export default function PlanTrip() {
 
   const theme = useTheme();
 const preferences=useContext(PreferencesContext)
-console.log(preferences, "pref line 22")
+
   const {
     control,
     handleSubmit,
@@ -76,11 +76,11 @@ console.log(preferences, "pref line 22")
 
   return (
     <>
-    <View theme={theme} style={{ flex: 1, flexDirection: 'row', zIndex:3, minHeight:130 }}>
-        <View theme={theme} style={{ flex: 0.7 }}>
+    <View style={{ flex: 1, flexDirection: 'row', zIndex:3, minHeight:130 }}>
+        <View style={{ flex: 0.7 }}>
       <Search setOrigin={setOrigin} setDestination={setDestination} />
       </View> 
-      <View theme={theme} style={{ flex: 0.3, minHeight:100,  }} >
+      <View style={{ flex: 0.3, minHeight:100,  }} >
         <IconButton style={{ width:100, minHeight:100 }} mode="outlined"  onPress={toggleView} icon={()=>(
           <Text style={{ color: preferences.isThemeDark ? 'white' : 'black' }}numberOflines={3}>{viewMap ? 'More Trip Options' : 'View Map'}</Text>
         )}>
