@@ -9,11 +9,12 @@ import {
 import { useForm, Controller } from "react-hook-form";
 import { useState, useContext } from "react";
 import { PreferencesContext } from '../PreferencesContext';
-import { Button, TextInput, List, SegmentedButtons, useTheme, IconButton } from "react-native-paper";
+import { Button, TextInput, List, SegmentedButtons, IconButton } from "react-native-paper";
 import Map from "./map";
 import Search from "./Search";
 import getPolylineCoordinates, { formatPolyline } from "../Utils/utils";
 import { postTrip } from "../requests/firebaseUtils";
+import NumberPicker from "./picker";
 
 export default function PlanTrip() {
 
@@ -31,9 +32,10 @@ const preferences=useContext(PreferencesContext)
     },
   });
 
+  const [expanded, setExpanded] = useState(false);
+
   const [destination, setDestination] = useState(null);
   const [origin, setOrigin] = useState(null);
-  const [expanded, setExpanded] = useState(false);
   const [checked, setChecked] = useState("car");
   const [valueAccomodation, setValueAccomodation] = useState("");
   const [group1, setGroup1] = useState([]);
@@ -76,20 +78,31 @@ const preferences=useContext(PreferencesContext)
 
   return (
     <>
-    <View style={{ flex: 1, flexDirection: 'row', zIndex:3, minHeight:130 }}>
+    <View style={{ flex: 1, flexDirection: 'row', zIndex:3, }}>
         <View style={{ flex: 0.7 }}>
       <Search setOrigin={setOrigin} setDestination={setDestination} />
       </View> 
-      <View style={{ flex: 0.3, minHeight:100,  }} >
-        <IconButton style={{ width:100, minHeight:100 }} mode="outlined"  onPress={toggleView} icon={()=>(
+      <View style={{ flex: 0.3,  }} >
+        <IconButton style={{ width:100, minHeight: 45 }} mode="outlined"  onPress={toggleView} icon={()=>(
           <Text style={{ color: preferences.isThemeDark ? 'white' : 'black' }}numberOflines={3}>{viewMap ? 'More Trip Options' : 'View Map'}</Text>
         )}>
         
         </IconButton>
-        </View>
+        <View style={{
+    flex: 0.3,
+    alignSelf:"center",
+    minHeight: 50,
+    width:100,
+    borderWidth: 1, 
+    borderColor: preferences.isThemeDark ? 'grey' : 'black', 
+    borderRadius: 20, 
+    overflow: 'hidden',}} >
+        <NumberPicker style={{ width:90, minHeight:20 }} />
+        </View >
+      </View>
       </View>
       
-      <Controller
+      {/* <Controller
         control={control}
         rules={{
           pattern: { value: /^[1-9]$/ },
@@ -106,7 +119,7 @@ const preferences=useContext(PreferencesContext)
         )}
         name="stops"
       />
-      {errors.stops && <Text>A number between 1 and 9 required.</Text>}
+      {errors.stops && <Text>A number between 1 and 9 required.</Text>} */}
 
 
       
@@ -277,14 +290,27 @@ const preferences=useContext(PreferencesContext)
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: "white",
+    // backgroundColor: "white",
     alignItems: "center",
     justifyContent: "center",
   },
-  button: {
-    backgroundColor: "beige",
-  },
+  
   destinationcontainer: {
     minHeight: 200,
+  },
+  pickerContainer: {
+    flex: 0.3,
+    alignSelf:"center",
+    minHeight: 50,
+    width:100,
+    borderWidth: 1, 
+    borderColor: 'black', 
+    borderRadius: 20, 
+    overflow: 'hidden', 
+  },
+  
+  title: {
+    textAlign: 'center',
+    marginBottom: 0, 
   },
 });
