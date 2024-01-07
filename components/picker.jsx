@@ -42,7 +42,7 @@ export default NumberPicker;
 const styles = StyleSheet.create({
     container: {
       flex: 1,
-      // backgroundColor: "white",
+      
       alignItems: "center",
       justifyContent: "center",
     },
@@ -50,19 +50,6 @@ const styles = StyleSheet.create({
     destinationcontainer: {
       minHeight: 200,
     },
-    pickerContainer: {
-      borderWidth: 1, // Fine line width
-      borderColor: 'black', // Line color
-      borderRadius: 10, // Rounded corners
-      overflow: 'hidden', // Ensures the child picker does not overlap the rounded corners
-    },
-    picker: {
-      width: 90,
-    },
-    title: {
-    //  color: {preferences.isThemeDark ? 'white' : 'black'},
-      textAlign: 'center',
-      marginBottom: 0, 
-    },
+   
   });
   

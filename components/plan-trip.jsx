@@ -83,7 +83,7 @@ const preferences=useContext(PreferencesContext)
       <Search setOrigin={setOrigin} setDestination={setDestination} />
       </View> 
       <View style={{ flex: 0.3,  }} >
-        <IconButton style={{ width:100, minHeight: 45 }} mode="outlined"  onPress={toggleView} icon={()=>(
+        <IconButton style={{ width:100, minHeight: 55, alignSelf:"center", }} mode="outlined"  onPress={toggleView} icon={()=>(
           <Text style={{ color: preferences.isThemeDark ? 'white' : 'black' }}numberOflines={3}>{viewMap ? 'More Trip Options' : 'View Map'}</Text>
         )}>
         
@@ -91,13 +91,13 @@ const preferences=useContext(PreferencesContext)
         <View style={{
     flex: 0.3,
     alignSelf:"center",
-    minHeight: 50,
+    minHeight: 58,
     width:100,
     borderWidth: 1, 
     borderColor: preferences.isThemeDark ? 'grey' : 'black', 
     borderRadius: 20, 
     overflow: 'hidden',}} >
-        <NumberPicker style={{ width:90, minHeight:20 }} />
+        <NumberPicker style={{ width:100, minHeight:20 }} />
         </View >
       </View>
       </View>
