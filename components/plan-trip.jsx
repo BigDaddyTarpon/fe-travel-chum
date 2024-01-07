@@ -257,7 +257,7 @@ const preferences=useContext(PreferencesContext)
         // style={styles.button}
         mode="contained"
         title="Submit"
-        onPress={handleSubmit(onSubmit)}
+        onPress={(onSubmit)}
       >
         Start your Journey
       </Button>
@@ -266,7 +266,7 @@ const preferences=useContext(PreferencesContext)
         // style={styles.button}
         mode="outlined"
         title="SaveTrip"
-        onPress={handleSubmit(onSave)}
+        onPress={(onSave)}
       >
         Save Trip
       </Button>

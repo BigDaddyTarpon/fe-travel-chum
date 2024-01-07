@@ -26,11 +26,8 @@ export default function GoogleMapView({ polylineCoordinates }) {
         longitudeDelta: 0.0321,
       });
     } else if (polylineCoordinates) {
-      setTimeout(() => {
-        mapRef.current.fitToSuppliedMarkers(["origin", "destination"], {
-          animated: true,
-        }),
-          1500
+      mapRef.current.fitToSuppliedMarkers(["origin", "destination"], {
+        animated: true,
       });
     }
   }, [polylineCoordinates]);
