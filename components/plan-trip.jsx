@@ -78,7 +78,7 @@ const preferences=useContext(PreferencesContext)
 
   return (
     <>
-    <View style={{ flex: 1, flexDirection: 'row', zIndex:3, }}>
+    <View style={{ flex: 1, flexDirection: 'row', minHeight: 120, zIndex:3, }}>
         <View style={{ flex: 0.7 }}>
       <Search setOrigin={setOrigin} setDestination={setDestination} />
       </View> 

@@ -8,7 +8,7 @@ import { PreferencesContext } from '../PreferencesContext';
 const NumberPicker = () => {
     // const theme=useTheme()
     const preferences = useContext(PreferencesContext)
-    console.log(theme)
+    
   const [selectedValue, setSelectedValue] = useState("1");
 
   return (
