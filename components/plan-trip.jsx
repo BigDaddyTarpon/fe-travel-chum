@@ -4,17 +4,22 @@ import {
   Text,
   ScrollView,
   SafeAreaView,
-  Image,
+
 } from "react-native";
 import { useForm, Controller } from "react-hook-form";
-import { useState } from "react";
-import { Button, TextInput, List, SegmentedButtons } from "react-native-paper";
+import { useState, useContext } from "react";
+import { PreferencesContext } from '../PreferencesContext';
+import { Button, TextInput, List, SegmentedButtons, useTheme, IconButton } from "react-native-paper";
 import Map from "./map";
 import Search from "./Search";
 import getPolylineCoordinates, { formatPolyline } from "../Utils/utils";
 import { postTrip } from "../requests/firebaseUtils";
 
 export default function PlanTrip() {
+
+  
+const preferences=useContext(PreferencesContext)
+
   const {
     control,
     handleSubmit,
@@ -71,8 +76,19 @@ export default function PlanTrip() {
 
   return (
     <>
+    <View style={{ flex: 1, flexDirection: 'row', zIndex:3, minHeight:130 }}>
+        <View style={{ flex: 0.7 }}>
       <Search setOrigin={setOrigin} setDestination={setDestination} />
-
+      </View> 
+      <View style={{ flex: 0.3, minHeight:100,  }} >
+        <IconButton style={{ width:100, minHeight:100 }} mode="outlined"  onPress={toggleView} icon={()=>(
+          <Text style={{ color: preferences.isThemeDark ? 'white' : 'black' }}numberOflines={3}>{viewMap ? 'More Trip Options' : 'View Map'}</Text>
+        )}>
+        
+        </IconButton>
+        </View>
+      </View>
+      
       <Controller
         control={control}
         rules={{
@@ -92,9 +108,6 @@ export default function PlanTrip() {
       />
       {errors.stops && <Text>A number between 1 and 9 required.</Text>}
 
-      <Button style={styles.button} title="ToggleView" onPress={toggleView}>
-        More trip options
-      </Button>
 
       
 
@@ -241,17 +254,19 @@ export default function PlanTrip() {
       )}
 
       <Button
-        style={styles.button}
+        // style={styles.button}
+        mode="contained"
         title="Submit"
-        onPress={handleSubmit(onSubmit)}
+        onPress={(onSubmit)}
       >
         Start your Journey
       </Button>
 
       <Button
-        style={styles.button}
+        // style={styles.button}
+        mode="outlined"
         title="SaveTrip"
-        onPress={handleSubmit(onSave)}
+        onPress={(onSave)}
       >
         Save Trip
       </Button>
