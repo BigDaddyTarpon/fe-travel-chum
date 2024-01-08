@@ -7,7 +7,7 @@ import { MapStyleNight } from "./map-night-style-object.js";
 
 const mapStyle = MapStyleNight;
 import {getPoisFromMarker, getStopMarkerCoordinates} from '../Utils/utils';
-export default function GoogleMapView({ polylineCoordinates }) {
+export default function GoogleMapView({ polylineCoordinates, selectedValue }) {
   const preferences = useContext(PreferencesContext);
   const [mapRegion, setMapRegion] = useState([]);
   const [stopAttractions, setStopAttractions] = useState([]);;
@@ -70,15 +70,15 @@ export default function GoogleMapView({ polylineCoordinates }) {
               identifier="destination"
               coordinate={polylineCoordinates[polylineCoordinates.length - 1]}
             />
-            {getStopMarkerCoordinates(polylineCoordinates, 5).map((point, index) => {
-        return <Marker key={index} coordinate={{latitude: point.latitude, longitude: point.longitude}} onPress={()=>{handleMarkerPress(point.latitude, point.longitude)}} />
+            {getStopMarkerCoordinates(polylineCoordinates, selectedValue).map((point, index, arr) => {
+        return <Marker key={index} coordinate={{latitude: point.latitude, longitude: point.longitude}} onPress={()=>{handleMarkerPress(point.latitude, point.longitude)}} title={`stop ${index+1}/${arr.length}`}/>
       })}
           </>
         ) : (
           <></>
         )}
         {stopAttractions.length > 0 ? stopAttractions.map((attraction, index )=> {
-        return <Marker key={index} coordinate={{latitude: attraction.geometry.location.lat, longitude: attraction.geometry.location.lng}} title={attraction.name}/>
+        return <Marker key={index} coordinate={{latitude: attraction.geometry.location.lat, longitude: attraction.geometry.location.lng}} title={attraction.name} />
       }) : null}
       </MapView>
     </View>

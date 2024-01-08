@@ -112,7 +112,7 @@ export default function PlanTrip() {
     
 
       {viewMap ? (
-        <Map polylineCoordinates={polylineCoordinates} />
+        <Map polylineCoordinates={polylineCoordinates} selectedValue={selectedValue}/>
       ) : (
         <ScrollView>
           <View>
