@@ -31,10 +31,9 @@ export const formatPolyline = (data) => {
 export const getPoisFromMarker = (coordinates) => {
   return axios
     .get(
-      `https://maps.googleapis.com/maps/api/place/nearbysearch/json?location=${coordinates.latitude},${coordinates.longitude}&radius=1000&type=point_of_interest|museum&key=${GOOGLE_API_KEY}` 
+      `https://maps.googleapis.com/maps/api/place/nearbysearch/json?location=${coordinates.latitude},${coordinates.longitude}&radius=1000&type=point_of_interest&key=${GOOGLE_API_KEY}`
     )
     .then(({ data }) => {
-        console.log(data.results)
       return data.results;
     });
 };

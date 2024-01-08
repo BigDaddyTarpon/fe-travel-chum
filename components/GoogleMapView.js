@@ -2,10 +2,10 @@ import { View, Dimensions } from "react-native";
 import React, { useContext, useEffect, useState } from "react";
 import MapView, { PROVIDER_GOOGLE, Polyline, Marker } from "react-native-maps";
 import { UserLocationContext } from "./Contexts";
-import {getPoisFromMarker, getStopMarkerCoordinates} from '../Utils/utils'
+import {getPoisFromMarker, getStopMarkerCoordinates} from '../Utils/utils';
 export default function GoogleMapView({polylineCoordinates}) {
   const [mapRegion, setMapRegion] = useState([]);
-  const [mapView, setMapView] = useState()
+  const [stopAttractions, setStopAttractions] = useState([]);
   
   const { location, setUserLocation } = useContext(UserLocationContext);
 
@@ -19,7 +19,14 @@ export default function GoogleMapView({polylineCoordinates}) {
       });
     }
   }, []);
-
+  function handleMarkerPress(latitude, longitude) {
+    getPoisFromMarker({latitude, longitude})
+    .then((res)=>{
+      setStopAttractions(res);
+    })
+    
+  };
+  
   return (
     <View
     style={{ display: "flex", flexDirection: "column", alignItems: "center" }}
@@ -43,8 +50,11 @@ export default function GoogleMapView({polylineCoordinates}) {
         strokeColor="blue"
       /> : null}
       {polylineCoordinates !== null ? getStopMarkerCoordinates(polylineCoordinates, 5).map((point, index) => {
-        return <Marker key={index} coordinate={{latitude: point.latitude, longitude: point.longitude}} onPress={()=>{getPoisFromMarker({latitude: point.latitude, longitude: point.longitude})}} />
+        return <Marker key={index} coordinate={{latitude: point.latitude, longitude: point.longitude}} onPress={()=>{handleMarkerPress(point.latitude, point.longitude)}} />
       }) : null} 
+      {stopAttractions.length > 0 ? stopAttractions.map((attraction, index )=> {
+        return <Marker key={index} coordinate={{latitude: attraction.geometry.location.lat, longitude: attraction.geometry.location.lng}} title={attraction.name}/>
+      }) : null}
       </MapView>
       
     </View>
