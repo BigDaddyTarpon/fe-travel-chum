@@ -1,28 +1,34 @@
 import {Button, Title, SegmentedButtons} from "react-native-paper";
 import { StyleSheet, View } from "react-native";
 import Search from "./Search";
-import { useState, useContext } from "react";
+import React, { useState, useContext } from "react";
 import NumberOfStopsDropDown from "./NumberOfStopsDropDown";
-import { getPolylineCoordinates, formatPolyline } from "../Utils/utils";
-import {TabActions } from '@react-navigation/native';
+import {TabActions, useFocusEffect } from '@react-navigation/native';
+import { DestinationContext, OriginContext } from "./Contexts";
 
 export default function Home({navigation}) {
-  const [destination, setDestination] = useState(null);
-  const [origin, setOrigin] = useState(null);
   const [group2, setGroup2] = useState([]);
   const [group3, setGroup3] = useState([]);
   const [group4, setGroup4] = useState([]);
-  const [polylineCoordinates, setPolylineCoordinates] = useState(null);
+  const {origin, setOrigin} = useContext(OriginContext)
+  const {destination, setDestination} = useContext(DestinationContext)
+  
+  useFocusEffect(
+    React.useCallback(() => {
+      () => {
+        {setDestination(destination),
+        setOrigin(origin)}
+      }
+      console.log('HOME FOCUSED.............');
+      // Do something when the screen is focused
 
-  function onSubmit() {
-    if (origin && destination) {
-      getPolylineCoordinates(origin.place_id, destination.place_id).then(
-        (data) => {
-          setPolylineCoordinates(formatPolyline(data));
-        }
-      );
-    }
-  }
+      return () => {
+        console.log('HOME UNFOCUSED.............');
+        // Do something when the screen is unfocused
+        // Useful for cleanup functions
+      };
+    }, [])
+  );
 
   const jumpToAction = TabActions.jumpTo('Trip');
 
@@ -33,7 +39,7 @@ export default function Home({navigation}) {
           Welcome To Travel Chum, your personal trip planner! Select your
           journey details to begin.
         </Title>
-        <Search setOrigin={setOrigin} setDestination={setDestination} />
+        <Search/>
         <NumberOfStopsDropDown />
         <SegmentedButtons
           style={styles.poiTypes}
@@ -96,31 +102,11 @@ export default function Home({navigation}) {
           style={styles.button}
           mode="contained"
           title="Submit"
-          onPress={ () => {navigation.dispatch(jumpToAction), onSubmit()} }
+          onPress={ () => {navigation.dispatch(jumpToAction)} }
         >
           Plan Trip!
         </Button>
       </View>
-      {/* <Dialog visible={true}>
-        <Dialog.Title>Welcome to Travel Chum.</Dialog.Title>
-        <Dialog.Title style={{ fontSize: 20 }}>
-        
-          Swipe sideways or click a tab at the top to navigate.
-        </Dialog.Title>
-
-        <Dialog.Title style={{ fontSize: 20 }}>
-        You can select Darkmode with the switch at the top right.
-        </Dialog.Title>
-        <Dialog.Title style={{ fontSize: 20 }}>
-          login, with the icon top right.
-        </Dialog.Title>
-        <Dialog.Title style={{ fontSize: 20 }}>
-          You can enter details on 'plan a trip' to see the trip dispayed on the
-          map.
-        </Dialog.Title>
-
-
-      </Dialog> */}
     </>
   );
 }

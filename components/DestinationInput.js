@@ -1,10 +1,12 @@
-import React from "react";
+import React, { useContext } from "react";
 import { GooglePlacesAutocomplete } from "react-native-google-places-autocomplete";
 import { GOOGLE_API_KEY } from "../environments";
 import Colours from "../SharedStyling/Colours";
 import { Dimensions } from "react-native";
+import { DestinationContext } from "./Contexts";
 
-const DestinationInput = ({ setDestination }) => {
+const DestinationInput = () => {
+  const {destination, setDestination} = useContext(DestinationContext)
   return (
     <GooglePlacesAutocomplete
       placeholder="destination..."

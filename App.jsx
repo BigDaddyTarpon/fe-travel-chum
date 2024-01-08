@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useContext } from "react";
 import { StyleSheet, Image, TouchableOpacity } from "react-native";
 import { useState } from "react";
 import { createMaterialTopTabNavigator } from "@react-navigation/material-top-tabs";
@@ -16,13 +16,15 @@ import Home from "./components/home";
 import Login from "./components/Login";
 import PlanTrip from "./components/plan-trip";
 import merge from "deepmerge";
-import { UserLocationContext } from "./components/Contexts";
+import { UserLocationContext, DestinationContext, OriginContext} from "./components/Contexts";
 import Header from "./components/Header";
 
 const Tab = createMaterialTopTabNavigator();
 
 export default function App() {
   const [location, setLocation] = useState(null);
+  const [origin, setOrigin] = useState(OriginContext)
+  const [destination, setDestination] = useState(DestinationContext)
 
   const MyTheme = {
     ...DefaultTheme,
@@ -37,6 +39,8 @@ export default function App() {
   return (
     <>
       <PaperProvider theme={MyTheme}>
+        <OriginContext.Provider value={{origin, setOrigin}}>
+        <DestinationContext.Provider value={{destination, setDestination}}>
         <UserLocationContext.Provider value={{ location, setLocation }}>
           <Header/>
           <NavigationContainer theme={MyTheme}>
@@ -47,6 +51,8 @@ export default function App() {
             </Tab.Navigator>
           </NavigationContainer>
         </UserLocationContext.Provider>
+        </DestinationContext.Provider>
+        </OriginContext.Provider>
       </PaperProvider>
     </>
   );
