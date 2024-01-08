@@ -39,6 +39,7 @@ export async function getTripsByCurrentUser() {
   querySnapshot.forEach((doc) => {
     trips.push({ id: doc.id, ...doc.data() });
   });
+  //console.log(trips)
   return trips;
 }
 

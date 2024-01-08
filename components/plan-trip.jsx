@@ -11,7 +11,7 @@ import {
 import Map from "./map";
 import Search from "./Search";
 import getPolylineCoordinates, { formatPolyline } from "../Utils/utils";
-import { postTrip } from "../requests/firebaseUtils";
+import { getTripsByCurrentUser, postTrip } from "../requests/firebaseUtils";
 import NumberPicker from "./picker";
 
 export default function PlanTrip() {
