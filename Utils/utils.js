@@ -40,9 +40,9 @@ export const getPoisFromMarker = (coordinates) => {
 
 export const getStopMarkerCoordinates = (arr, stops) => {
     let markerCoordinates = [];
-    for (let i = 0; i < stops; i++) {
+    for (let i = 0; i < +stops; i++) {
       const markerCoordinate =
-        arr[Math.floor(arr.length * ((i + 1) / (stops + 1)))];
+        arr[Math.floor(arr.length * ((i + 1) / (+stops + 1)))];
       markerCoordinates.push(markerCoordinate);
     }
     return markerCoordinates;
