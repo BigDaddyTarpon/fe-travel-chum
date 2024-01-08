@@ -2,7 +2,7 @@ import axios from "axios";
 import polyline from "google-polyline";
 import { GOOGLE_API_KEY } from "../environments";
 
-function getPolylineCoordinates(origin, destination) {
+export const getPolylineCoordinates = (origin, destination) => {
   return axios
     .get(
       `https://maps.googleapis.com/maps/api/directions/json?origin=place_id:${origin}&destination=place_id:${destination}&key=${GOOGLE_API_KEY}`
@@ -37,5 +37,3 @@ export const getPoisFromMarker = (coordinates) => {
       return data.results;
     });
 };
-
-export default getPolylineCoordinates;

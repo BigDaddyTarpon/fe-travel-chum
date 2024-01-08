@@ -25,6 +25,7 @@ const OriginInput = ({setOrigin}) => {
             padding:5,
             marginLeft:0,
             marginTop:0,
+            marginBottom:20,
             width:Dimensions.get('screen').width*0.7,
             backgroundColor:Colours.white
           },

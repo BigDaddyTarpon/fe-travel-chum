@@ -7,29 +7,32 @@ import {
 
 } from "react-native";
 import { useForm, Controller } from "react-hook-form";
-import { useState, useContext } from "react";
+import { useState, useContext, useEffect } from "react";
 import { PreferencesContext } from '../PreferencesContext';
 import { Button, TextInput, List, SegmentedButtons, useTheme, IconButton } from "react-native-paper";
 import Map from "./map";
 import Search from "./Search";
 import getPolylineCoordinates, { formatPolyline } from "../Utils/utils";
 import { postTrip } from "../requests/firebaseUtils";
+import { useFocusEffect, useIsFocused } from "@react-navigation/native";
+import react from "react";
 
 export default function PlanTrip() {
-
-  
 const preferences=useContext(PreferencesContext)
 
-  const {
-    control,
-    handleSubmit,
-    formState: { errors },
-  } = useForm({
-    defaultValues: {
-      origin: "",
-      destination: "",
-    },
-  });
+
+
+
+  // const {
+  //   control,
+  //   handleSubmit,
+  //   formState: { errors },
+  // } = useForm({
+  //   defaultValues: {
+  //     origin: "",
+  //     destination: "",
+  //   },
+  // });
 
   const [destination, setDestination] = useState(null);
   const [origin, setOrigin] = useState(null);
@@ -70,13 +73,14 @@ const preferences=useContext(PreferencesContext)
     }
   }
 
-  function toggleView() {
-    setViewMap(!viewMap);
-  }
+  // function toggleView() {
+  //   setViewMap(!viewMap);
+  // }
 
   return (
     <>
-    <View style={{ flex: 1, flexDirection: 'row', zIndex:3, minHeight:130 }}>
+    <Map polylineCoordinates={polylineCoordinates} /> 
+    {/* <View style={{ flex: 1, flexDirection: 'row', zIndex:3, minHeight:130 }}>
         <View style={{ flex: 0.7 }}>
       <Search setOrigin={setOrigin} setDestination={setDestination} />
       </View> 
@@ -87,9 +91,9 @@ const preferences=useContext(PreferencesContext)
         
         </IconButton>
         </View>
-      </View>
+      </View> */}
       
-      <Controller
+      {/* <Controller
         control={control}
         rules={{
           pattern: { value: /^[1-9]$/ },
@@ -106,167 +110,163 @@ const preferences=useContext(PreferencesContext)
         )}
         name="stops"
       />
-      {errors.stops && <Text>A number between 1 and 9 required.</Text>}
+      {errors.stops && <Text>A number between 1 and 9 required.</Text>} */}
 
-
+        
       
+      {/* //   <ScrollView>
+      //   <View>
+      //     <List.Accordion
+      //       title="Mode of Transport"
+      //       left={(props) => <List.Icon {...props} icon={checked} />}
+      //       expanded={expanded}
+      //       onPress={handlePress}
+      //     >
+      //       <List.Item
+      //         title="Car"
+      //         onPress={() => setChecked("car")}
+      //         left={(props) => <List.Icon {...props} icon="car" />}
+      //       />
+      //       <List.Item
+      //         title="Train"
+      //         onPress={() => setChecked("train")}
+      //         left={(props) => <List.Icon {...props} icon="train" />}
+      //       />
+      //       <List.Item
+      //         title="Bus/Coach"
+      //         onPress={() => setChecked("bus")}
+      //         left={(props) => <List.Icon {...props} icon="bus" />}
+      //       />
+      //       <List.Item
+      //         title="Bicycle"
+      //         onPress={() => setChecked("bicycle")}
+      //         left={(props) => <List.Icon {...props} icon="bicycle" />}
+      //       />
+      //       <List.Item
+      //         title="Walk"
+      //         onPress={() => setChecked("walk")}
+      //         left={(props) => <List.Icon {...props} icon="walk" />}
+      //       />
+      //     </List.Accordion>
+      //   </View>
 
-      {viewMap ? (
-        <Map polylineCoordinates={polylineCoordinates} />
-      ) : (
-        <ScrollView>
-        <View>
-          <List.Accordion
-            title="Mode of Transport"
-            left={(props) => <List.Icon {...props} icon={checked} />}
-            expanded={expanded}
-            onPress={handlePress}
-          >
-            <List.Item
-              title="Car"
-              onPress={() => setChecked("car")}
-              left={(props) => <List.Icon {...props} icon="car" />}
-            />
-            <List.Item
-              title="Train"
-              onPress={() => setChecked("train")}
-              left={(props) => <List.Icon {...props} icon="train" />}
-            />
-            <List.Item
-              title="Bus/Coach"
-              onPress={() => setChecked("bus")}
-              left={(props) => <List.Icon {...props} icon="bus" />}
-            />
-            <List.Item
-              title="Bicycle"
-              onPress={() => setChecked("bicycle")}
-              left={(props) => <List.Icon {...props} icon="bicycle" />}
-            />
-            <List.Item
-              title="Walk"
-              onPress={() => setChecked("walk")}
-              left={(props) => <List.Icon {...props} icon="walk" />}
-            />
-          </List.Accordion>
-        </View>
+      //   <SafeAreaView style={styles.container}>
+      //     <SegmentedButtons
+      //       value={valueAccomodation}
+      //       onValueChange={setValueAccomodation}
+      //       buttons={[
+      //         {
+      //           value: "",
+      //           label: "Day trip",
+      //           showSelectedCheck: true,
+      //         },
+      //         {
+      //           value: "hotel",
+      //           label: "Hotel",
+      //           showSelectedCheck: true,
+      //         },
+      //         { value: "camping", label: "Camping", showSelectedCheck: true },
+      //       ]}
+      //     />
+      //   </SafeAreaView>
+      //   <SafeAreaView style={styles.container}>
+      //     <SegmentedButtons
+      //       multiSelect
+      //       value={group1}
+      //       onValueChange={setGroup1}
+      //       buttons={[
+      //         {
+      //           value: "Wheel-Chair-Access",
+      //           label: "Easy Access",
+      //           showSelectedCheck: true,
+      //         },
+      //         {
+      //           value: "Kids Entertainment",
+      //           label: "Kids Fun",
+      //           showSelectedCheck: true,
+      //         },
+      //         { value: "shopping", label: "Shopping", showSelectedCheck: true },
+      //       ]}
+      //     />
+      //   </SafeAreaView>
+      //   <SafeAreaView style={styles.container}>
+      //     <SegmentedButtons
+      //       multiSelect
+      //       value={group2}
+      //       onValueChange={setGroup2}
+      //       buttons={[
+      //         {
+      //           value: "parks&nature",
+      //           label: "Parks/Nature",
+      //           showSelectedCheck: true,
+      //         },
+      //         {
+      //           value: "hike",
+      //           label: "Hikes/Walks",
+      //           showSelectedCheck: true,
+      //         },
+      //         { value: "Wildlife", label: "Wildlife", showSelectedCheck: true },
+      //       ]}
+      //     />
+      //   </SafeAreaView>
 
-        <SafeAreaView style={styles.container}>
-          <SegmentedButtons
-            value={valueAccomodation}
-            onValueChange={setValueAccomodation}
-            buttons={[
-              {
-                value: "",
-                label: "Day trip",
-                showSelectedCheck: true,
-              },
-              {
-                value: "hotel",
-                label: "Hotel",
-                showSelectedCheck: true,
-              },
-              { value: "camping", label: "Camping", showSelectedCheck: true },
-            ]}
-          />
-        </SafeAreaView>
-        <SafeAreaView style={styles.container}>
-          <SegmentedButtons
-            multiSelect
-            value={group1}
-            onValueChange={setGroup1}
-            buttons={[
-              {
-                value: "Wheel-Chair-Access",
-                label: "Easy Access",
-                showSelectedCheck: true,
-              },
-              {
-                value: "Kids Entertainment",
-                label: "Kids Fun",
-                showSelectedCheck: true,
-              },
-              { value: "shopping", label: "Shopping", showSelectedCheck: true },
-            ]}
-          />
-        </SafeAreaView>
-        <SafeAreaView style={styles.container}>
-          <SegmentedButtons
-            multiSelect
-            value={group2}
-            onValueChange={setGroup2}
-            buttons={[
-              {
-                value: "parks&nature",
-                label: "Parks/Nature",
-                showSelectedCheck: true,
-              },
-              {
-                value: "hike",
-                label: "Hikes/Walks",
-                showSelectedCheck: true,
-              },
-              { value: "Wildlife", label: "Wildlife", showSelectedCheck: true },
-            ]}
-          />
-        </SafeAreaView>
+      //   <SafeAreaView style={styles.container}>
+      //     <SegmentedButtons
+      //       multiSelect
+      //       value={group3}
+      //       onValueChange={setGroup3}
+      //       buttons={[
+      //         {
+      //           value: "Museums",
+      //           label: "Museums",
+      //           showSelectedCheck: true,
+      //         },
+      //         {
+      //           value: "Heritage",
+      //           label: "Heritage",
+      //           showSelectedCheck: true,
+      //         },
+      //         { value: "Theatre", label: "Theatre", showSelectedCheck: true },
+      //       ]}
+      //     />
+      //   </SafeAreaView>
+      //   <SafeAreaView style={styles.container}>
+      //     <SegmentedButtons
+      //       multiSelect
+      //       value={group4}
+      //       onValueChange={setGroup4}
+      //       buttons={[
+      //         {
+      //           value: "Theme Parks",
+      //           label: "Theme Parks",
+      //           showSelectedCheck: true,
+      //         },
+      //         {
+      //           value: "Sports&Leisure",
+      //           label: "Sports/Leisure",
+      //           showSelectedCheck: true,
+      //         },
+      //         { value: "Cinema", label: "Cinema", showSelectedCheck: true },
+      //       ]}
+      //     />
+      //   </SafeAreaView>
+      // </ScrollView>
+      // )}
 
-        <SafeAreaView style={styles.container}>
-          <SegmentedButtons
-            multiSelect
-            value={group3}
-            onValueChange={setGroup3}
-            buttons={[
-              {
-                value: "Museums",
-                label: "Museums",
-                showSelectedCheck: true,
-              },
-              {
-                value: "Heritage",
-                label: "Heritage",
-                showSelectedCheck: true,
-              },
-              { value: "Theatre", label: "Theatre", showSelectedCheck: true },
-            ]}
-          />
-        </SafeAreaView>
-        <SafeAreaView style={styles.container}>
-          <SegmentedButtons
-            multiSelect
-            value={group4}
-            onValueChange={setGroup4}
-            buttons={[
-              {
-                value: "Theme Parks",
-                label: "Theme Parks",
-                showSelectedCheck: true,
-              },
-              {
-                value: "Sports&Leisure",
-                label: "Sports/Leisure",
-                showSelectedCheck: true,
-              },
-              { value: "Cinema", label: "Cinema", showSelectedCheck: true },
-            ]}
-          />
-        </SafeAreaView>
-      </ScrollView>
-      )}
-
-      <Button
-        // style={styles.button}
-        mode="contained"
-        title="Submit"
-        onPress={(onSubmit)}
-      >
-        Start your Journey
-      </Button>
+      // <Button
+      //   // style={styles.button}
+      //   mode="contained"
+      //   title="Submit"
+      //   onPress={(onSubmit)}
+      // >
+      //   Start your Journey
+      // </Button> */}
 
       <Button
         // style={styles.button}
         mode="outlined"
         title="SaveTrip"
-        onPress={(onSave)}
+        onPress={() => {onSave, console.log(polylineCoordinates);}}
       >
         Save Trip
       </Button>

@@ -31,12 +31,10 @@ const styles = StyleSheet.create({
   },
 
   searchContainer:{
-    paddingLeft:2,
+    paddingLeft:55,
     display:'flex',
     flexWrap: 'wrap', 
     flexDirection:'row', 
-    justifyContent: 'left', 
-    alignItems:'left', 
     marginTop:2
   }
 })
