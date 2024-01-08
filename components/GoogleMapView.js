@@ -65,10 +65,12 @@ export default function GoogleMapView({ polylineCoordinates, selectedValue }) {
               strokeColor="blue"
             />
 
-            <Marker identifier="origin" coordinate={polylineCoordinates[0]} />
+            <Marker identifier="origin" coordinate={polylineCoordinates[0]} onPress={()=>{handleMarkerPress(polylineCoordinates[0].latitude, polylineCoordinates[0].longitude)}} pinColor={"gold"}/>
             <Marker
               identifier="destination"
               coordinate={polylineCoordinates[polylineCoordinates.length - 1]}
+              onPress={()=>{handleMarkerPress(polylineCoordinates[polylineCoordinates.length - 1].latitude, polylineCoordinates[polylineCoordinates.length - 1].longitude)}}
+              pinColor='#00FF00'
             />
             {getStopMarkerCoordinates(polylineCoordinates, selectedValue).map((point, index, arr) => {
         return <Marker key={index} coordinate={{latitude: point.latitude, longitude: point.longitude}} onPress={()=>{handleMarkerPress(point.latitude, point.longitude)}} title={`stop ${index+1}/${arr.length}`}/>
