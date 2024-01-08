@@ -1,10 +1,9 @@
 import { StyleSheet, View, Text, ScrollView, SafeAreaView } from "react-native";
-import { useForm, Controller } from "react-hook-form";
+import { useForm } from "react-hook-form";
 import { useState, useContext } from "react";
 import { PreferencesContext } from "../PreferencesContext";
 import {
   Button,
-  TextInput,
   List,
   SegmentedButtons,
   IconButton,
@@ -18,16 +17,7 @@ import NumberPicker from "./picker";
 export default function PlanTrip() {
   const preferences = useContext(PreferencesContext);
 
-  const {
-    control,
-    handleSubmit,
-    formState: { errors },
-  } = useForm({
-    defaultValues: {
-      origin: "",
-      destination: "",
-    },
-  });
+ 
 
   const [expanded, setExpanded] = useState(false);
 
@@ -119,24 +109,7 @@ export default function PlanTrip() {
         </View>
       </View>
 
-      {/* <Controller
-        control={control}
-        rules={{
-          pattern: { value: /^[1-9]$/ },
-          required: true,
-        }}
-        render={({ field: { onChange, onBlur, value } }) => (
-          <TextInput
-            label="Number of Stops"
-            placeholder="Enter a number of stops here (1-9)"
-            onBlur={onBlur}
-            onChangeText={onChange}
-            value={value}
-          />
-        )}
-        name="stops"
-      />
-      {errors.stops && <Text>A number between 1 and 9 required.</Text>} */}
+    
 
       {viewMap ? (
         <Map polylineCoordinates={polylineCoordinates} />

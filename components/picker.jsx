@@ -1,13 +1,12 @@
-import React, { useState, useContext } from "react";
+import React, { useContext } from "react";
 import { View, Text, StyleSheet } from "react-native";
 import { Picker } from "@react-native-picker/picker";
 import { PreferencesContext } from "../PreferencesContext";
 // import { useTheme } from 'react-native-paper';
 
-const NumberPicker = ({selectedValue, passProp} ) => {
+const NumberPicker = ({ selectedValue, passProp }) => {
   // const theme=useTheme()
   const preferences = useContext(PreferencesContext);
-
 
   return (
     <View style={{ flex: 1, alignItems: "center" }}>
@@ -25,10 +24,7 @@ const NumberPicker = ({selectedValue, passProp} ) => {
           color: preferences.isThemeDark ? "white" : "black",
         }}
         selectedValue={selectedValue}
-        onValueChange={(itemValue) => 
-          passProp(itemValue)
-    
-        }
+        onValueChange={(itemValue) => passProp(itemValue)}
       >
         <Picker.Item label="0" value="0" />
         <Picker.Item label="1" value="1" />
