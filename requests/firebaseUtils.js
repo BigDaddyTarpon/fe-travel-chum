@@ -27,7 +27,7 @@ async function getTripById(tripId) {
 
   if (docSnap.exists()) {
     const tripData = { [tripId]: docSnap.data() };
-    console.log(tripData);
+    
     return tripData;
   } else {
     console.log("Trip doesn't exist!");
@@ -89,17 +89,4 @@ async function deleteTrip(tripId) {
   return await deleteDoc(tripRef);
 }
 
-// Example trip objects for testing functions - remove on merge
 
-// const newTrip = {
-//   polyline: '123',
-//   userId: "user99999",
-//   origin: 'start',
-//   destination: 'end',
-//   tripName: 'newTrip!'
-// }
-
-// const updatedTrip = {
-//   polyline: '2',
-//   tripName: 'updatedTrip!'
-// }
