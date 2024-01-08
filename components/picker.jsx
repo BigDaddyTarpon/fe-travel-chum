@@ -1,28 +1,36 @@
-import React, { useState, useContext } from 'react';
-import { View, Text, StyleSheet } from 'react-native';
-import { Picker } from '@react-native-picker/picker';
-import { PreferencesContext } from '../PreferencesContext';
+import React, { useState, useContext } from "react";
+import { View, Text, StyleSheet } from "react-native";
+import { Picker } from "@react-native-picker/picker";
+import { PreferencesContext } from "../PreferencesContext";
 // import { useTheme } from 'react-native-paper';
 
+const NumberPicker = ({selectedValue, passProp} ) => {
+  // const theme=useTheme()
+  const preferences = useContext(PreferencesContext);
 
-const NumberPicker = () => {
-    // const theme=useTheme()
-    const preferences = useContext(PreferencesContext)
-    
-  const [selectedValue, setSelectedValue] = useState("1");
 
   return (
-    <View style={{flex: 1, alignItems: "center"}}>
-      <Text style={{
-        color: preferences.isThemeDark ? 'white' : 'black'}}
-      >no. of stops:</Text>
-      <Picker
-    //   
-      style={{width: 90, color: preferences.isThemeDark ? 'white' : 'black',}}
-        selectedValue={selectedValue}
-       
-        onValueChange={(itemValue) => setSelectedValue(itemValue)}
+    <View style={{ flex: 1, alignItems: "center" }}>
+      <Text
+        style={{
+          color: preferences.isThemeDark ? "white" : "black",
+        }}
       >
+        no. of stops:
+      </Text>
+      <Picker
+        //
+        style={{
+          width: 90,
+          color: preferences.isThemeDark ? "white" : "black",
+        }}
+        selectedValue={selectedValue}
+        onValueChange={(itemValue) => 
+          passProp(itemValue)
+    
+        }
+      >
+        <Picker.Item label="0" value="0" />
         <Picker.Item label="1" value="1" />
         <Picker.Item label="2" value="2" />
         <Picker.Item label="3" value="3" />
@@ -40,16 +48,14 @@ const NumberPicker = () => {
 export default NumberPicker;
 
 const styles = StyleSheet.create({
-    container: {
-      flex: 1,
-      
-      alignItems: "center",
-      justifyContent: "center",
-    },
-    
-    destinationcontainer: {
-      minHeight: 200,
-    },
-   
-  });
-  
+  container: {
+    flex: 1,
+
+    alignItems: "center",
+    justifyContent: "center",
+  },
+
+  destinationcontainer: {
+    minHeight: 200,
+  },
+});
