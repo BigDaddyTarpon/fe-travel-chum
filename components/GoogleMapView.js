@@ -6,11 +6,11 @@ import { PreferencesContext } from "../PreferencesContext";
 import { MapStyleNight } from "./map-night-style-object.js";
 
 const mapStyle = MapStyleNight;
-
-export default function GoogleMapView({ polylineCoordinates }) {
+import {getPoisFromMarker, getStopMarkerCoordinates} from '../Utils/utils';
+export default function GoogleMapView({ polylineCoordinates, selectedValue }) {
   const preferences = useContext(PreferencesContext);
   const [mapRegion, setMapRegion] = useState([]);
-  const [mapView, setMapView] = useState();
+  const [stopAttractions, setStopAttractions] = useState([]);;
   const [forceToggle, setForceToggle] = useState(!preferences.isThemeDark);
 
   const { location, setUserLocation } = useContext(UserLocationContext);
@@ -31,7 +31,14 @@ export default function GoogleMapView({ polylineCoordinates }) {
       });
     }
   }, [polylineCoordinates]);
-
+  function handleMarkerPress(latitude, longitude) {
+    getPoisFromMarker({latitude, longitude})
+    .then((res)=>{
+      setStopAttractions(res);
+    })
+    
+  };
+  
   return (
     <View
       style={{ display: "flex", flexDirection: "column", alignItems: "center" }}
@@ -58,15 +65,23 @@ export default function GoogleMapView({ polylineCoordinates }) {
               strokeColor="blue"
             />
 
-            <Marker identifier="origin" coordinate={polylineCoordinates[0]} />
+            <Marker identifier="origin" coordinate={polylineCoordinates[0]} onPress={()=>{handleMarkerPress(polylineCoordinates[0].latitude, polylineCoordinates[0].longitude)}} pinColor={"gold"}/>
             <Marker
               identifier="destination"
               coordinate={polylineCoordinates[polylineCoordinates.length - 1]}
+              onPress={()=>{handleMarkerPress(polylineCoordinates[polylineCoordinates.length - 1].latitude, polylineCoordinates[polylineCoordinates.length - 1].longitude)}}
+              pinColor='#00FF00'
             />
+            {getStopMarkerCoordinates(polylineCoordinates, selectedValue).map((point, index, arr) => {
+        return <Marker key={index} coordinate={{latitude: point.latitude, longitude: point.longitude}} onPress={()=>{handleMarkerPress(point.latitude, point.longitude)}} title={`stop ${index+1}/${arr.length}`}/>
+      })}
           </>
         ) : (
           <></>
         )}
+        {stopAttractions.length > 0 ? stopAttractions.map((attraction, index )=> {
+        return <Marker key={index} coordinate={{latitude: attraction.geometry.location.lat, longitude: attraction.geometry.location.lng}} title={attraction.name} />
+      }) : null}
       </MapView>
     </View>
   );
