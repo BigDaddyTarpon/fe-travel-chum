@@ -1,10 +1,12 @@
 import { View, Text, StyleSheet } from 'react-native'
-import React from 'react'
+import React, { useContext, useState } from 'react'
 import SelectDropdown from 'react-native-select-dropdown'
 import FontAwesome from 'react-native-vector-icons/FontAwesome';
+import { StopsContext } from './Contexts';
 
 export default function NumberOfStopsDropDown() {
-const stops = ["1", "2", "3", "4", "5", "6", "7", "8", "9"]
+const {stops, setStops} = useContext(StopsContext)
+const numberOfStops = ["1", "2", "3", "4", "5", "6", "7", "8", "9"]
   return (
 <SelectDropdown
     defaultButtonText='Number of stops'
@@ -17,9 +19,9 @@ const stops = ["1", "2", "3", "4", "5", "6", "7", "8", "9"]
     dropdownStyle={styles.dropdown1DropdownStyle}
     rowStyle={styles.dropdown1RowStyle}
     rowTextStyle={styles.dropdown1RowTxtStyle}
-	data={stops}
-	onSelect={(numberOfStops, index) => {
-		console.log(numberOfStops, index)
+	data={numberOfStops}
+	onSelect={(selectedStops, index) => {
+		setStops(selectedStops)
 	}}
 />
   )

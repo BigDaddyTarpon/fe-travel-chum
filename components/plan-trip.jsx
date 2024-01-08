@@ -1,4 +1,4 @@
-import {StyleSheet} from "react-native";
+import {StyleSheet, View} from "react-native";
 import { useState, useContext, useEffect } from "react";
 import { PreferencesContext } from '../PreferencesContext';
 import { Button, TextInput, List, SegmentedButtons, useTheme, IconButton } from "react-native-paper";
@@ -8,7 +8,7 @@ import { postTrip } from "../requests/firebaseUtils";
 import { useFocusEffect } from "@react-navigation/native";
 import React from "react";
 import { DestinationContext, OriginContext } from "./Contexts";
-import { set } from "react-hook-form";
+
 
 export default function PlanTrip() {
 const preferences=useContext(PreferencesContext)
@@ -24,17 +24,14 @@ const preferences=useContext(PreferencesContext)
   const {destination, setDestination} = useContext(DestinationContext)
   const {origin, setOrigin} = useContext(OriginContext)
   
+  
   const handlePress = () => setExpanded(!expanded);
   
   useFocusEffect(
     React.useCallback(() => {
       onPageLoad(origin, destination)
-      
-      console.log('TRIP FOCUSED.............');
       // Do something when the screen is focused
-
       return () => {
-        console.log('TRIP UNFOCUSED.............');
         // Do something when the screen is unfocused
         // Useful for cleanup functions
       };
@@ -67,29 +64,37 @@ const preferences=useContext(PreferencesContext)
 
   return (
     <>
+    <View style={styles.container}>
     <Map polylineCoordinates={polylineCoordinates} /> 
    
       <Button
-        // style={styles.button}
+        style={styles.button}
         mode="outlined"
         title="SaveTrip"
-        onPress={() => {onSave, console.log(polylineCoordinates);}}
+        onPress={() => {onSave}}
       >
         Save Trip
       </Button>
+    </View>
     </>
   );
 }
 
 const styles = StyleSheet.create({
   container: {
+    display: "flex",
+    flexDirection: "column",
     flex: 1,
-    backgroundColor: "white",
+    width: "100%",
     alignItems: "center",
-    justifyContent: "center",
+    justifyContent: "flex-start",
+    padding: 8,
+    backgroundColor: '#FAF1EA'
   },
   button: {
-    backgroundColor: "beige",
+    backgroundColor: '#F7B787',
+    width:200,
+    marginTop:20,
   },
   destinationcontainer: {
     minHeight: 200,

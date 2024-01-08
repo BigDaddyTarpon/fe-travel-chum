@@ -16,8 +16,9 @@ import Home from "./components/home";
 import Login from "./components/Login";
 import PlanTrip from "./components/plan-trip";
 import merge from "deepmerge";
-import { UserLocationContext, DestinationContext, OriginContext} from "./components/Contexts";
+import { UserLocationContext, DestinationContext, OriginContext, StopsContext} from "./components/Contexts";
 import Header from "./components/Header";
+import TabNavigation from "./components/TabNavigation";
 
 const Tab = createMaterialTopTabNavigator();
 
@@ -25,6 +26,7 @@ export default function App() {
   const [location, setLocation] = useState(null);
   const [origin, setOrigin] = useState(OriginContext)
   const [destination, setDestination] = useState(DestinationContext)
+  const [stops, setStops] = useState(StopsContext)
 
   const MyTheme = {
     ...DefaultTheme,
@@ -33,26 +35,25 @@ export default function App() {
       primary: '#F7B787',
       card: '#527853',
       text: 'white'
+      
     },
   };
 
   return (
     <>
       <PaperProvider theme={MyTheme}>
+        <StopsContext.Provider value={{stops, setStops}}>
         <OriginContext.Provider value={{origin, setOrigin}}>
         <DestinationContext.Provider value={{destination, setDestination}}>
         <UserLocationContext.Provider value={{ location, setLocation }}>
           <Header/>
           <NavigationContainer theme={MyTheme}>
-            <Tab.Navigator >
-              <Tab.Screen name="Home" component={Home} />
-              <Tab.Screen name="Trip" component={PlanTrip} />
-              <Tab.Screen name="Login" component={Login} />
-            </Tab.Navigator>
+            <TabNavigation />
           </NavigationContainer>
         </UserLocationContext.Provider>
         </DestinationContext.Provider>
         </OriginContext.Provider>
+        </StopsContext.Provider>
       </PaperProvider>
     </>
   );
@@ -60,10 +61,14 @@ export default function App() {
 
 const styles = StyleSheet.create({
   container: {
+    display: "flex",
+    flexDirection: "column",
     flex: 1,
-    backgroundColor: 'F9E8D9',
+    width: "100%",
     alignItems: "center",
-    justifyContent: "center",
+    justifyContent: "flex-start",
+    padding: 8,
+    backgroundColor: '#FAF1EA'
   },
   map: {
     width: "70%",

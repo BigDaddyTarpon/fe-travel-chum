@@ -1,10 +1,10 @@
 import { View, Dimensions } from "react-native";
 import React, { useContext, useEffect, useState } from "react";
 import MapView, { Marker, PROVIDER_GOOGLE, Polyline } from "react-native-maps";
-import { UserLocationContext } from "./Contexts";
+import { UserLocationContext, StopsContext } from "./Contexts";
 import { PreferencesContext } from "../PreferencesContext";
 import { MapStyleNight } from "./map-night-style-object.js";
-
+import { getPoisFromMarker, getStopMarkerCoordinates } from "../Utils/utils.js";
 const mapStyle = MapStyleNight;
 
 export default function GoogleMapView({ polylineCoordinates }) {
@@ -12,6 +12,8 @@ export default function GoogleMapView({ polylineCoordinates }) {
   const [mapRegion, setMapRegion] = useState([]);
   const [mapView, setMapView] = useState();
   const [forceToggle, setForceToggle] = useState(!preferences.isThemeDark);
+  const {stops, setStops} = useContext(StopsContext)
+  const [stopAttractions, setStopAttractions] = useState([])
 
   const { location, setUserLocation } = useContext(UserLocationContext);
 
@@ -31,6 +33,12 @@ export default function GoogleMapView({ polylineCoordinates }) {
       });
     }
   }, [polylineCoordinates]);
+
+  function handleMarkerPress(latitude, longitude) {
+    getPoisFromMarker({latitude, longitude})
+    .then((res)=>{
+      setStopAttractions(res);
+    })}
 
   return (
     <View
@@ -63,6 +71,9 @@ export default function GoogleMapView({ polylineCoordinates }) {
               identifier="destination"
               coordinate={polylineCoordinates[polylineCoordinates.length - 1]}
             />
+             {getStopMarkerCoordinates(polylineCoordinates, stops).map((point, index, arr) => {
+        return <Marker key={index} coordinate={{latitude: point.latitude, longitude: point.longitude}} onPress={()=>{handleMarkerPress(point.latitude, point.longitude)}} title={`stop ${index+1}/${arr.length}`}/>
+      })}
           </>
         ) : (
           <></>

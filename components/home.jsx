@@ -19,18 +19,14 @@ export default function Home({navigation}) {
         {setDestination(destination),
         setOrigin(origin)}
       }
-      console.log('HOME FOCUSED.............');
       // Do something when the screen is focused
 
       return () => {
-        console.log('HOME UNFOCUSED.............');
         // Do something when the screen is unfocused
         // Useful for cleanup functions
       };
     }, [])
   );
-
-  const jumpToAction = TabActions.jumpTo('Trip');
 
   return (
     <>
@@ -40,7 +36,7 @@ export default function Home({navigation}) {
           journey details to begin.
         </Title>
         <Search/>
-        <NumberOfStopsDropDown />
+        <NumberOfStopsDropDown/>
         <SegmentedButtons
           style={styles.poiTypes}
           multiSelect
@@ -102,7 +98,7 @@ export default function Home({navigation}) {
           style={styles.button}
           mode="contained"
           title="Submit"
-          onPress={ () => {navigation.dispatch(jumpToAction)} }
+          onPress={ () => {navigation.jumpTo('Trip')} }
         >
           Plan Trip!
         </Button>
@@ -115,7 +111,6 @@ const styles = StyleSheet.create({
   container: {
     display: "flex",
     flexDirection: "column",
-    justifyContent: "center",
     flex: 1,
     width: "100%",
     alignItems: "center",
@@ -136,7 +131,9 @@ const styles = StyleSheet.create({
   poiTypes: {
     marginTop: 20,
   },
-  button:{
-    marginTop: 20
-  }
+  button: {
+    backgroundColor: '#F7B787',
+    width:200,
+    marginTop:20
+  },
 });
