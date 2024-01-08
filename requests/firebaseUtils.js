@@ -15,6 +15,12 @@ const {
 const { app, auth } = require("../config/firebase");
 const db = getFirestore(app);
 
+function toDateTime(secs) {
+  var t = new Date(1970, 0, 1); // Epoch
+  t.setSeconds(secs);
+  return t;
+}
+
 async function getTripById(tripId) {
   const tripRef = doc(db, "trips", tripId);
   const docSnap = await getDoc(tripRef);
@@ -37,9 +43,13 @@ export async function getTripsByCurrentUser() {
   const querySnapshot = await getDocs(q);
   const trips = [];
   querySnapshot.forEach((doc) => {
-    trips.push({ id: doc.id, ...doc.data() });
+    trips.push({
+      id: doc.id,
+      ...doc.data(),
+      createdTime: toDateTime(doc.data().timestamp.seconds).toLocaleString(),
+    });
   });
-  //console.log(trips)
+
   return trips;
 }
 
@@ -65,10 +75,9 @@ export async function postTrip({ polyline, origin, destination, tripName }) {
       tripName: tripName,
     });
   } catch (err) {
-      console.error('Please log in to save a  trip');
-    };
+    console.error("Please log in to save a  trip");
   }
-
+}
 
 async function updateTrip(tripId, updatedTrip) {
   const tripRef = doc(db, "trips", tripId);
