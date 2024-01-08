@@ -32,8 +32,8 @@ export default function PlanTrip() {
   const [polylineCoordinates, setPolylineCoordinates] = useState(null);
   const [viewMap, setViewMap] = useState(true);
   const [selectedValue, setSelectedValue] = useState("1");
+  const [selectedAttractions, setSelectedAttractions] = useState([]);
   const handlePress = () => setExpanded(!expanded);
-
   function onSubmit(data) {
     if (origin && destination) {
       getPolylineCoordinates(origin.place_id, destination.place_id).then(
@@ -56,6 +56,7 @@ export default function PlanTrip() {
             origin: origin.description,
             destination: destination.description,
             tripName: `${origin.description} to ${destination.description}`,
+            selectedAttractions: selectedAttractions
           });
         }
       );
@@ -112,7 +113,7 @@ export default function PlanTrip() {
     
 
       {viewMap ? (
-        <Map polylineCoordinates={polylineCoordinates} selectedValue={selectedValue}/>
+        <Map polylineCoordinates={polylineCoordinates} selectedValue={selectedValue} setSelectedAttractions={setSelectedAttractions}/>
       ) : (
         <ScrollView>
           <View>
