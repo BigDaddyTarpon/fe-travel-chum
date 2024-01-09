@@ -63,7 +63,7 @@ async function getTrips() {
   return trips;
 }
 
-export async function postTrip({ polyline, origin, destination, tripName }) {
+export async function postTrip({ polyline, origin, destination, tripName, numOfStops }) {
   const tripRef = doc(collection(db, "trips"));
   try {
      await setDoc(tripRef, {
@@ -73,6 +73,7 @@ export async function postTrip({ polyline, origin, destination, tripName }) {
       origin: origin,
       destination: destination,
       tripName: tripName,
+      numOfStops: numOfStops,
     });
     return tripRef.id
   } catch (err) {
