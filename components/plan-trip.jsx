@@ -46,6 +46,7 @@ export default function PlanTrip() {
   }
   function passProp(selectedValue) {
     setSelectedValue(selectedValue);
+    
   }
 
   function onSave(data) {
