@@ -56,8 +56,10 @@ export default function PlanTrip() {
             origin: origin.description,
             destination: destination.description,
             tripName: `${origin.description} to ${destination.description}`,
+            numOfStops: `${selectedValue}`,
             selectedAttractions: selectedAttractions
           });
+          
         }
       );
     }
