@@ -64,7 +64,7 @@ export default function App() {
             <Tab.Navigator>
               <Tab.Screen name="Home" component={Home} />
               <Tab.Screen name="Trip Planner" component={PlanTrip} />
-              <Tab.Screen name="Login" component={Login} />
+              <Tab.Screen name="My Trips" component={Login} />
             </Tab.Navigator>
           </NavigationContainer>
         </UserLocationContext.Provider>
