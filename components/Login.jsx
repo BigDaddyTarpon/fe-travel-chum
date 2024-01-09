@@ -25,9 +25,7 @@ export default function Login() {
   theme = useTheme();
 
   const [isLoggedIn, setIsLoggedIn] = useState(false);
-  const [tripsByUser, setTripsByUser] = useState([
-    { tripName: "test tripName", id: 1 },
-  ]);
+  const [tripsByUser, setTripsByUser] = useState([]);
   const [isPasswordShown, setIsPasswordShown] = useState(false);
 
   const {
@@ -63,7 +61,7 @@ export default function Login() {
         setTripsByUser(data);
       });
     } else {
-      setTripsByUser([{ tripName: "Please sign in to view trips!", id: 1 }]);
+      setTripsByUser([{ tripName: "Loading...", destination: "Loading...", origin:"Loading...", id: 1 }]);
     }
   }, [isLoggedIn]);
 
