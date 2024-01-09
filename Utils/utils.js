@@ -28,10 +28,23 @@ export const formatPolyline = (data) => {
   return coordinates;
 };
 
-export const getPoisFromMarker = (coordinates) => {
+export const getPoisFromMarker = (coordinates, accomodation, options) => {
+  let keywordStr = "keyword=";
+  if (accomodation) {
+    keywordStr += accomodation + "|"
+  };
+  options.forEach((option, index) => {
+    if (index === options.length -1) {
+      keywordStr += option + "&"
+    } else {
+      keywordStr += option + "|";
+    }
+  });
+  keywordStr += "&";
+
   return axios
     .get(
-      `https://maps.googleapis.com/maps/api/place/nearbysearch/json?location=${coordinates.latitude},${coordinates.longitude}&radius=1000&type=point_of_interest&key=${GOOGLE_API_KEY}`
+      `https://maps.googleapis.com/maps/api/place/nearbysearch/json?${keywordStr}location=${coordinates.latitude},${coordinates.longitude}&radius=2000&key=${GOOGLE_API_KEY}`
     )
     .then(({ data }) => {
       return data.results;

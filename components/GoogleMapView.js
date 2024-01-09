@@ -8,8 +8,9 @@ import { MapStyleNight } from "./map-night-style-object.js";
 const mapStyle = MapStyleNight;
 import {getPoisFromMarker, getStopMarkerCoordinates} from '../Utils/utils';
 import CustomCallout from "./CustomCallout.jsx";
+import { Text } from "react-native-paper";
 
-export default function GoogleMapView({ polylineCoordinates, selectedValue, setSelectedAttractions }) {
+export default function GoogleMapView({ polylineCoordinates, selectedValue, setSelectedAttractions, valueAccomodation, extraOptions }) {
   const preferences = useContext(PreferencesContext);
   const [mapRegion, setMapRegion] = useState([]);
   const [stopAttractions, setStopAttractions] = useState([]);
@@ -31,7 +32,7 @@ export default function GoogleMapView({ polylineCoordinates, selectedValue, setS
     }
   }, [polylineCoordinates]);
   function handleMarkerPress(latitude, longitude) {
-    getPoisFromMarker({latitude, longitude})
+    getPoisFromMarker({latitude, longitude}, valueAccomodation, extraOptions)
     .then((res)=>{
       setStopAttractions(res);
     })
@@ -82,6 +83,9 @@ export default function GoogleMapView({ polylineCoordinates, selectedValue, setS
         return <Marker key={index} coordinate={{latitude: attraction.geometry.location.lat, longitude: attraction.geometry.location.lng}} title={attraction.name}><CustomCallout marker={attraction} setSelectedAttractions={setSelectedAttractions}/></Marker>
       }) : null}
       </MapView>
+      <View>{stopAttractions.map((attraction, index) => {
+        return <Text key={index}>{attraction.name}</Text>
+      })}</View>
     </View>
   );
 }
