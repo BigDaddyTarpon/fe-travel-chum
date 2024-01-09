@@ -6,6 +6,7 @@ import {
   View,
 } from 'react-native';
 
+
 const WheelPicker = ({ onIndexChange = () => {}, itemHeight = 25 }) => {
   const items =  ['', ...Array.from({ length: 10 }, (_, index) => index.toString()), ''];
   ;
@@ -38,6 +39,8 @@ const WheelPicker = ({ onIndexChange = () => {}, itemHeight = 25 }) => {
         <View style={[styles.indicator]} />
         <View><Text>Stops;</Text></View>
         <View style={[styles.indicator, {marginTop: itemHeight}]} />
+     
+      
       </View>
     </View>
   );
@@ -50,6 +53,12 @@ const styles = StyleSheet.create({
     position: 'relative',
      // Adjust height as needed
     // backgroundColor: '#000', // Black background
+  },
+  gradient: {
+    position: 'absolute',
+    left: 0,
+    right: 0,
+    height: '25%', // Adjust as needed
   },
   pickerItem: {
     fontSize: 18,
