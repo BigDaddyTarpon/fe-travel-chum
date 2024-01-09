@@ -24,6 +24,7 @@ import Login from "./components/Login";
 import PlanTrip from "./components/plan-trip";
 import merge from "deepmerge";
 import { UserLocationContext } from "./components/Contexts";
+import CustomAppBar from "./components/CustomAppBar";
 
 const Tab = createMaterialTopTabNavigator();
 const { LightTheme, DarkTheme } = adaptNavigationTheme({
@@ -57,27 +58,7 @@ export default function App() {
       <PaperProvider theme={theme}>
         <UserLocationContext.Provider value={{ location, setLocation }}>
           <>
-            <Appbar style={{ marginTop: Constants.statusBarHeight }}>
-              <Appbar.Content title="Travel Chum" />
-              <Image
-                style={styles.Image}
-                source={require("./assets/Travel-Chum-Logo.png")}
-              />
-
-              <Switch
-                color={"purple"}
-                value={isThemeDark}
-                onValueChange={toggleTheme}
-              />
-              <Badge>dark</Badge>
-              <TouchableOpacity
-                style={styles.iconContainer}
-                onPress={() => alert("ff")}
-              >
-                <Appbar.Action icon="account" />
-                <Badge>login</Badge>
-              </TouchableOpacity>
-            </Appbar>
+          <CustomAppBar isThemeDark={isThemeDark} toggleTheme={toggleTheme} />
           </>
           <NavigationContainer theme={theme}>
             <Tab.Navigator>

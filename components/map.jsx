@@ -4,7 +4,7 @@ import { useContext, useEffect, useState } from "react";
 import * as Location from "expo-location";
 import { UserLocationContext } from "./Contexts";
 
-export default function Map({ polylineCoordinates }) {
+export default function Map({ polylineCoordinates, selectedValue, setSelectedAttractions }) {
   const { location, setLocation } = useContext(UserLocationContext);
   const [errorMsg, setErrorMsg] = useState(null);
 
@@ -23,7 +23,7 @@ export default function Map({ polylineCoordinates }) {
 
   return (
     <UserLocationContext.Provider value={{ location, setLocation }}>
-      <GoogleMapView polylineCoordinates={polylineCoordinates}></GoogleMapView>
+      <GoogleMapView polylineCoordinates={polylineCoordinates} selectedValue={selectedValue} setSelectedAttractions={setSelectedAttractions}></GoogleMapView>
     </UserLocationContext.Provider>
   );
 }
