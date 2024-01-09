@@ -1,5 +1,5 @@
 import {Button, Title, SegmentedButtons} from "react-native-paper";
-import { StyleSheet, View } from "react-native";
+import { StyleSheet, View, Text, ScrollView, Pressable, Image } from "react-native";
 import Search from "./Search";
 import React, { useState, useContext } from "react";
 import NumberOfStopsDropDown from "./NumberOfStopsDropDown";
@@ -35,65 +35,93 @@ export default function Home({navigation}) {
           Welcome To Travel Chum, your personal trip planner! Select your
           journey details to begin.
         </Title>
+        
         <Search/>
+        
         <NumberOfStopsDropDown/>
-        <SegmentedButtons
-          style={styles.poiTypes}
-          multiSelect
-          value={group2}
-          onValueChange={setGroup2}
-          buttons={[
-            {
-              value: "parks&nature",
-              label: "Parks/Nature",
-              showSelectedCheck: true,
-            },
-            {
-              value: "hike",
-              label: "Hikes/Walks",
-              showSelectedCheck: true,
-            },
-            { value: "Wildlife", label: "Wildlife", showSelectedCheck: true },
-          ]}
-        />
-        <SegmentedButtons
-          style={styles.poiTypes}
-          multiSelect
-          value={group3}
-          onValueChange={setGroup3}
-          buttons={[
-            {
-              value: "Museums",
-              label: "Museums",
-              showSelectedCheck: true,
-            },
-            {
-              value: "Heritage",
-              label: "Heritage",
-              showSelectedCheck: true,
-            },
-            { value: "Theatre", label: "Theatre", showSelectedCheck: true },
-          ]}
-        />
-        <SegmentedButtons
-          style={styles.poiTypes}
-          multiSelect
-          value={group4}
-          onValueChange={setGroup4}
-          buttons={[
-            {
-              value: "Theme Parks",
-              label: "Theme Parks",
-              showSelectedCheck: true,
-            },
-            {
-              value: "Sports&Leisure",
-              label: "Sports/Leisure",
-              showSelectedCheck: true,
-            },
-            { value: "Cinema", label: "Cinema", showSelectedCheck: true },
-          ]}
-        />
+        
+        <Title>Nearby Attraction Preferences</Title>
+        
+        <ScrollView horizontal={true} style={styles.scrollContainer}>
+        <Pressable>
+          <View style={[styles.card, styles.cardElevated]}>
+            <Image style={styles.attractionImage} source={require('../assets/hotel-icon.png')}/>
+            <Text>Hotels</Text>
+          </View>
+          </Pressable>
+
+          <Pressable>
+          <View style={[styles.card, styles.cardElevated]}>
+            <Image style={styles.attractionImage} source={require('../assets/camp-icon.png')}/>
+            <Text>Campsites</Text>
+          </View>
+          </Pressable>
+
+          <Pressable>
+          <View style={[styles.card, styles.cardElevated]}>
+            <Image style={styles.attractionImage} source={require('../assets/parks-icon.png')}/>
+            <Text>Parks & Nature</Text>
+          </View>
+          </Pressable>
+
+          <View style={[styles.card, styles.cardElevated]}>
+          <Pressable>
+            <Image style={styles.attractionImage} source={require('../assets/hiking-icon.png')}/>
+            <Text>Hiking</Text>
+          </Pressable>
+          </View>
+
+          <View style={[styles.card, styles.cardElevated]}>
+          <Pressable>
+            <Image style={styles.attractionImage} source={require('../assets/museums-icon.png')}/>
+            <Text>Museums</Text>
+          </Pressable>
+          </View>
+
+          <View style={[styles.card, styles.cardElevated]}>
+          <Pressable>
+            <Image style={styles.attractionImage} source={require('../assets/heritage-icon.png')}/>
+            <Text>Heritage</Text>
+          </Pressable>
+          </View>
+
+          <View style={[styles.card, styles.cardElevated]}>
+          <Pressable>
+            <Image style={styles.attractionImage} source={require('../assets/wildlife-icon.png')}/>
+            <Text>Wildlife</Text>
+          </Pressable>
+          </View>
+
+          <View style={[styles.card, styles.cardElevated]}>
+          <Pressable>
+            <Image style={styles.attractionImage} source={require('../assets/theme-parks-icon.png')}/>
+            <Text>Theme Parks</Text>
+          </Pressable>
+          </View>
+
+          <View style={[styles.card, styles.cardElevated]}>
+          <Pressable>
+            <Image style={styles.attractionImage} source={require('../assets/sport-icon.png')}/>
+            <Text>Sports & Leisure</Text>
+          </Pressable>
+          </View>
+
+          <View style={[styles.card, styles.cardElevated]}>
+          <Pressable>
+            <Image style={styles.attractionImage} source={require('../assets/cinema-icon.png')}/>
+            <Text>Cinema</Text>
+          </Pressable>
+          </View>
+
+          <View style={[styles.card, styles.cardElevated]}>
+          <Pressable>
+            <Image style={styles.attractionImage} source={require('../assets/theatre-icon.png')}/>
+            <Text>Theatre</Text>
+          </Pressable>
+          </View>
+
+        </ScrollView>
+      
         <Button
           style={styles.button}
           mode="contained"
@@ -116,7 +144,7 @@ const styles = StyleSheet.create({
     alignItems: "center",
     justifyContent: "flex-start",
     padding: 8,
-    backgroundColor: '#FAF1EA'
+    backgroundColor: '#FAF3ED'
   },
   item: {
     padding: 20,
@@ -134,6 +162,36 @@ const styles = StyleSheet.create({
   button: {
     backgroundColor: '#F7B787',
     width:200,
-    marginTop:20
+    marginBottom: 15,
+    elevation: 6
   },
+  attractionButtons: {
+    display: 'flex', 
+    flexDirection: 'column', 
+    alignItems:'center',
+  },
+  attractionImage: {
+    height: 80,
+    width: 80
+  },
+  scrollContainer: {
+    flex: 1,
+    flexDirection: 'row',
+    marginTop:15
+  },
+  card:{
+    display:'flex',
+    alignItems:"center",
+    justifyContent:'center',
+    width:150,
+    height:150
+  },
+  cardElevated:{
+    backgroundColor: '#FADBBF',
+    marginLeft:10,
+    borderRadius:100,
+    elevation:6,
+    shadowColor: 'black',
+    shadowOffset:5
+  }
 });

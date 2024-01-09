@@ -6,7 +6,7 @@ import { StopsContext } from './Contexts';
 
 export default function NumberOfStopsDropDown() {
 const {stops, setStops} = useContext(StopsContext)
-const numberOfStops = ["1", "2", "3", "4", "5", "6", "7", "8", "9"]
+const numberOfStops = ["0", "1", "2", "3", "4", "5", "6", "7", "8", "9"]
   return (
 <SelectDropdown
     defaultButtonText='Number of stops'
@@ -30,6 +30,7 @@ const numberOfStops = ["1", "2", "3", "4", "5", "6", "7", "8", "9"]
 const styles = StyleSheet.create({
     dropdown1BtnStyle: {
         marginTop:20,
+        marginBottom:15,
         width: 190,
         height: 50,
         backgroundColor: '#FFF',
