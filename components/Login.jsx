@@ -111,15 +111,17 @@ export default function Login() {
 
   return (
     <>
-      <Text style={{ padding: 10 }}>
-        Current User: {isLoggedIn && auth.currentUser.email}
+   <Text style={{ padding: 10 }}>
+        Current User:{" "}
+        {isLoggedIn ? auth.currentUser.email : "No User currenty logged in"}
       </Text>
 
-      {isLoggedIn ? (
-        <Button mode="contained-tonal" onPress={logout}>
-          Logout
-        </Button>
-      ) : (
+      
+      {isLoggedIn ? (<Button mode="contained-tonal" onPress={logout}>
+        Logout
+      </Button>) : (
+
+
         <>
           <Button
             mode="contained"

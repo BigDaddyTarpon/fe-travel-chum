@@ -1,10 +1,5 @@
-import {
-
-  Dialog,
-} from "react-native-paper";
-import { StyleSheet, } from "react-native";
-
-
+import { Dialog } from "react-native-paper";
+import { StyleSheet } from "react-native";
 
 export default function Home() {
   return (
@@ -12,22 +7,20 @@ export default function Home() {
       <Dialog visible={true}>
         <Dialog.Title>Welcome to Travel Chum.</Dialog.Title>
         <Dialog.Title style={{ fontSize: 20 }}>
-        
           Swipe sideways or click a tab at the top to navigate.
         </Dialog.Title>
 
         <Dialog.Title style={{ fontSize: 20 }}>
-        You can select Darkmode with the switch at the top right.
+          You can select Darkmode with the switch at the top right.
         </Dialog.Title>
         <Dialog.Title style={{ fontSize: 20 }}>
-          login, with the icon top right.
+          Login, with the login tab on the top right. When logged in, your saved
+          trips will be visible.
         </Dialog.Title>
         <Dialog.Title style={{ fontSize: 20 }}>
-          You can enter details on 'plan a trip' to see the trip dispayed on the
-          map.
+          You can enter details on 'trip planner' then see the trip dispayed on
+          the map.
         </Dialog.Title>
-
-
       </Dialog>
     </>
   );
