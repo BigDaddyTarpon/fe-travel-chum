@@ -11,7 +11,7 @@ import {
 import Map from "./map";
 import Search from "./Search";
 import getPolylineCoordinates, { formatPolyline } from "../Utils/utils";
-import { postTrip } from "../requests/firebaseUtils";
+import { getTripsByCurrentUser, postTrip } from "../requests/firebaseUtils";
 import NumberPicker from "./picker";
 
 export default function PlanTrip() {
@@ -32,8 +32,8 @@ export default function PlanTrip() {
   const [polylineCoordinates, setPolylineCoordinates] = useState(null);
   const [viewOptions, setViewOptions] = useState(false);
   const [selectedValue, setSelectedValue] = useState("1");
+  const [selectedAttractions, setSelectedAttractions] = useState([]);
   const handlePress = () => setExpanded(!expanded);
-
   function onSubmit(data) {
     if (origin && destination) {
       getPolylineCoordinates(origin.place_id, destination.place_id).then(
@@ -56,6 +56,7 @@ export default function PlanTrip() {
             origin: origin.description,
             destination: destination.description,
             tripName: `${origin.description} to ${destination.description}`,
+            selectedAttractions: selectedAttractions
           });
         }
       );
@@ -108,7 +109,9 @@ export default function PlanTrip() {
           </View>
         </View>
       </View>
-      <ScrollView >
+
+    
+<ScrollView>
       {viewOptions ? (
         <>
           <View>
@@ -255,9 +258,8 @@ export default function PlanTrip() {
             />
           </SafeAreaView>
           </>
-        
       ) : null}
-  <Map polylineCoordinates={polylineCoordinates} selectedValue={selectedValue}/>
+  <Map polylineCoordinates={polylineCoordinates} selectedValue={selectedValue} setSelectedAttractions={setSelectedAttractions}/>
   </ScrollView>
       <Button
         mode="contained"
