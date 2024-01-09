@@ -83,8 +83,8 @@ export default function GoogleMapView({ polylineCoordinates, selectedValue, setS
         return <Marker key={index} coordinate={{latitude: attraction.geometry.location.lat, longitude: attraction.geometry.location.lng}} title={attraction.name}><CustomCallout marker={attraction} setSelectedAttractions={setSelectedAttractions}/></Marker>
       }) : null}
       </MapView>
-      <View>{stopAttractions.map(attraction => {
-        return <Text>{attraction.name}</Text>
+      <View>{stopAttractions.map((attraction, index) => {
+        return <Text key={index}>{attraction.name}</Text>
       })}</View>
     </View>
   );
