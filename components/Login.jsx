@@ -60,13 +60,12 @@ export default function Login() {
   useEffect(() => {
     if (isLoggedIn) {
       getTripsByCurrentUser().then((data) => {
-        setTripsByUser(data)
+        setTripsByUser(data);
       });
     } else {
       setTripsByUser([{ tripName: "Please sign in to view trips!", id: 1 }]);
     }
   }, [isLoggedIn]);
-
 
   const Trip = ({ tripName, destination, origin, createdTime }) => (
     <View style={styles.item}>
@@ -87,7 +86,7 @@ export default function Login() {
           tripName={item.tripName}
           destination={item.destination}
           origin={item.origin}
-		  createdTime={item.createdTime}
+          createdTime={item.createdTime}
         />
       )}
       keyExtractor={(item) => item.id}
@@ -112,14 +111,17 @@ export default function Login() {
 
   return (
     <>
-      <Text style={{ padding: 10 }}>
-        Current User: {isLoggedIn && auth.currentUser.email}
+   <Text style={{ padding: 10 }}>
+        Current User:{" "}
+        {isLoggedIn ? auth.currentUser.email : "No User currenty logged in"}
       </Text>
-      <Button mode="contained-tonal" onPress={logout}>
-        Logout
-      </Button>
 
-      {isLoggedIn ? null : (
+      
+      {isLoggedIn ? (<Button mode="contained-tonal" onPress={logout}>
+        Logout
+      </Button>) : (
+
+
         <>
           <Button
             mode="contained"
@@ -196,7 +198,6 @@ const styles = StyleSheet.create({
   },
   containerList: {
     flex: 1,
-    marginTop: StatusBar.currentHeight || 0,
   },
   item: {
     backgroundColor: "#838383",
