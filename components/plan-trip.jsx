@@ -30,7 +30,7 @@ export default function PlanTrip() {
   const [group3, setGroup3] = useState([]);
   const [group4, setGroup4] = useState([]);
   const [polylineCoordinates, setPolylineCoordinates] = useState(null);
-  const [viewMap, setViewMap] = useState(true);
+  const [viewOptions, setViewOptions] = useState(false);
   const [selectedValue, setSelectedValue] = useState("1");
   const handlePress = () => setExpanded(!expanded);
 
@@ -62,8 +62,8 @@ export default function PlanTrip() {
     }
   }
 
-  function toggleView() {
-    setViewMap(!viewMap);
+  function toggleViewOptions() {
+    setViewOptions(!viewOptions);
   }
 
   return (
@@ -78,13 +78,13 @@ export default function PlanTrip() {
           <IconButton
             style={{ width: 100, minHeight: 55, alignSelf: "center" }}
             mode="outlined"
-            onPress={toggleView}
+            onPress={toggleViewOptions}
             icon={() => (
               <Text
                 style={{ color: preferences.isThemeDark ? "white" : "black" }}
                 numberOflines={3}
               >
-                {viewMap ? "More Trip Options" : "View Map"}
+                {viewOptions ? "Hide Trip Options" : "View Trip Options"}
               </Text>
             )}
           ></IconButton>
@@ -108,13 +108,9 @@ export default function PlanTrip() {
           </View>
         </View>
       </View>
-
-    
-
-      {viewMap ? (
-        <Map polylineCoordinates={polylineCoordinates} selectedValue={selectedValue}/>
-      ) : (
-        <ScrollView>
+      <ScrollView >
+      {viewOptions ? (
+        <>
           <View>
             <List.Accordion
               title="Mode of Transport"
@@ -258,11 +254,12 @@ export default function PlanTrip() {
               ]}
             />
           </SafeAreaView>
-        </ScrollView>
-      )}
-
+          </>
+        
+      ) : null}
+  <Map polylineCoordinates={polylineCoordinates} selectedValue={selectedValue}/>
+  </ScrollView>
       <Button
-        // style={styles.button}
         mode="contained"
         title="Submit"
         onPress={onSubmit}
@@ -271,7 +268,6 @@ export default function PlanTrip() {
       </Button>
 
       <Button
-        // style={styles.button}
         mode="outlined"
         title="SaveTrip"
         onPress={onSave}
@@ -285,7 +281,6 @@ export default function PlanTrip() {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    // backgroundColor: "white",
     alignItems: "center",
     justifyContent: "center",
   },
