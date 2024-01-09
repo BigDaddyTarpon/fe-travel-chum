@@ -63,7 +63,7 @@ async function getTrips() {
   return trips;
 }
 
-export async function postTrip({ polyline, origin, destination, tripName }) {
+export async function postTrip({ polyline, origin, destination, tripName, selectedAttractions }) {
   const tripRef = doc(collection(db, "trips"));
   try {
     return await setDoc(tripRef, {
@@ -73,6 +73,7 @@ export async function postTrip({ polyline, origin, destination, tripName }) {
       origin: origin,
       destination: destination,
       tripName: tripName,
+      selectedAttractions: selectedAttractions
     });
   } catch (err) {
     console.error("Please log in to save a  trip");

@@ -1,22 +1,21 @@
 import { View, Dimensions } from "react-native";
 import React, { useContext, useEffect, useState } from "react";
-import MapView, { Marker, PROVIDER_GOOGLE, Polyline } from "react-native-maps";
+import MapView, { Callout, Marker, PROVIDER_GOOGLE, Polyline } from "react-native-maps";
 import { UserLocationContext } from "./Contexts";
 import { PreferencesContext } from "../PreferencesContext";
 import { MapStyleNight } from "./map-night-style-object.js";
 
 const mapStyle = MapStyleNight;
 import {getPoisFromMarker, getStopMarkerCoordinates} from '../Utils/utils';
-export default function GoogleMapView({ polylineCoordinates, selectedValue }) {
+import CustomCallout from "./CustomCallout.jsx";
+
+export default function GoogleMapView({ polylineCoordinates, selectedValue, setSelectedAttractions }) {
   const preferences = useContext(PreferencesContext);
   const [mapRegion, setMapRegion] = useState([]);
-  const [stopAttractions, setStopAttractions] = useState([]);;
+  const [stopAttractions, setStopAttractions] = useState([]);
   const [forceToggle, setForceToggle] = useState(!preferences.isThemeDark);
-
   const { location, setUserLocation } = useContext(UserLocationContext);
-
   const mapRef = React.createRef();
-
   useEffect(() => {
     if (location && !polylineCoordinates) {
       setMapRegion({
@@ -80,7 +79,7 @@ export default function GoogleMapView({ polylineCoordinates, selectedValue }) {
           <></>
         )}
         {stopAttractions.length > 0 ? stopAttractions.map((attraction, index )=> {
-        return <Marker key={index} coordinate={{latitude: attraction.geometry.location.lat, longitude: attraction.geometry.location.lng}} title={attraction.name} />
+        return <Marker key={index} coordinate={{latitude: attraction.geometry.location.lat, longitude: attraction.geometry.location.lng}} title={attraction.name}><CustomCallout marker={attraction} setSelectedAttractions={setSelectedAttractions}/></Marker>
       }) : null}
       </MapView>
     </View>
