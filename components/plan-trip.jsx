@@ -17,7 +17,6 @@ import NumberPicker from "./picker";
 export default function PlanTrip() {
   const preferences = useContext(PreferencesContext);
 
- 
 
   const [expanded, setExpanded] = useState(false);
 
@@ -25,10 +24,7 @@ export default function PlanTrip() {
   const [origin, setOrigin] = useState(null);
   const [checked, setChecked] = useState("car");
   const [valueAccomodation, setValueAccomodation] = useState("");
-  const [group1, setGroup1] = useState([]);
-  const [group2, setGroup2] = useState([]);
-  const [group3, setGroup3] = useState([]);
-  const [group4, setGroup4] = useState([]);
+  const [extraOptions, setExtraOptions] = useState([]);
   const [polylineCoordinates, setPolylineCoordinates] = useState(null);
   const [viewOptions, setViewOptions] = useState(false);
   const [selectedValue, setSelectedValue] = useState("1");
@@ -171,8 +167,8 @@ export default function PlanTrip() {
           <SafeAreaView style={styles.container}>
             <SegmentedButtons
               multiSelect
-              value={group1}
-              onValueChange={setGroup1}
+              value={extraOptions}
+              onValueChange={setExtraOptions}
               buttons={[
                 {
                   value: "Wheel-Chair-Access",
@@ -195,11 +191,11 @@ export default function PlanTrip() {
           <SafeAreaView style={styles.container}>
             <SegmentedButtons
               multiSelect
-              value={group2}
-              onValueChange={setGroup2}
+              value={extraOptions}
+              onValueChange={setExtraOptions}
               buttons={[
                 {
-                  value: "parks&nature",
+                  value: "parks and nature",
                   label: "Parks/Nature",
                   showSelectedCheck: true,
                 },
@@ -220,8 +216,8 @@ export default function PlanTrip() {
           <SafeAreaView style={styles.container}>
             <SegmentedButtons
               multiSelect
-              value={group3}
-              onValueChange={setGroup3}
+              value={extraOptions}
+              onValueChange={setExtraOptions}
               buttons={[
                 {
                   value: "Museums",
@@ -240,8 +236,8 @@ export default function PlanTrip() {
           <SafeAreaView style={styles.container}>
             <SegmentedButtons
               multiSelect
-              value={group4}
-              onValueChange={setGroup4}
+              value={extraOptions}
+              onValueChange={setExtraOptions}
               buttons={[
                 {
                   value: "Theme Parks",
@@ -259,7 +255,7 @@ export default function PlanTrip() {
           </SafeAreaView>
           </>
       ) : null}
-  <Map polylineCoordinates={polylineCoordinates} selectedValue={selectedValue} setSelectedAttractions={setSelectedAttractions}/>
+  <Map polylineCoordinates={polylineCoordinates} selectedValue={selectedValue} setSelectedAttractions={setSelectedAttractions} valueAccomodation={valueAccomodation} extraOptions={extraOptions}/>
   </ScrollView>
       <Button
         mode="contained"
