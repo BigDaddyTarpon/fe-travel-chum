@@ -13,6 +13,7 @@ import Search from "./Search";
 import getPolylineCoordinates, { formatPolyline } from "../Utils/utils";
 import { getTripsByCurrentUser, postTrip } from "../requests/firebaseUtils";
 import NumberPicker from "./picker";
+import WheelPicker from './CustomWheelPicker';
 
 export default function PlanTrip() {
   const preferences = useContext(PreferencesContext);
@@ -100,7 +101,7 @@ export default function PlanTrip() {
               overflow: "hidden",
             }}
           >
-            <NumberPicker
+            <WheelPicker
               selectedValue={selectedValue}
               passProp={passProp}
               style={{ width: 100, minHeight: 20 }}
