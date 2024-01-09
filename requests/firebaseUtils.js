@@ -66,7 +66,7 @@ async function getTrips() {
 export async function postTrip({ polyline, origin, destination, tripName }) {
   const tripRef = doc(collection(db, "trips"));
   try {
-    return await setDoc(tripRef, {
+     await setDoc(tripRef, {
       polyline: polyline,
       userId: auth.currentUser.uid,
       timestamp: serverTimestamp(),
@@ -74,6 +74,7 @@ export async function postTrip({ polyline, origin, destination, tripName }) {
       destination: destination,
       tripName: tripName,
     });
+    return tripRef.id
   } catch (err) {
     console.error("Please log in to save a  trip");
   }
