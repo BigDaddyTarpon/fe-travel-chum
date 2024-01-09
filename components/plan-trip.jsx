@@ -91,6 +91,7 @@ export default function PlanTrip() {
           ></IconButton>
           <View
             style={{
+              // flexDirection: 'row',
               flex: 0.3,
               alignSelf: "center",
               minHeight: 58,
