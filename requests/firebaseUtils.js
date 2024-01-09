@@ -10,6 +10,7 @@ const {
   collection,
   query,
   where,
+  orderBy,
 } = require("firebase/firestore");
 
 const { app, auth } = require("../config/firebase");
@@ -38,7 +39,8 @@ async function getTripById(tripId) {
 export async function getTripsByCurrentUser() {
   const q = query(
     collection(db, "trips"),
-    where("userId", "==", auth.currentUser.uid)
+    where("userId", "==", auth.currentUser.uid),
+    orderBy("timestamp", "desc")
   );
   const querySnapshot = await getDocs(q);
   const trips = [];
@@ -63,18 +65,22 @@ async function getTrips() {
   return trips;
 }
 
-export async function postTrip({ polyline, origin, destination, tripName, selectedAttractions }) {
+
+export async function postTrip({ polyline, origin, destination, tripName, selectedAttractions, numOfStops }) {
+
   const tripRef = doc(collection(db, "trips"));
   try {
-    return await setDoc(tripRef, {
+     await setDoc(tripRef, {
       polyline: polyline,
       userId: auth.currentUser.uid,
       timestamp: serverTimestamp(),
       origin: origin,
       destination: destination,
       tripName: tripName,
+      numOfStops: numOfStops,
       selectedAttractions: selectedAttractions
     });
+    return tripRef.id
   } catch (err) {
     console.error("Please log in to save a  trip");
   }
@@ -89,18 +95,3 @@ async function deleteTrip(tripId) {
   const tripRef = doc(db, "trips", tripId);
   return await deleteDoc(tripRef);
 }
-
-// Example trip objects for testing functions - remove on merge
-
-// const newTrip = {
-//   polyline: '123',
-//   userId: "user99999",
-//   origin: 'start',
-//   destination: 'end',
-//   tripName: 'newTrip!'
-// }
-
-// const updatedTrip = {
-//   polyline: '2',
-//   tripName: 'updatedTrip!'
-// }

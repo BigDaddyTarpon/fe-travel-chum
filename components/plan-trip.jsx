@@ -1,22 +1,24 @@
 import { StyleSheet, View, Text, ScrollView, SafeAreaView } from "react-native";
 import { useForm } from "react-hook-form";
 import { useState, useContext } from "react";
+import { Controller } from "react-hook-form";
 import { PreferencesContext } from "../PreferencesContext";
 import {
   Button,
   List,
   SegmentedButtons,
   IconButton,
+  TextInput,
 } from "react-native-paper";
 import Map from "./map";
 import Search from "./Search";
 import getPolylineCoordinates, { formatPolyline } from "../Utils/utils";
 import { getTripsByCurrentUser, postTrip } from "../requests/firebaseUtils";
 import NumberPicker from "./picker";
+import WheelPicker from './CustomWheelPicker';
 
 export default function PlanTrip() {
   const preferences = useContext(PreferencesContext);
-
 
   const [expanded, setExpanded] = useState(false);
 
@@ -29,6 +31,7 @@ export default function PlanTrip() {
   const [viewOptions, setViewOptions] = useState(false);
   const [selectedValue, setSelectedValue] = useState("1");
   const [selectedAttractions, setSelectedAttractions] = useState([]);
+  const [tripName, setTripName] = useState("");
   const handlePress = () => setExpanded(!expanded);
   function onSubmit(data) {
     if (origin && destination) {
@@ -41,6 +44,11 @@ export default function PlanTrip() {
   }
   function passProp(selectedValue) {
     setSelectedValue(selectedValue);
+    
+  }
+
+  function handleTripNameChange(text) {
+    setTripName(text);
   }
 
   function onSave(data) {
@@ -51,8 +59,9 @@ export default function PlanTrip() {
             polyline: data.routes[0].overview_polyline.points,
             origin: origin.description,
             destination: destination.description,
-            tripName: `${origin.description} to ${destination.description}`,
-            selectedAttractions: selectedAttractions
+            tripName: `${tripName}`,
+            numOfStops: `${selectedValue}`,
+            selectedAttractions: selectedAttractions,
           });
         }
       );
@@ -87,6 +96,7 @@ export default function PlanTrip() {
           ></IconButton>
           <View
             style={{
+              // flexDirection: 'row',
               flex: 0.3,
               alignSelf: "center",
               minHeight: 58,
@@ -97,7 +107,7 @@ export default function PlanTrip() {
               overflow: "hidden",
             }}
           >
-            <NumberPicker
+            <WheelPicker
               selectedValue={selectedValue}
               passProp={passProp}
               style={{ width: 100, minHeight: 20 }}
@@ -106,44 +116,43 @@ export default function PlanTrip() {
         </View>
       </View>
 
-    
-<ScrollView>
-      {viewOptions ? (
-        <>
-          <View>
-            <List.Accordion
-              title="Mode of Transport"
-              left={(props) => <List.Icon {...props} icon={checked} />}
-              expanded={expanded}
-              onPress={handlePress}
-            >
-              <List.Item
-                title="Car"
-                onPress={() => setChecked("car")}
-                left={(props) => <List.Icon {...props} icon="car" />}
-              />
-              <List.Item
-                title="Train"
-                onPress={() => setChecked("train")}
-                left={(props) => <List.Icon {...props} icon="train" />}
-              />
-              <List.Item
-                title="Bus/Coach"
-                onPress={() => setChecked("bus")}
-                left={(props) => <List.Icon {...props} icon="bus" />}
-              />
-              <List.Item
-                title="Bicycle"
-                onPress={() => setChecked("bicycle")}
-                left={(props) => <List.Icon {...props} icon="bicycle" />}
-              />
-              <List.Item
-                title="Walk"
-                onPress={() => setChecked("walk")}
-                left={(props) => <List.Icon {...props} icon="walk" />}
-              />
-            </List.Accordion>
-          </View>
+      <ScrollView>
+        {viewOptions ? (
+          <>
+            <View>
+              <List.Accordion
+                title="Mode of Transport"
+                left={(props) => <List.Icon {...props} icon={checked} />}
+                expanded={expanded}
+                onPress={handlePress}
+              >
+                <List.Item
+                  title="Car"
+                  onPress={() => setChecked("car")}
+                  left={(props) => <List.Icon {...props} icon="car" />}
+                />
+                <List.Item
+                  title="Train"
+                  onPress={() => setChecked("train")}
+                  left={(props) => <List.Icon {...props} icon="train" />}
+                />
+                <List.Item
+                  title="Bus/Coach"
+                  onPress={() => setChecked("bus")}
+                  left={(props) => <List.Icon {...props} icon="bus" />}
+                />
+                <List.Item
+                  title="Bicycle"
+                  onPress={() => setChecked("bicycle")}
+                  left={(props) => <List.Icon {...props} icon="bicycle" />}
+                />
+                <List.Item
+                  title="Walk"
+                  onPress={() => setChecked("walk")}
+                  left={(props) => <List.Icon {...props} icon="walk" />}
+                />
+              </List.Accordion>
+            </View>
 
           <SafeAreaView style={styles.container}>
             <SegmentedButtons
@@ -265,11 +274,15 @@ export default function PlanTrip() {
         Start your Journey
       </Button>
 
-      <Button
-        mode="outlined"
-        title="SaveTrip"
-        onPress={onSave}
-      >
+      <TextInput
+        style={{ color: preferences.isThemeDark ? "white" : "black" }}
+        label="Enter a name for your trip"
+        placeholder="My special trip!"
+        value={tripName}
+        onChangeText={handleTripNameChange}
+      />
+
+      <Button mode="outlined" title="SaveTrip" onPress={onSave}>
         Save Trip
       </Button>
     </>
