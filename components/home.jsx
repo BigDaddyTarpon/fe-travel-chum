@@ -15,7 +15,7 @@ export default function Home() {
         </Dialog.Title>
         <Dialog.Title style={{ fontSize: 20 }}>
           Login, with the login tab on the top right. When logged in, your saved
-          trips will be visible.
+          trips will be visible in 'my trips'.
         </Dialog.Title>
         <Dialog.Title style={{ fontSize: 20 }}>
           You can enter details on 'trip planner' then see the trip dispayed on
