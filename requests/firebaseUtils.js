@@ -10,6 +10,7 @@ const {
   collection,
   query,
   where,
+  orderBy,
 } = require("firebase/firestore");
 
 const { app, auth } = require("../config/firebase");
@@ -38,7 +39,8 @@ async function getTripById(tripId) {
 export async function getTripsByCurrentUser() {
   const q = query(
     collection(db, "trips"),
-    where("userId", "==", auth.currentUser.uid)
+    where("userId", "==", auth.currentUser.uid),
+    orderBy("timestamp", "desc")
   );
   const querySnapshot = await getDocs(q);
   const trips = [];
