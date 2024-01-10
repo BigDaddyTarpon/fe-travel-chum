@@ -5,9 +5,9 @@ import { PreferencesContext } from "../PreferencesContext";
 const WheelPicker = ({ selectedValue, passProp }) => {
   const preferences = useContext(PreferencesContext);
   const items = [
-    "",
+    "","",
     ...Array.from({ length: 10 }, (_, index) => index.toString()),
-    "",
+    "","",
   ];
   const itemHeight = 25;
 
@@ -25,7 +25,7 @@ const WheelPicker = ({ selectedValue, passProp }) => {
   };
 
   return (
-    <View style={{ height: itemHeight * 3 }}>
+    <View style={{ height: itemHeight * 5 }}>
       <FlatList
         data={items}
         renderItem={renderItem}
@@ -33,7 +33,7 @@ const WheelPicker = ({ selectedValue, passProp }) => {
         snapToInterval={itemHeight}
         onMomentumScrollEnd={momentumScrollEnd}
       />
-      <View style={[styles.indicatorHolder, { top: itemHeight }]}>
+      <View style={[styles.indicatorHolder, { top: itemHeight*2 }]}>
         <View style={[styles.indicator]} />
         <View>
           <Text style ={{  color: preferences.isThemeDark ? "white" : "black"}} >Stops:</Text>

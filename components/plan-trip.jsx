@@ -9,6 +9,8 @@ import {
   SegmentedButtons,
   IconButton,
   TextInput,
+  Modal,
+  Portal,
 } from "react-native-paper";
 import Map from "./map";
 import Search from "./Search";
@@ -21,6 +23,7 @@ export default function PlanTrip() {
   const preferences = useContext(PreferencesContext);
 
   const [expanded, setExpanded] = useState(false);
+  const [visibleModal, setVisibleModal] = useState(false);
 
   const [destination, setDestination] = useState(null);
   const [origin, setOrigin] = useState(null);
@@ -29,7 +32,7 @@ export default function PlanTrip() {
   const [extraOptions, setExtraOptions] = useState([]);
   const [polylineCoordinates, setPolylineCoordinates] = useState(null);
   const [viewOptions, setViewOptions] = useState(false);
-  const [selectedValue, setSelectedValue] = useState("1");
+  const [selectedValue, setSelectedValue] = useState("Stops");
   const [selectedAttractions, setSelectedAttractions] = useState([]);
   const [tripName, setTripName] = useState("");
   const handlePress = () => setExpanded(!expanded);
@@ -95,22 +98,36 @@ export default function PlanTrip() {
           ></IconButton>
           <View
             style={{
-              // flexDirection: 'row',
               flex: 0.3,
               alignSelf: "center",
               minHeight: 58,
               width: 100,
-              borderWidth: 1,
               borderColor: preferences.isThemeDark ? "grey" : "black",
-              borderRadius: 20,
               overflow: "hidden",
             }}
           >
-            <WheelPicker
-              selectedValue={selectedValue}
-              passProp={passProp}
-              style={{ width: 100, minHeight: 20 }}
-            />
+            <>
+              <Button
+                style={{ flex: 0.3, minHeight: 58, padding: 0, }}
+                mode="outlined"
+                onPress={() => setVisibleModal(true)}
+              >
+                {selectedValue}
+              </Button>
+              <Portal>
+                <Modal
+                  visible={visibleModal}
+                  onDismiss={() => setVisibleModal(false)}
+                  contentContainerStyle={{ padding: 0, backgroundColor: 'grey', alignSelf:'center', width:'40%' }}
+                >
+                  <WheelPicker
+                    selectedValue={selectedValue}
+                    passProp={passProp}
+                    style={{ width: 100, minHeight: 20 }}
+                  />
+                </Modal>
+              </Portal>
+            </>
           </View>
         </View>
       </View>
