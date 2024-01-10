@@ -75,7 +75,7 @@ export default function GoogleMapView({ polylineCoordinates, setSelectedAttracti
               pinColor='#00FF00'
             />
             {getStopMarkerCoordinates(polylineCoordinates, stops).map((point, index, arr) => {
-        return <Marker key={index} coordinate={{latitude: point.latitude, longitude: point.longitude}} onPress={()=>{handleMarkerPress(point.latitude, point.longitude)}} title={`stop ${index+1}/${arr.length}`}/>
+        return <Marker key={index} image={stopMarkerImage} coordinate={{latitude: point.latitude, longitude: point.longitude}} onPress={()=>{handleMarkerPress(point.latitude, point.longitude)}} title={`stop ${index+1}/${arr.length}`}/>
       })}
           </>
         ) : (
