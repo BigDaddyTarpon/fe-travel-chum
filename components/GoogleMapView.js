@@ -4,6 +4,7 @@ import MapView, { Callout, Marker, PROVIDER_GOOGLE, Polyline } from "react-nativ
 import { UserLocationContext } from "./Contexts";
 import { PreferencesContext } from "../PreferencesContext";
 import { MapStyleNight } from "./map-night-style-object.js";
+import stopMarkerImage from '../assets/stop-marker.png';
 
 const mapStyle = MapStyleNight;
 import {getPoisFromMarker, getStopMarkerCoordinates} from '../Utils/utils';
@@ -66,15 +67,15 @@ export default function GoogleMapView({ polylineCoordinates, selectedValue, setS
               strokeColor="blue"
             />
 
-            <Marker identifier="origin" coordinate={polylineCoordinates[0]} onPress={()=>{handleMarkerPress(polylineCoordinates[0].latitude, polylineCoordinates[0].longitude)}} pinColor={"gold"}/>
+            <Marker identifier="origin" title="Start" coordinate={polylineCoordinates[0]} onPress={()=>{handleMarkerPress(polylineCoordinates[0].latitude, polylineCoordinates[0].longitude)}} pinColor={"gold"}/>
             <Marker
-              identifier="destination"
+              identifier="destination" title="Destination"
               coordinate={polylineCoordinates[polylineCoordinates.length - 1]}
               onPress={()=>{handleMarkerPress(polylineCoordinates[polylineCoordinates.length - 1].latitude, polylineCoordinates[polylineCoordinates.length - 1].longitude)}}
               pinColor='#00FF00'
             />
             {getStopMarkerCoordinates(polylineCoordinates, selectedValue).map((point, index, arr) => {
-        return <Marker key={index} coordinate={{latitude: point.latitude, longitude: point.longitude}} onPress={()=>{handleMarkerPress(point.latitude, point.longitude)}} title={`stop ${index+1}/${arr.length}`}/>
+        return <Marker key={index} image={stopMarkerImage} coordinate={{latitude: point.latitude, longitude: point.longitude}} onPress={()=>{handleMarkerPress(point.latitude, point.longitude)}} title={`stop ${index+1}/${arr.length}`}/>
       })}
           </>
         ) : (
