@@ -22,13 +22,13 @@ function toDateTime(secs) {
   return t;
 }
 
-async function getTripById(tripId) {
+export async function getTripById(tripId) {
   const tripRef = doc(db, "trips", tripId);
   const docSnap = await getDoc(tripRef);
 
   if (docSnap.exists()) {
-    const tripData = { [tripId]: docSnap.data() };
-    console.log(tripData);
+    const tripData = docSnap.data()
+  //  console.log(tripData);
     return tripData;
   } else {
     console.log("Trip doesn't exist!");
@@ -86,12 +86,12 @@ export async function postTrip({ polyline, origin, destination, tripName, select
   }
 }
 
-async function updateTrip(tripId, updatedTrip) {
+export async function updateTrip(tripId, updatedTrip) {
   const tripRef = doc(db, "trips", tripId);
   return await updateDoc(tripRef, updatedTrip);
 }
 
-async function deleteTrip(tripId) {
+export async function deleteTrip(tripId) {
   const tripRef = doc(db, "trips", tripId);
-  return await deleteDoc(tripRef);
+  await deleteDoc(tripRef);
 }

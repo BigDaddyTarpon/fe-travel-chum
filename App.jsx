@@ -2,7 +2,7 @@ import React, { useContext } from "react";
 import { StyleSheet, Image, TouchableOpacity } from "react-native";
 import { useState } from "react";
 import { createMaterialTopTabNavigator } from "@react-navigation/material-top-tabs";
-import { NavigationContainer, DefaultTheme } from "@react-navigation/native";
+import { NavigationContainer} from "@react-navigation/native";
 import Constants from "expo-constants";
 import Home from "./components/home";
 import Login from "./components/Login";
@@ -11,6 +11,8 @@ import merge from "deepmerge";
 import { UserLocationContext, DestinationContext, OriginContext, StopsContext} from "./components/Contexts";
 import Header from "./components/Header";
 import TabNavigation from "./components/TabNavigation";
+import { PaperProvider, DefaultTheme } from "react-native-paper";
+
 
 const Tab = createMaterialTopTabNavigator();
 
@@ -33,7 +35,7 @@ export default function App() {
 
   return (
     <>
-      {/* <PaperProvider theme={MyTheme}> */}
+      <PaperProvider theme={MyTheme}>
         <StopsContext.Provider value={{stops, setStops}}>
         <OriginContext.Provider value={{origin, setOrigin}}>
         <DestinationContext.Provider value={{destination, setDestination}}>
@@ -46,7 +48,7 @@ export default function App() {
         </DestinationContext.Provider>
         </OriginContext.Provider>
         </StopsContext.Provider>
-      {/* </PaperProvider> */}
+      </PaperProvider>
     </>
   );
 }

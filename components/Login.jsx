@@ -2,7 +2,7 @@ import { signInWithEmailAndPassword, signOut } from "firebase/auth";
 import { useState, useContext, useEffect } from "react";
 import { auth } from "../config/firebase";
 import { Controller, useForm } from "react-hook-form";
-import {useTheme} from "@react-navigation/native";
+import {useIsFocused, useTheme} from "@react-navigation/native";
 import {
   FlatList,
   SafeAreaView,
@@ -16,14 +16,21 @@ import {
   TextInput,
   Dialog,
   Icon,
+  Portal,
+  Modal,
 } from "react-native-paper";
-import { getTripsByCurrentUser } from "../requests/firebaseUtils";
+import { deleteTrip, getTripById, getTripsByCurrentUser } from "../requests/firebaseUtils";
+import TripOverViewCards from "./TripOverviewCards";
+
 export default function Login() {
   theme = useTheme();
 
   const [isLoggedIn, setIsLoggedIn] = useState(false);
   const [tripsByUser, setTripsByUser] = useState([]);
   const [isPasswordShown, setIsPasswordShown] = useState(false);
+  const [visibleModal, setVisibleModal] = useState(false);
+  const [tripData, setTripData] = useState({})
+  const isFocused = useIsFocused();
 
   const {
     control,
@@ -58,17 +65,76 @@ export default function Login() {
         setTripsByUser(data);
       });
     } else {
-      setTripsByUser([{ tripName: "Loading...", destination: "Loading...", origin:"Loading...", id: 1 }]);
+      setTripsByUser([
+        {
+          tripName: "Loading...",
+          destination: "Loading...",
+          origin: "Loading...",
+          id: 1,
+        },
+      ]);
     }
-  }, [isLoggedIn]);
+  }, [isLoggedIn, isFocused]);
 
-  const Trip = ({ tripName, destination, origin, createdTime }) => (
+  const Trip = ({ tripName, destination, origin, createdTime, tripId }) => (
     <View style={styles.item}>
       <Text style={styles.title} variant="titleMedium">
         {tripName}
       </Text>
       <Text style={styles.title}>From: {destination}</Text>
       <Text style={styles.title}>To: {origin}</Text>
+      <View
+        style={{
+          flexDirection: "row",
+          alignItems: "center",
+          justifyContent: "space-evenly",
+        }}
+      >
+        <Button
+          style={{ marginLeft: 5 }}
+          mode="contained-tonal"
+          title="Delete Trip"
+          onPress={() => {
+            getTripById(tripId).then((data) => {
+				setVisibleModal(true)
+              setTripData(data);
+            });
+          }}
+        >
+          View Trip
+        </Button>
+        <Portal>
+          <Modal
+            visible={visibleModal}
+            onDismiss={() => setVisibleModal(false)}
+            contentContainerStyle={{
+              padding: 20,
+              backgroundColor: "grey",
+              alignSelf: "center",
+              width: "80%",
+              
+            }}
+          >
+<TripOverViewCards tripData={tripData}/>
+          </Modal>
+        </Portal>
+        <Button
+          style={{ marginLeft: 5 }}
+          mode="contained-tonal"
+          title="Delete Trip"
+          onPress={() => {
+            deleteTrip(tripId)
+              .then(() => {
+                return getTripsByCurrentUser();
+              })
+              .then((data) => {
+                setTripsByUser(data);
+              });
+          }}
+        >
+          Delete Trip
+        </Button>
+      </View>
       <Text variant="labelMedium">Created: {createdTime}</Text>
     </View>
   );
@@ -82,6 +148,7 @@ export default function Login() {
           destination={item.destination}
           origin={item.origin}
           createdTime={item.createdTime}
+          tripId={item.id}
         />
       )}
       keyExtractor={(item) => item.id}
@@ -106,17 +173,16 @@ export default function Login() {
 
   return (
     <>
-   <Text style={{ padding: 10 }}>
+      <Text style={{ padding: 10 }}>
         Current User:{" "}
         {isLoggedIn ? auth.currentUser.email : "No User currenty logged in"}
       </Text>
 
-      
-      {isLoggedIn ? (<Button mode="contained-tonal" onPress={logout}>
-        Logout
-      </Button>) : (
-
-
+      {isLoggedIn ? (
+        <Button mode="contained-tonal" onPress={logout}>
+          Logout
+        </Button>
+      ) : (
         <>
           <Button
             mode="contained"
