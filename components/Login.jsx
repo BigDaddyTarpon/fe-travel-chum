@@ -26,6 +26,8 @@ import {
 } from "../requests/firebaseUtils";
 import { PreferencesContext } from "../PreferencesContext";
 import { useIsFocused } from "@react-navigation/native";
+import TripOverViewCards from './TripOverviewCards';
+
 
 export default function Login() {
   const preferences = useContext(PreferencesContext);
@@ -120,7 +122,7 @@ export default function Login() {
               width: "40%",
             }}
           >
-<Text>fdafdgha</Text>
+<TripOverViewCards tripData={tripData}/>
           </Modal>
         </Portal>
         <Button
