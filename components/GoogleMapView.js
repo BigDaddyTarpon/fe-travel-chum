@@ -9,6 +9,7 @@ const mapStyle = MapStyleNight;
 import {getPoisFromMarker, getStopMarkerCoordinates} from '../Utils/utils';
 import CustomCallout from "./CustomCallout.jsx";
 import { Text } from "react-native-paper";
+import PlacesCard from "./Places-card.jsx";
 
 export default function GoogleMapView({ polylineCoordinates, selectedValue, setSelectedAttractions, valueAccomodation, extraOptions }) {
   const preferences = useContext(PreferencesContext);
@@ -83,9 +84,11 @@ export default function GoogleMapView({ polylineCoordinates, selectedValue, setS
         return <Marker key={index} coordinate={{latitude: attraction.geometry.location.lat, longitude: attraction.geometry.location.lng}} title={attraction.name}><CustomCallout marker={attraction} setSelectedAttractions={setSelectedAttractions}/></Marker>
       }) : null}
       </MapView>
-      <View>{stopAttractions.map((attraction, index) => {
-        return <Text key={index}>{attraction.name}</Text>
-      })}</View>
+      {stopAttractions.map((attraction, index) => {
+        {console.log(attraction)}
+        return <PlacesCard attraction={attraction} key={attraction.place_id}/>
+        // return <Text key={index}>{attraction.name}</Text>
+      })}
     </View>
   );
 }
