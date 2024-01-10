@@ -13,7 +13,15 @@ const WheelPicker = ({ selectedValue, passProp }) => {
 
   const renderItem = ({ item }) => {
     return (
-      <Text style={[styles.pickerItem, { height: itemHeight }, {color: preferences.isThemeDark ? "white" : "black"}] }>{item}</Text>
+      <Text
+        style={[
+          styles.pickerItem,
+          { height: itemHeight },
+          { color: preferences.isThemeDark ? "white" : "black" },
+        ]}
+      >
+        {item}
+      </Text>
     );
   };
 
@@ -36,7 +44,9 @@ const WheelPicker = ({ selectedValue, passProp }) => {
       <View style={[styles.indicatorHolder, { top: itemHeight }]}>
         <View style={[styles.indicator]} />
         <View>
-          <Text style ={{  color: preferences.isThemeDark ? "white" : "black"}} >Stops:</Text>
+          <Text style={{ color: preferences.isThemeDark ? "white" : "black" }}>
+            Stops:
+          </Text>
         </View>
         <View style={[styles.indicator, { marginTop: 5 }]} />
       </View>

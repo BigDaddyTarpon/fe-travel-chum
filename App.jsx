@@ -28,7 +28,15 @@ export default function App() {
       ...DefaultTheme.colors,
       primary: '#F7B787',
       card: '#527853',
-      text: 'white'
+      text: 'white',
+      primaryContainer: '#F7B787',
+      secondaryContainer: '#F7B787',
+      outline: 'black',
+      surfaceVariant: 'white',
+      onSurfaceVariant: 'black',
+      onBackground: 'black',
+      background: '#FAF1EA',
+      tertiaryContainer: "#D8E7EB"
       
     },
   };

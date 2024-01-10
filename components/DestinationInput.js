@@ -6,7 +6,7 @@ import { Dimensions } from "react-native";
 import { DestinationContext } from "./Contexts";
 
 const DestinationInput = () => {
-  const {destination, setDestination} = useContext(DestinationContext)
+  const { destination, setDestination } = useContext(DestinationContext);
   return (
     <GooglePlacesAutocomplete
       placeholder="destination..."
@@ -14,7 +14,7 @@ const DestinationInput = () => {
         setDestination(data);
       }}
       query={{
-        input: {fields: ['place_id', 'name', 'Location']},
+        input: { fields: ["place_id", "name", "Location"] },
         key: GOOGLE_API_KEY,
         language: "en",
       }}

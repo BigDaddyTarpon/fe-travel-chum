@@ -1,10 +1,10 @@
 import { View, Dimensions, Image } from "react-native";
 import React, { useContext, useEffect, useState } from "react";
 import MapView, { Marker, PROVIDER_GOOGLE, Polyline } from "react-native-maps";
-import { UserLocationContext, StopsContext } from "./Contexts";
-import { PreferencesContext } from "../PreferencesContext";
+import { UserLocationContext, StopsContext } from "./Contexts.js";
+import { PreferencesContext } from "../PreferencesContext.js";
 import { MapStyleNight } from "./map-night-style-object.js";
-import { getPoisFromMarker, getStopMarkerCoordinates } from "../Utils/utils";
+import { getPoisFromMarker, getStopMarkerCoordinates } from "../Utils/utils.js";
 import CustomCallout from "./CustomCallout.jsx";
 import { Text } from "react-native-paper";
 import stopMarkerImage from "../assets/stop-marker.png";

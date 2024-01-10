@@ -2,25 +2,32 @@ import { signInWithEmailAndPassword, signOut } from "firebase/auth";
 import { useState, useContext, useEffect } from "react";
 import { auth } from "../config/firebase";
 import { Controller, useForm } from "react-hook-form";
-import {useIsFocused, useTheme} from "@react-navigation/native";
+import { useIsFocused, useTheme } from "@react-navigation/native";
 import {
   FlatList,
   SafeAreaView,
   StyleSheet,
   StatusBar,
   View,
+  Dimensions,
 } from "react-native";
 import {
-  Button,
+  Modal,
   Text,
   TextInput,
   Dialog,
   Icon,
   Portal,
-  Modal,
+  Title,
+  Button,
 } from "react-native-paper";
-import { deleteTrip, getTripById, getTripsByCurrentUser } from "../requests/firebaseUtils";
+import {
+  deleteTrip,
+  getTripById,
+  getTripsByCurrentUser,
+} from "../requests/firebaseUtils";
 import TripOverViewCards from "./TripOverviewCards";
+import { Overlay } from "@rneui/themed";
 
 export default function Login() {
   theme = useTheme();
@@ -28,9 +35,10 @@ export default function Login() {
   const [isLoggedIn, setIsLoggedIn] = useState(false);
   const [tripsByUser, setTripsByUser] = useState([]);
   const [isPasswordShown, setIsPasswordShown] = useState(false);
-  const [visibleModal, setVisibleModal] = useState(false);
-  const [tripData, setTripData] = useState({})
+  const [tripData, setTripData] = useState({});
   const isFocused = useIsFocused();
+  const [visible, setVisible] = useState(false);
+  const [visibleModal, setVisibleModal] = useState(false);
 
   const {
     control,
@@ -91,12 +99,12 @@ export default function Login() {
         }}
       >
         <Button
-          style={{ marginLeft: 5 }}
+          style={{ marginLeft: 5, backgroundColor: "#F7B787" }}
           mode="contained-tonal"
           title="Delete Trip"
           onPress={() => {
             getTripById(tripId).then((data) => {
-				setVisibleModal(true)
+              setVisibleModal(true);
               setTripData(data);
             });
           }}
@@ -108,18 +116,15 @@ export default function Login() {
             visible={visibleModal}
             onDismiss={() => setVisibleModal(false)}
             contentContainerStyle={{
-              padding: 20,
-              backgroundColor: "grey",
               alignSelf: "center",
               width: "80%",
-              
             }}
           >
-<TripOverViewCards tripData={tripData}/>
+            <TripOverViewCards tripData={tripData} />
           </Modal>
         </Portal>
         <Button
-          style={{ marginLeft: 5 }}
+          style={{ marginLeft: 5, backgroundColor: "#F7B787" }}
           mode="contained-tonal"
           title="Delete Trip"
           onPress={() => {
@@ -156,8 +161,8 @@ export default function Login() {
   );
 
   const PleaseLogin = () => (
-    <Dialog visible={true}>
-      <Dialog.Title>Please log in to view saved trips...</Dialog.Title>
+    <View visible={true} style={styles.dialog}>
+      <Title>Please log in to view saved trips...</Title>
       <Text variant="titleMedium" style={{ padding: 10 }}>
         Simply press 'login' to log in as a guest.
       </Text>
@@ -168,7 +173,7 @@ export default function Login() {
         change the values in these fields our security checks won't allow you to
         log in, unless you enter correct acount details.
       </Text>
-    </Dialog>
+    </View>
   );
 
   return (
@@ -179,19 +184,16 @@ export default function Login() {
       </Text>
 
       {isLoggedIn ? (
-        <Button mode="contained-tonal" onPress={logout}>
+        <Button
+          mode="contained"
+          style={styles.logInOutbutton}
+          textColor="black"
+          onPress={logout}
+        >
           Logout
         </Button>
       ) : (
         <>
-          <Button
-            mode="contained"
-            title="Submit"
-            onPress={handleSubmit(onSubmit)}
-            disabled={isLoggedIn}
-          >
-            Login
-          </Button>
           <Controller
             control={control}
             rules={{
@@ -235,6 +237,15 @@ export default function Login() {
             )}
             name="password"
           />
+          <Button
+            style={styles.logInOutbutton}
+            mode="contained-tonal"
+            title="Submit"
+            onPress={handleSubmit(onSubmit)}
+            disabled={isLoggedIn}
+          >
+            Login
+          </Button>
         </>
       )}
 
@@ -252,19 +263,43 @@ const styles = StyleSheet.create({
     alignItems: "center",
     justifyContent: "center",
   },
-  button: {
-    backgroundColor: "beige",
+  logInOutbutton: {
+    backgroundColor: "#B2C8B3",
+    width: "50%",
+    marginLeft: 100,
+    borderColour: "black",
+    borderStyle: "solid",
+    borderWidth: 1,
+    color: "white",
+    marginTop: 20,
   },
   containerList: {
     flex: 1,
   },
   item: {
-    backgroundColor: "#838383",
+    backgroundColor: "#FADDC4",
+    borderRadius: 7,
+    borderWidth: 2,
     padding: 20,
     marginVertical: 8,
     marginHorizontal: 16,
   },
   title: {
     fontSize: 20,
+  },
+  modal: {
+    display: "flex",
+    flexDirection: "column",
+    width: Dimensions.get("screen").width * 0.7,
+  },
+  dialog: {
+    display: "flex",
+    backgroundColor: "#D8E7EB",
+    borderRadius: 7,
+    borderWidth: 2,
+    padding: 20,
+    marginTop: 30,
+    width: "85%",
+    marginLeft: 30,
   },
 });
