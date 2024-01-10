@@ -22,13 +22,13 @@ function toDateTime(secs) {
   return t;
 }
 
-async function getTripById(tripId) {
+export async function getTripById(tripId) {
   const tripRef = doc(db, "trips", tripId);
   const docSnap = await getDoc(tripRef);
 
   if (docSnap.exists()) {
-    const tripData = { [tripId]: docSnap.data() };
-    console.log(tripData);
+    const tripData = docSnap.data()
+  //  console.log(tripData);
     return tripData;
   } else {
     console.log("Trip doesn't exist!");

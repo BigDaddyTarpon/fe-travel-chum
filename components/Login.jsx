@@ -16,21 +16,28 @@ import {
   TextInput,
   Dialog,
   Icon,
+  Modal,
+  Portal,
 } from "react-native-paper";
-import { getTripsByCurrentUser, deleteTrip } from "../requests/firebaseUtils";
+import {
+  getTripsByCurrentUser,
+  deleteTrip,
+  getTripById,
+} from "../requests/firebaseUtils";
 import { PreferencesContext } from "../PreferencesContext";
-import { useIsFocused } from '@react-navigation/native';
-
+import { useIsFocused } from "@react-navigation/native";
 
 export default function Login() {
-	const preferences = useContext(PreferencesContext);
-	theme = useTheme();
-	
-	const [isLoggedIn, setIsLoggedIn] = useState(false);
-	const [tripsByUser, setTripsByUser] = useState([]);
-	const [isPasswordShown, setIsPasswordShown] = useState(false);
-	const isFocused = useIsFocused();
-	
+  const preferences = useContext(PreferencesContext);
+  theme = useTheme();
+
+  const [isLoggedIn, setIsLoggedIn] = useState(false);
+  const [tripsByUser, setTripsByUser] = useState([]);
+  const [isPasswordShown, setIsPasswordShown] = useState(false);
+  const [visibleModal, setVisibleModal] = useState(false);
+  const [tripData, setTripData] = useState({})
+  const isFocused = useIsFocused();
+
   const {
     control,
     handleSubmit,
@@ -76,27 +83,63 @@ export default function Login() {
   }, [isLoggedIn, isFocused]);
 
   const Trip = ({ tripName, destination, origin, createdTime, tripId }) => (
-    <View style={styles.item} >
+    <View style={styles.item}>
       <Text style={styles.title} variant="titleMedium">
         {tripName}
       </Text>
       <Text style={styles.title}>From: {destination}</Text>
       <Text style={styles.title}>To: {origin}</Text>
-      <Button
-        mode="contained-tonal"
-        title="Delete Trip"
-        onPress={() => {
-          deleteTrip(tripId)
-            .then(() => {
-              return getTripsByCurrentUser();
-            })
-            .then((data) => {
-              setTripsByUser(data);
-            });
+      <View
+        style={{
+          flexDirection: "row",
+          alignItems: "center",
+          justifyContent: "space-evenly",
         }}
       >
-        Delete Trip
-      </Button>
+        <Button
+          style={{ marginLeft: 5 }}
+          mode="contained-tonal"
+          title="Delete Trip"
+          onPress={() => {
+            getTripById(tripId).then((data) => {
+				setVisibleModal(true)
+              setTripData(data);
+            });
+          }}
+        >
+          View Trip
+        </Button>
+        <Portal>
+          <Modal
+            visible={visibleModal}
+            onDismiss={() => setVisibleModal(false)}
+            contentContainerStyle={{
+              padding: 0,
+              backgroundColor: "grey",
+              alignSelf: "center",
+              width: "40%",
+            }}
+          >
+<Text>fdafdgha</Text>
+          </Modal>
+        </Portal>
+        <Button
+          style={{ marginLeft: 5 }}
+          mode="contained-tonal"
+          title="Delete Trip"
+          onPress={() => {
+            deleteTrip(tripId)
+              .then(() => {
+                return getTripsByCurrentUser();
+              })
+              .then((data) => {
+                setTripsByUser(data);
+              });
+          }}
+        >
+          Delete Trip
+        </Button>
+      </View>
       <Text variant="labelMedium">Created: {createdTime}</Text>
     </View>
   );
