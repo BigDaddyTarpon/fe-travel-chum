@@ -1,4 +1,4 @@
-import { View, Dimensions } from "react-native";
+import { View, Dimensions, Image } from "react-native";
 import React, { useContext, useEffect, useState } from "react";
 import MapView, { Marker, PROVIDER_GOOGLE, Polyline } from "react-native-maps";
 import { UserLocationContext, StopsContext} from "./Contexts";
@@ -7,6 +7,8 @@ import { MapStyleNight } from "./map-night-style-object.js";
 import {getPoisFromMarker, getStopMarkerCoordinates} from '../Utils/utils';
 import CustomCallout from "./CustomCallout.jsx";
 import { Text } from "react-native-paper";
+import stopMarkerImage from '../assets/stop-marker.png';
+import PlacesCard from "./Places-card.jsx";
 
 const mapStyle = MapStyleNight;
 
@@ -83,9 +85,9 @@ export default function GoogleMapView({ polylineCoordinates, setSelectedAttracti
         return <Marker key={index} coordinate={{latitude: attraction.geometry.location.lat, longitude: attraction.geometry.location.lng}} title={attraction.name}><CustomCallout marker={attraction} setSelectedAttractions={setSelectedAttractions}/></Marker>
       }) : null}
       </MapView>
-      <View>{stopAttractions.map((attraction, index) => {
-        return <Text key={index}>{attraction.name}</Text>
-      })}</View>
+      {stopAttractions.map((attraction, index) => {
+        return <PlacesCard attraction={attraction} key={attraction.place_id} setSelectedAttractions={setSelectedAttractions}/>
+      })}
     </View>
   );
 }
