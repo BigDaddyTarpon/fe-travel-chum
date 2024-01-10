@@ -91,7 +91,7 @@ async function updateTrip(tripId, updatedTrip) {
   return await updateDoc(tripRef, updatedTrip);
 }
 
-async function deleteTrip(tripId) {
+export async function deleteTrip(tripId) {
   const tripRef = doc(db, "trips", tripId);
-  return await deleteDoc(tripRef);
+  await deleteDoc(tripRef);
 }
