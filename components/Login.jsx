@@ -19,15 +19,18 @@ import {
 } from "react-native-paper";
 import { getTripsByCurrentUser, deleteTrip } from "../requests/firebaseUtils";
 import { PreferencesContext } from "../PreferencesContext";
+import { useIsFocused } from '@react-navigation/native';
+
 
 export default function Login() {
-  const preferences = useContext(PreferencesContext);
-  theme = useTheme();
-
-  const [isLoggedIn, setIsLoggedIn] = useState(false);
-  const [tripsByUser, setTripsByUser] = useState([]);
-  const [isPasswordShown, setIsPasswordShown] = useState(false);
-
+	const preferences = useContext(PreferencesContext);
+	theme = useTheme();
+	
+	const [isLoggedIn, setIsLoggedIn] = useState(false);
+	const [tripsByUser, setTripsByUser] = useState([]);
+	const [isPasswordShown, setIsPasswordShown] = useState(false);
+	const isFocused = useIsFocused();
+	
   const {
     control,
     handleSubmit,
@@ -61,25 +64,43 @@ export default function Login() {
         setTripsByUser(data);
       });
     } else {
-      setTripsByUser([{ tripName: "Loading...", destination: "Loading...", origin:"Loading...", id: 1 }]);
+      setTripsByUser([
+        {
+          tripName: "Loading...",
+          destination: "Loading...",
+          origin: "Loading...",
+          id: 1,
+        },
+      ]);
     }
-  }, [isLoggedIn]);
+  }, [isLoggedIn, isFocused]);
 
   const Trip = ({ tripName, destination, origin, createdTime, tripId }) => (
-    <View style={styles.item}>
+    <View style={styles.item} >
       <Text style={styles.title} variant="titleMedium">
         {tripName}
       </Text>
       <Text style={styles.title}>From: {destination}</Text>
       <Text style={styles.title}>To: {origin}</Text>
-	  <Button mode="contained-tonal" title="Delete Trip" onPress={()=>{deleteTrip(tripId)}}>
-          Delete Trip
-        </Button>
+      <Button
+        mode="contained-tonal"
+        title="Delete Trip"
+        onPress={() => {
+          deleteTrip(tripId)
+            .then(() => {
+              return getTripsByCurrentUser();
+            })
+            .then((data) => {
+              setTripsByUser(data);
+            });
+        }}
+      >
+        Delete Trip
+      </Button>
       <Text variant="labelMedium">Created: {createdTime}</Text>
     </View>
   );
 
-  
   const RenderList = () => (
     <FlatList
       data={tripsByUser}
@@ -89,7 +110,7 @@ export default function Login() {
           destination={item.destination}
           origin={item.origin}
           createdTime={item.createdTime}
-		  tripId={item.id}
+          tripId={item.id}
         />
       )}
       keyExtractor={(item) => item.id}
@@ -114,17 +135,16 @@ export default function Login() {
 
   return (
     <>
-   <Text style={{ padding: 10 }}>
+      <Text style={{ padding: 10 }}>
         Current User:{" "}
         {isLoggedIn ? auth.currentUser.email : "No User currenty logged in"}
       </Text>
 
-      
-      {isLoggedIn ? (<Button mode="contained-tonal" onPress={logout}>
-        Logout
-      </Button>) : (
-
-
+      {isLoggedIn ? (
+        <Button mode="contained-tonal" onPress={logout}>
+          Logout
+        </Button>
+      ) : (
         <>
           <Button
             mode="contained"

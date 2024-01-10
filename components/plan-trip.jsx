@@ -15,7 +15,11 @@ import {
 import Map from "./map";
 import Search from "./Search";
 import getPolylineCoordinates, { formatPolyline } from "../Utils/utils";
-import { getTripsByCurrentUser, postTrip } from "../requests/firebaseUtils";
+import {
+  getTripsByCurrentUser,
+  postTrip,
+  updateTrip,
+} from "../requests/firebaseUtils";
 import NumberPicker from "./picker";
 import WheelPicker from "./CustomWheelPicker";
 
@@ -35,6 +39,7 @@ export default function PlanTrip() {
   const [selectedValue, setSelectedValue] = useState("Stops");
   const [selectedAttractions, setSelectedAttractions] = useState([]);
   const [tripName, setTripName] = useState("");
+  const [currentTripId, setCurrentTripId] = useState("");
   const handlePress = () => setExpanded(!expanded);
   function onSubmit(data) {
     if (origin && destination) {
@@ -51,13 +56,29 @@ export default function PlanTrip() {
 
   function handleTripNameChange(text) {
     setTripName(text);
+    setCurrentTripId('')
   }
 
   function onSave(data) {
-    if (origin && destination) {
+    if (currentTripId !== "") {
       getPolylineCoordinates(origin.place_id, destination.place_id).then(
         (data) => {
-          postTrip({
+          const updatedTrip = {
+            polyline: data.routes[0].overview_polyline.points,
+            origin: origin.description,
+            destination: destination.description,
+            tripName: `${tripName}`,
+            numOfStops: `${selectedValue}`,
+            selectedAttractions: selectedAttractions,
+          };
+          updateTrip(currentTripId, updatedTrip);
+        }
+      );
+    }
+    else if (origin && destination) {
+      getPolylineCoordinates(origin.place_id, destination.place_id)
+        .then((data) => {
+          return postTrip({
             polyline: data.routes[0].overview_polyline.points,
             origin: origin.description,
             destination: destination.description,
@@ -65,8 +86,10 @@ export default function PlanTrip() {
             numOfStops: `${selectedValue}`,
             selectedAttractions: selectedAttractions,
           });
-        }
-      );
+        })
+        .then((id) => {
+          setCurrentTripId(id);
+        });
     }
   }
 
@@ -108,7 +131,7 @@ export default function PlanTrip() {
           >
             <>
               <Button
-                style={{ flex: 0.3, minHeight: 58, padding: 0, }}
+                style={{ flex: 0.3, minHeight: 58, padding: 0 }}
                 mode="outlined"
                 onPress={() => setVisibleModal(true)}
               >
@@ -118,7 +141,12 @@ export default function PlanTrip() {
                 <Modal
                   visible={visibleModal}
                   onDismiss={() => setVisibleModal(false)}
-                  contentContainerStyle={{ padding: 0, backgroundColor: 'grey', alignSelf:'center', width:'40%' }}
+                  contentContainerStyle={{
+                    padding: 0,
+                    backgroundColor: "grey",
+                    alignSelf: "center",
+                    width: "40%",
+                  }}
                 >
                   <WheelPicker
                     selectedValue={selectedValue}

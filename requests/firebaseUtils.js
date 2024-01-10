@@ -86,7 +86,7 @@ export async function postTrip({ polyline, origin, destination, tripName, select
   }
 }
 
-async function updateTrip(tripId, updatedTrip) {
+export async function updateTrip(tripId, updatedTrip) {
   const tripRef = doc(db, "trips", tripId);
   return await updateDoc(tripRef, updatedTrip);
 }
