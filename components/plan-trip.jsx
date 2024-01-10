@@ -32,7 +32,7 @@ export default function PlanTrip() {
   const [extraOptions, setExtraOptions] = useState([]);
   const [polylineCoordinates, setPolylineCoordinates] = useState(null);
   const [viewOptions, setViewOptions] = useState(false);
-  const [selectedValue, setSelectedValue] = useState("1");
+  const [selectedValue, setSelectedValue] = useState("Stops");
   const [selectedAttractions, setSelectedAttractions] = useState([]);
   const [tripName, setTripName] = useState("");
   const handlePress = () => setExpanded(!expanded);
@@ -112,7 +112,7 @@ export default function PlanTrip() {
                 mode="outlined"
                 onPress={() => setVisibleModal(true)}
               >
-                Stops
+                {selectedValue}
               </Button>
               <Portal>
                 <Modal
