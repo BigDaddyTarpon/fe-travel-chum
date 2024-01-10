@@ -1,8 +1,11 @@
-import { StyleSheet, View, Image } from "react-native";
-import { Text, Title } from "react-native-paper";
+import { StyleSheet, View, Image, TouchableOpacity } from "react-native";
+import { Button, Text, Title } from "react-native-paper";
 import { GOOGLE_API_KEY } from "../environments";
+import { useState } from "react";
 
-export default function PlacesCard({ attraction }) {
+export default function PlacesCard({ attraction, setSelectedAttractions }) {
+  const [buttonPressed, setButtonPressed] = useState(false);
+
   return (
     <View style={styles.container}>
       <Title style={styles.title}>{attraction.name}</Title>
@@ -25,6 +28,11 @@ export default function PlacesCard({ attraction }) {
       <Image source={require('../assets/star.png')} style={{width: 25, height: 25, marginRight: 10}}></Image>
       <Text>{attraction.rating ? `Rated ${attraction.rating}/5` : "No ratings yet"}</Text>
       </View>
+      <TouchableOpacity style={{borderWidth: 2, borderColor: "black", backgroundColor: `${buttonPressed ? "darkgreen" : "#2dba57"}`, marginTop: 10, padding: 7, borderRadius: 5}} disabled={buttonPressed ? true : false} onPress={()=>{
+        setButtonPressed(true)
+        setSelectedAttractions(currAttractions => {
+        return [...currAttractions, attraction]
+      })}}><Text style={{color: "white"}}>{buttonPressed ? "Saved to Trip" : "Add to Trip"}</Text></TouchableOpacity>
     </View>
   );
 }

@@ -86,8 +86,7 @@ export default function GoogleMapView({ polylineCoordinates, selectedValue, setS
       }) : null}
       </MapView>
       {stopAttractions.map((attraction, index) => {
-        {console.log(attraction)}
-        return <PlacesCard attraction={attraction} key={attraction.place_id}/>
+        return <PlacesCard attraction={attraction} key={attraction.place_id} setSelectedAttractions={setSelectedAttractions}/>
       })}
     </View>
   );
