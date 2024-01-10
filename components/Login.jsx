@@ -2,6 +2,7 @@ import { signInWithEmailAndPassword, signOut } from "firebase/auth";
 import { useState, useContext, useEffect } from "react";
 import { auth } from "../config/firebase";
 import { Controller, useForm } from "react-hook-form";
+import {useTheme} from "@react-navigation/native";
 import {
   FlatList,
   SafeAreaView,
@@ -12,16 +13,12 @@ import {
 import {
   Button,
   Text,
-  useTheme,
   TextInput,
   Dialog,
   Icon,
 } from "react-native-paper";
 import { getTripsByCurrentUser } from "../requests/firebaseUtils";
-import { PreferencesContext } from "../PreferencesContext";
-
 export default function Login() {
-  const preferences = useContext(PreferencesContext);
   theme = useTheme();
 
   const [isLoggedIn, setIsLoggedIn] = useState(false);
@@ -136,9 +133,7 @@ export default function Login() {
             }}
             render={({ field: { onChange, onBlur, value } }) => (
               <TextInput
-                style={{ color: preferences.isThemeDark ? "white" : "black" }}
-                // mode='flat'
-                // style={{ color: preferences.isThemeDark ? 'white' : 'black' }}
+                style={{ color: "white" }}
                 label="email"
                 placeholder="Email"
                 onBlur={onBlur}
@@ -155,7 +150,7 @@ export default function Login() {
             }}
             render={({ field: { onChange, onBlur, value } }) => (
               <TextInput
-                style={{ color: preferences.isThemeDark ? "white" : "black" }}
+                style={{ color: "white" }}
                 label="password"
                 placeholder="Password"
                 onBlur={onBlur}

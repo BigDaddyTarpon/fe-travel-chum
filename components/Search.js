@@ -29,14 +29,13 @@ const styles = StyleSheet.create({
       width:Dimensions.get('screen').width*0.3,
       backgroundColor:Colours.white
   },
-
   searchContainer:{
-    paddingLeft:2,
+    paddingLeft:55,
     display:'flex',
     flexWrap: 'wrap', 
     flexDirection:'row', 
-    justifyContent: 'left', 
-    alignItems:'left', 
+    justifyContent: 'center', 
+    alignItems:'center', 
     marginTop:2
   }
 })

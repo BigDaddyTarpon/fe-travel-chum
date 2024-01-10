@@ -1,10 +1,12 @@
-import React from 'react';
+import React, { useContext } from 'react';
 import { GooglePlacesAutocomplete } from 'react-native-google-places-autocomplete';
 import { GOOGLE_API_KEY } from '../environments';
 import Colours from '../SharedStyling/Colours';
 import { Dimensions } from 'react-native';
+import { OriginContext } from './Contexts';
 
-const OriginInput = ({setOrigin}) => {
+const OriginInput = () => {
+  const {origin, setOrigin} = useContext(OriginContext)
 
   return (
     <GooglePlacesAutocomplete
@@ -25,6 +27,7 @@ const OriginInput = ({setOrigin}) => {
             padding:5,
             marginLeft:0,
             marginTop:0,
+            marginBottom:10,
             width:Dimensions.get('screen').width*0.7,
             backgroundColor:Colours.white
           },

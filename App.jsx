@@ -1,93 +1,82 @@
-import React from "react";
+import React, { useContext } from "react";
 import { StyleSheet, Image, TouchableOpacity } from "react-native";
 import { useState } from "react";
 import { createMaterialTopTabNavigator } from "@react-navigation/material-top-tabs";
-import {
-  NavigationContainer,
-  DarkTheme as NavigationDarkTheme,
-  DefaultTheme as NavigationDefaultTheme,
-} from "@react-navigation/native";
+import { NavigationContainer, DefaultTheme } from "@react-navigation/native";
 import Constants from "expo-constants";
-import {
-  PaperProvider,
-  Appbar,
-  MD3DarkTheme,
-  MD3LightTheme,
-  adaptNavigationTheme,
-  Switch,
-  Badge,
-  useTheme, 
-} from "react-native-paper";
-import { PreferencesContext } from "./PreferencesContext";
 import Home from "./components/home";
 import Login from "./components/Login";
 import PlanTrip from "./components/plan-trip";
 import merge from "deepmerge";
-import { UserLocationContext } from "./components/Contexts";
-import CustomAppBar from "./components/CustomAppBar";
+import { UserLocationContext, DestinationContext, OriginContext, StopsContext} from "./components/Contexts";
+import Header from "./components/Header";
+import TabNavigation from "./components/TabNavigation";
 
 const Tab = createMaterialTopTabNavigator();
-const { LightTheme, DarkTheme } = adaptNavigationTheme({
-  reactNavigationLight: NavigationDefaultTheme,
-  reactNavigationDark: NavigationDarkTheme,
-});
-const CombinedDefaultTheme = merge(MD3LightTheme, LightTheme);
-const CombinedDarkTheme = merge(MD3DarkTheme, DarkTheme);
 
 export default function App() {
   const [location, setLocation] = useState(null);
+  const [origin, setOrigin] = useState(OriginContext)
+  const [destination, setDestination] = useState(DestinationContext)
+  const [stops, setStops] = useState(StopsContext)
 
-  // const theme = useTheme()
-  // const { toggleTheme, isThemeDark } = React.useContext(PreferencesContext);
-  
-  const [isThemeDark, setIsThemeDark] = useState(false);
-  let theme = isThemeDark ? CombinedDarkTheme : CombinedDefaultTheme;
-  const toggleTheme = React.useCallback(() => {
-    return setIsThemeDark(!isThemeDark);
-  }, [isThemeDark]);
+  const MyTheme = {
+    ...DefaultTheme,
+    colors: {
+      ...DefaultTheme.colors,
+      primary: '#F7B787',
+      card: '#527853',
+      text: 'white'
+      
+    },
+  };
 
-  const preferences = React.useMemo(
-    () => ({
-      toggleTheme,
-      isThemeDark,
-    }),
-    [toggleTheme, isThemeDark]
-  );
   return (
-    <PreferencesContext.Provider value={preferences}>
-      <PaperProvider theme={theme}>
+    <>
+      {/* <PaperProvider theme={MyTheme}> */}
+        <StopsContext.Provider value={{stops, setStops}}>
+        <OriginContext.Provider value={{origin, setOrigin}}>
+        <DestinationContext.Provider value={{destination, setDestination}}>
         <UserLocationContext.Provider value={{ location, setLocation }}>
-          <>
-          <CustomAppBar isThemeDark={isThemeDark} toggleTheme={toggleTheme} />
-          </>
-          <NavigationContainer theme={theme}>
-            <Tab.Navigator>
-              <Tab.Screen name="Home" component={Home} />
-              <Tab.Screen name="Trip Planner" component={PlanTrip} />
-              <Tab.Screen name="My Trips" component={Login} />
-            </Tab.Navigator>
+          <Header/>
+          <NavigationContainer theme={MyTheme}>
+            <TabNavigation />
           </NavigationContainer>
         </UserLocationContext.Provider>
-      </PaperProvider>
-    </PreferencesContext.Provider>
+        </DestinationContext.Provider>
+        </OriginContext.Provider>
+        </StopsContext.Provider>
+      {/* </PaperProvider> */}
+    </>
   );
 }
 
 const styles = StyleSheet.create({
   container: {
+    display: "flex",
+    flexDirection: "column",
     flex: 1,
-    backgroundColor: "white",
+    width: "100%",
     alignItems: "center",
-    justifyContent: "center",
+    justifyContent: "flex-start",
+    padding: 8,
+    backgroundColor: '#FAF1EA'
   },
   map: {
     width: "70%",
     height: "70%",
   },
   Image: {
+    marginLeft:35,
+    marginRight:10,
     height: "100%",
     width: "15%",
     alignSelf: "center",
     resizeMode: "contain",
   },
+  navBar:{
+    backgroundColor: '#88C88A',
+    color: '#88C88A'
+  }
 });
+

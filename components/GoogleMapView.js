@@ -1,21 +1,21 @@
 import { View, Dimensions } from "react-native";
 import React, { useContext, useEffect, useState } from "react";
-import MapView, { Callout, Marker, PROVIDER_GOOGLE, Polyline } from "react-native-maps";
-import { UserLocationContext } from "./Contexts";
+import MapView, { Marker, PROVIDER_GOOGLE, Polyline } from "react-native-maps";
+import { UserLocationContext, StopsContext} from "./Contexts";
 import { PreferencesContext } from "../PreferencesContext";
 import { MapStyleNight } from "./map-night-style-object.js";
-
-const mapStyle = MapStyleNight;
 import {getPoisFromMarker, getStopMarkerCoordinates} from '../Utils/utils';
 import CustomCallout from "./CustomCallout.jsx";
 import { Text } from "react-native-paper";
 
-export default function GoogleMapView({ polylineCoordinates, selectedValue, setSelectedAttractions, valueAccomodation, extraOptions }) {
+const mapStyle = MapStyleNight;
+
+export default function GoogleMapView({ polylineCoordinates, setSelectedAttractions, valueAccomodation, extraOptions }) {
   const preferences = useContext(PreferencesContext);
   const [mapRegion, setMapRegion] = useState([]);
   const [stopAttractions, setStopAttractions] = useState([]);
-  const [forceToggle, setForceToggle] = useState(!preferences.isThemeDark);
   const { location, setUserLocation } = useContext(UserLocationContext);
+  const {stops, setStops} = useContext(StopsContext)
   const mapRef = React.createRef();
   useEffect(() => {
     if (location && !polylineCoordinates) {
@@ -72,7 +72,7 @@ export default function GoogleMapView({ polylineCoordinates, selectedValue, setS
               onPress={()=>{handleMarkerPress(polylineCoordinates[polylineCoordinates.length - 1].latitude, polylineCoordinates[polylineCoordinates.length - 1].longitude)}}
               pinColor='#00FF00'
             />
-            {getStopMarkerCoordinates(polylineCoordinates, selectedValue).map((point, index, arr) => {
+            {getStopMarkerCoordinates(polylineCoordinates, stops).map((point, index, arr) => {
         return <Marker key={index} coordinate={{latitude: point.latitude, longitude: point.longitude}} onPress={()=>{handleMarkerPress(point.latitude, point.longitude)}} title={`stop ${index+1}/${arr.length}`}/>
       })}
           </>

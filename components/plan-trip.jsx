@@ -1,51 +1,42 @@
-import { StyleSheet, View, Text, ScrollView, SafeAreaView } from "react-native";
-import { useForm } from "react-hook-form";
-import { useState, useContext } from "react";
-import { Controller } from "react-hook-form";
-import { PreferencesContext } from "../PreferencesContext";
-import {
-  Button,
-  List,
-  SegmentedButtons,
-  IconButton,
-  TextInput,
-} from "react-native-paper";
+import {ScrollView, StyleSheet, View, Text} from "react-native";
+import { useState, useContext, useEffect } from "react";
+import { PreferencesContext } from '../PreferencesContext';
+import { Button, TextInput, List, SegmentedButtons, useTheme, IconButton } from "react-native-paper";
 import Map from "./map";
-import Search from "./Search";
-import getPolylineCoordinates, { formatPolyline } from "../Utils/utils";
-import { getTripsByCurrentUser, postTrip } from "../requests/firebaseUtils";
-import NumberPicker from "./picker";
-import WheelPicker from './CustomWheelPicker';
+import { postTrip } from "../requests/firebaseUtils";
+import { useFocusEffect } from "@react-navigation/native";
+import React from "react";
+import { DestinationContext, OriginContext, StopsContext  } from "./Contexts";
+import { getPolylineCoordinates } from "../Utils/utils";
 
-export default function PlanTrip() {
+export default function PlanTrip({route}) {
   const preferences = useContext(PreferencesContext);
-
-  const [expanded, setExpanded] = useState(false);
-
-  const [destination, setDestination] = useState(null);
-  const [origin, setOrigin] = useState(null);
-  const [checked, setChecked] = useState("car");
-  const [valueAccomodation, setValueAccomodation] = useState("");
-  const [extraOptions, setExtraOptions] = useState([]);
+  const {destination, setDestination} = useContext(DestinationContext)
+  const {origin, setOrigin} = useContext(OriginContext)
   const [polylineCoordinates, setPolylineCoordinates] = useState(null);
-  const [viewOptions, setViewOptions] = useState(false);
-  const [selectedValue, setSelectedValue] = useState("1");
   const [selectedAttractions, setSelectedAttractions] = useState([]);
   const [tripName, setTripName] = useState("");
-  const handlePress = () => setExpanded(!expanded);
-  function onSubmit(data) {
-    if (origin && destination) {
-      getPolylineCoordinates(origin.place_id, destination.place_id).then(
-        (data) => {
-          setPolylineCoordinates(formatPolyline(data));
-        }
-      );
-    }
-  }
-  function passProp(selectedValue) {
-    setSelectedValue(selectedValue);
-    
-  }
+  const {valueAccomodation, extraOptions } = route.params
+  const {stops, setStops} = useContext(StopsContext)
+
+  useFocusEffect(
+    React.useCallback(() => {
+      onPageLoad(origin, destination)
+      // Do something when the screen is focused
+      return () => {
+        // Do something when the screen is unfocused
+        // Useful for cleanup functions
+      };
+    }, [origin, destination])
+  );
+
+  function onPageLoad(origin, destination) {
+    getPolylineCoordinates(origin.place_id, destination.place_id).then(
+       (data) => {
+         setPolylineCoordinates(data);
+       }
+       )
+   }
 
   function handleTripNameChange(text) {
     setTripName(text);
@@ -56,11 +47,11 @@ export default function PlanTrip() {
       getPolylineCoordinates(origin.place_id, destination.place_id).then(
         (data) => {
           postTrip({
-            polyline: data.routes[0].overview_polyline.points,
+            polyline: polylineCoordinates,
             origin: origin.description,
             destination: destination.description,
             tripName: `${tripName}`,
-            numOfStops: `${selectedValue}`,
+            numOfStops: `${stops}`,
             selectedAttractions: selectedAttractions,
           });
         }
@@ -68,223 +59,23 @@ export default function PlanTrip() {
     }
   }
 
-  function toggleViewOptions() {
-    setViewOptions(!viewOptions);
-  }
-
   return (
     <>
-      <View
-        style={{ flex: 1, flexDirection: "row", minHeight: 120, zIndex: 3 }}
-      >
-        <View style={{ flex: 0.7 }}>
-          <Search setOrigin={setOrigin} setDestination={setDestination} />
-        </View>
-        <View style={{ flex: 0.3 }}>
-          <IconButton
-            style={{ width: 100, minHeight: 55, alignSelf: "center" }}
-            mode="outlined"
-            onPress={toggleViewOptions}
-            icon={() => (
-              <Text
-                style={{ color: preferences.isThemeDark ? "white" : "black" }}
-                numberOflines={3}
-              >
-                {viewOptions ? "Hide Trip Options" : "View Trip Options"}
-              </Text>
-            )}
-          ></IconButton>
-          <View
-            style={{
-              // flexDirection: 'row',
-              flex: 0.3,
-              alignSelf: "center",
-              minHeight: 58,
-              width: 100,
-              borderWidth: 1,
-              borderColor: preferences.isThemeDark ? "grey" : "black",
-              borderRadius: 20,
-              overflow: "hidden",
-            }}
-          >
-            <WheelPicker
-              selectedValue={selectedValue}
-              passProp={passProp}
-              style={{ width: 100, minHeight: 20 }}
-            />
-          </View>
-        </View>
-      </View>
-
-      <ScrollView>
-        {viewOptions ? (
-          <>
-            <View>
-              <List.Accordion
-                title="Mode of Transport"
-                left={(props) => <List.Icon {...props} icon={checked} />}
-                expanded={expanded}
-                onPress={handlePress}
-              >
-                <List.Item
-                  title="Car"
-                  onPress={() => setChecked("car")}
-                  left={(props) => <List.Icon {...props} icon="car" />}
-                />
-                <List.Item
-                  title="Train"
-                  onPress={() => setChecked("train")}
-                  left={(props) => <List.Icon {...props} icon="train" />}
-                />
-                <List.Item
-                  title="Bus/Coach"
-                  onPress={() => setChecked("bus")}
-                  left={(props) => <List.Icon {...props} icon="bus" />}
-                />
-                <List.Item
-                  title="Bicycle"
-                  onPress={() => setChecked("bicycle")}
-                  left={(props) => <List.Icon {...props} icon="bicycle" />}
-                />
-                <List.Item
-                  title="Walk"
-                  onPress={() => setChecked("walk")}
-                  left={(props) => <List.Icon {...props} icon="walk" />}
-                />
-              </List.Accordion>
-            </View>
-
-          <SafeAreaView style={styles.container}>
-            <SegmentedButtons
-              value={valueAccomodation}
-              onValueChange={setValueAccomodation}
-              buttons={[
-                {
-                  value: "",
-                  label: "Day trip",
-                  showSelectedCheck: true,
-                },
-                {
-                  value: "hotel",
-                  label: "Hotel",
-                  showSelectedCheck: true,
-                },
-                { value: "camping", label: "Camping", showSelectedCheck: true },
-              ]}
-            />
-          </SafeAreaView>
-          <SafeAreaView style={styles.container}>
-            <SegmentedButtons
-              multiSelect
-              value={extraOptions}
-              onValueChange={setExtraOptions}
-              buttons={[
-                {
-                  value: "Wheel-Chair-Access",
-                  label: "Easy Access",
-                  showSelectedCheck: true,
-                },
-                {
-                  value: "Kids Entertainment",
-                  label: "Kids Fun",
-                  showSelectedCheck: true,
-                },
-                {
-                  value: "shopping",
-                  label: "Shopping",
-                  showSelectedCheck: true,
-                },
-              ]}
-            />
-          </SafeAreaView>
-          <SafeAreaView style={styles.container}>
-            <SegmentedButtons
-              multiSelect
-              value={extraOptions}
-              onValueChange={setExtraOptions}
-              buttons={[
-                {
-                  value: "parks and nature",
-                  label: "Parks/Nature",
-                  showSelectedCheck: true,
-                },
-                {
-                  value: "hike",
-                  label: "Hikes/Walks",
-                  showSelectedCheck: true,
-                },
-                {
-                  value: "Wildlife",
-                  label: "Wildlife",
-                  showSelectedCheck: true,
-                },
-              ]}
-            />
-          </SafeAreaView>
-
-          <SafeAreaView style={styles.container}>
-            <SegmentedButtons
-              multiSelect
-              value={extraOptions}
-              onValueChange={setExtraOptions}
-              buttons={[
-                {
-                  value: "Museums",
-                  label: "Museums",
-                  showSelectedCheck: true,
-                },
-                {
-                  value: "Heritage",
-                  label: "Heritage",
-                  showSelectedCheck: true,
-                },
-                { value: "Theatre", label: "Theatre", showSelectedCheck: true },
-              ]}
-            />
-          </SafeAreaView>
-          <SafeAreaView style={styles.container}>
-            <SegmentedButtons
-              multiSelect
-              value={extraOptions}
-              onValueChange={setExtraOptions}
-              buttons={[
-                {
-                  value: "Theme Parks",
-                  label: "Theme Parks",
-                  showSelectedCheck: true,
-                },
-                {
-                  value: "Sports&Leisure",
-                  label: "Sports/Leisure",
-                  showSelectedCheck: true,
-                },
-                { value: "Cinema", label: "Cinema", showSelectedCheck: true },
-              ]}
-            />
-          </SafeAreaView>
-          </>
-      ) : null}
-  <Map polylineCoordinates={polylineCoordinates} selectedValue={selectedValue} setSelectedAttractions={setSelectedAttractions} valueAccomodation={valueAccomodation} extraOptions={extraOptions}/>
-  </ScrollView>
-      <Button
-        mode="contained"
-        title="Submit"
-        onPress={onSubmit}
-      >
-        Start your Journey
-      </Button>
+    <ScrollView>
+  <Map polylineCoordinates={polylineCoordinates} setSelectedAttractions={setSelectedAttractions} valueAccomodation={valueAccomodation} extraOptions={extraOptions}/>
 
       <TextInput
-        style={{ color: preferences.isThemeDark ? "white" : "black" }}
+        style={{ color: "white" }}
         label="Enter a name for your trip"
         placeholder="My special trip!"
         value={tripName}
         onChangeText={handleTripNameChange}
       />
 
-      <Button mode="outlined" title="SaveTrip" onPress={onSave}>
+      <Button mode="contained" title="SaveTrip" onPress={onSave}>
         Save Trip
       </Button>
+    </ScrollView>
     </>
   );
 }

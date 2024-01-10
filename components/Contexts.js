@@ -6,4 +6,8 @@ const PolylineContext = createContext(null)
 
 const DestinationContext = createContext(null) 
 
-export {UserLocationContext, PolylineContext, DestinationContext}
+const OriginContext = createContext(null)
+
+const StopsContext = createContext(null)
+
+export {UserLocationContext, PolylineContext, DestinationContext, OriginContext, StopsContext}
