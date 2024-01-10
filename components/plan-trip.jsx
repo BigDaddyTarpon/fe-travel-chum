@@ -41,6 +41,7 @@ export default function PlanTrip() {
   const [tripName, setTripName] = useState("");
   const [currentTripId, setCurrentTripId] = useState("");
   const handlePress = () => setExpanded(!expanded);
+  
   function onSubmit(data) {
     if (origin && destination) {
       getPolylineCoordinates(origin.place_id, destination.place_id).then(

@@ -14,6 +14,7 @@ function getPolylineCoordinates(origin, destination) {
 
 export const formatPolyline = (data) => {
   const steps = data.routes[0].legs[0].steps;
+  console.log(steps);
   let coordinates = [];
   steps.forEach((step) => {
     const polyArray = polyline.decode(step.polyline.points);
