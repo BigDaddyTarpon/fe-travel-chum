@@ -17,7 +17,7 @@ import {
   Dialog,
   Icon,
 } from "react-native-paper";
-import { getTripsByCurrentUser } from "../requests/firebaseUtils";
+import { getTripsByCurrentUser, deleteTrip } from "../requests/firebaseUtils";
 import { PreferencesContext } from "../PreferencesContext";
 
 export default function Login() {
@@ -65,17 +65,21 @@ export default function Login() {
     }
   }, [isLoggedIn]);
 
-  const Trip = ({ tripName, destination, origin, createdTime }) => (
+  const Trip = ({ tripName, destination, origin, createdTime, tripId }) => (
     <View style={styles.item}>
       <Text style={styles.title} variant="titleMedium">
         {tripName}
       </Text>
       <Text style={styles.title}>From: {destination}</Text>
       <Text style={styles.title}>To: {origin}</Text>
+	  <Button mode="contained-tonal" title="Delete Trip" onPress={()=>{deleteTrip(tripId)}}>
+          Delete Trip
+        </Button>
       <Text variant="labelMedium">Created: {createdTime}</Text>
     </View>
   );
 
+  
   const RenderList = () => (
     <FlatList
       data={tripsByUser}
@@ -85,6 +89,7 @@ export default function Login() {
           destination={item.destination}
           origin={item.origin}
           createdTime={item.createdTime}
+		  tripId={item.id}
         />
       )}
       keyExtractor={(item) => item.id}
