@@ -116,10 +116,11 @@ export default function Login() {
             visible={visibleModal}
             onDismiss={() => setVisibleModal(false)}
             contentContainerStyle={{
-              padding: 0,
+              padding: 20,
               backgroundColor: "grey",
               alignSelf: "center",
-              width: "40%",
+              width: "80%",
+              
             }}
           >
 <TripOverViewCards tripData={tripData}/>

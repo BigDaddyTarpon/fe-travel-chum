@@ -18,6 +18,7 @@ import {
   Icon,
   Modal,
   Portal,
+  Divider,
 } from "react-native-paper";
 import {
   getTripsByCurrentUser,
@@ -30,19 +31,21 @@ import { useIsFocused } from "@react-navigation/native";
  const TripOverViewCards = ({tripData}) => (
 <View>
 
-<Text>{tripData.tripName}</Text>
-<Text>{tripData.origin}</Text>
+<Text variant="displayMedium" style={{textAlign:'center'}}>{tripData.tripName}</Text>
+<Text variant="headlineSmall" style={{textAlign:'center'}}>{tripData.origin}</Text>
+<Divider />
 <FlatList data={tripData.selectedAttractions}
 renderItem={({ item }) => (
    <>
-    <Text>{item.name}</Text>
+    <Text variant="titleMedium">{item.name}</Text>
    <Text>{item.vicinity}</Text>
+   <Divider />
    </> 
   )}
     keyExtractor = {(item)=>item.place_id} 
 />
 
-<Text>{tripData.destination}</Text>
+<Text variant="headlineSmall" style={{textAlign:'center'}}>{tripData.destination}</Text>
 </View>
 
 
