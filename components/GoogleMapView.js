@@ -1,4 +1,4 @@
-import { View, Dimensions } from "react-native";
+import { View, Dimensions, Image } from "react-native";
 import React, { useContext, useEffect, useState } from "react";
 import MapView, { Callout, Marker, PROVIDER_GOOGLE, Polyline } from "react-native-maps";
 import { UserLocationContext } from "./Contexts";
@@ -87,7 +87,6 @@ export default function GoogleMapView({ polylineCoordinates, selectedValue, setS
       {stopAttractions.map((attraction, index) => {
         {console.log(attraction)}
         return <PlacesCard attraction={attraction} key={attraction.place_id}/>
-        // return <Text key={index}>{attraction.name}</Text>
       })}
     </View>
   );
