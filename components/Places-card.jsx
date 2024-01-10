@@ -15,7 +15,7 @@ export default function PlacesCard({ attraction }) {
           "?maxwidth=400" +
           "&photo_reference="+
           attraction.photos[0].photo_reference +
-          "&key=AIzaSyCUUdqnAGpoGlYjVSqYwB7BfYHTVO9x3oQ",
+          "&key=" + GOOGLE_API_KEY,
         }}
         style={{width:290, height: 200}}
         
