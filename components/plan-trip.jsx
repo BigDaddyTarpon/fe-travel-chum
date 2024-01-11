@@ -95,7 +95,7 @@ export default function PlanTrip({ route }) {
           }}
           disabled={buttonPressed ? true : false}
           onPress={() => {
-            onSave, setButtonPressed(true);
+            onSave(), setButtonPressed(true);
           }}
         >
           <Text style={{ color: "black", textAlign: "center" }}>

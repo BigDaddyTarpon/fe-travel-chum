@@ -131,13 +131,11 @@ export default function Home({ navigation }) {
                     value: "Museums",
                     label: "Museums",
                     showSelectedCheck: true,
-                    icon: (src = require("../assets/museums-icon.png")),
                   },
                   {
                     value: "Heritage",
                     label: "Heritage",
                     showSelectedCheck: true,
-                    icon: (src = require("../assets/heritage-icon.png")),
                   },
                   {
                     value: "Theatre",
@@ -155,11 +153,9 @@ export default function Home({ navigation }) {
                   {
                     value: "Theme Parks",
                     label: "Theme Parks",
-                    showSelectedCheck: true,
-                    icon: (src = require("../assets/theme-parks-icon.png")),
+                    showSelectedCheck: true
                   },
                   {
-                    icon: (src = require("../assets/sport-icon.png")),
                     value: "Sports&Leisure",
                     label: "Sports/Leisure",
                     showSelectedCheck: true,
@@ -168,7 +164,6 @@ export default function Home({ navigation }) {
                     value: "Cinema",
                     label: "Cinema",
                     showSelectedCheck: true,
-                    icon: (src = require("../assets/cinema-icon.png")),
                   },
                 ]}
               />
