@@ -11,15 +11,13 @@ export default function Home() {
         </Dialog.Title>
 
         <Dialog.Title style={{ fontSize: 20 }}>
-          You can select Darkmode with the switch at the top right.
+          You can toggle Dark Mode with the switch at the top right.
         </Dialog.Title>
         <Dialog.Title style={{ fontSize: 20 }}>
-          Login, with the login tab on the top right. When logged in, your saved
-          trips will be visible in 'my trips'.
+          Login and view your saved trips in the 'My Trips' tab.
         </Dialog.Title>
         <Dialog.Title style={{ fontSize: 20 }}>
-          You can enter details on 'trip planner' then see the trip dispayed on
-          the map.
+          You can enter details in the 'Trip Planner' tab to see your journey displayed on a map.
         </Dialog.Title>
       </Dialog>
     </>
