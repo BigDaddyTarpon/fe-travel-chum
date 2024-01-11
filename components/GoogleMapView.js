@@ -49,7 +49,7 @@ export default function GoogleMapView({ polylineCoordinates, selectedValue, setS
         ref={mapRef}
         style={{
           width: Dimensions.get("screen").width * 0.95,
-          height: Dimensions.get("screen").height * 0.5,
+          height: Dimensions.get("screen").height * 0.4,
           marginTop: 8,
           marginBottom: 0,
         }}

@@ -99,7 +99,6 @@ export default function PlanTrip() {
 
   return (
     <>
-    {console.log(selectedAttractions, "selected attractions")}
       <View
         style={{ flex: 1, flexDirection: "row", minHeight: 120, zIndex: 3 }}
       >
