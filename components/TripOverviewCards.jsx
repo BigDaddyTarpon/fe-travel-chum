@@ -29,17 +29,17 @@ import { PreferencesContext } from "../PreferencesContext";
 import { useIsFocused } from "@react-navigation/native";
 
  const TripOverViewCards = ({tripData}) => (
-<View>
+<View style={{backgroundColor: "#D8E7EB", padding: 10}}>
 
 <Text variant="displayMedium" style={{textAlign:'center'}}>{tripData.tripName}</Text>
-<Text variant="headlineSmall" style={{textAlign:'center'}}>{tripData.origin}</Text>
-<Divider />
+<Text variant="headlineSmall" style={{textAlign:'center', borderBottomWidth: 1, paddingBottom: 10}}>{tripData.origin}</Text>
+
 <FlatList data={tripData.selectedAttractions}
 renderItem={({ item }) => (
    <>
     <Text variant="titleMedium">{item.name}</Text>
-   <Text>{item.vicinity}</Text>
-   <Divider />
+   <Text style={{borderBottomWidth: 1, paddingBottom: 10}}>{item.vicinity}</Text>
+   
    </> 
   )}
     keyExtractor = {(item)=>item.place_id} 

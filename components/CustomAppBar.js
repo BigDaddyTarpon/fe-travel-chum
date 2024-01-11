@@ -18,13 +18,6 @@ const CustomAppBar = ({ isThemeDark, toggleTheme }) => {
         onValueChange={toggleTheme}
       />
       <Badge>dark</Badge>
-      <TouchableOpacity
-        style={styles.iconContainer}
-        onPress={() => alert("ff")}
-      >
-        <Appbar.Action icon="account" />
-        <Badge>login</Badge>
-      </TouchableOpacity>
     </Appbar>
   );
 };
