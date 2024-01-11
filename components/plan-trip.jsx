@@ -22,7 +22,7 @@ import {
 } from "../requests/firebaseUtils";
 import NumberPicker from "./picker";
 import WheelPicker from "./CustomWheelPicker";
-
+import auth from '../config/firebase'
 export default function PlanTrip() {
   const preferences = useContext(PreferencesContext);
 
@@ -88,7 +88,9 @@ export default function PlanTrip() {
           });
         })
         .then((id) => {
-          setCurrentTripId(id);
+          if (id) {
+            setCurrentTripId(id);
+          }
         });
     }
   }
@@ -229,7 +231,7 @@ export default function PlanTrip() {
                 buttons={[
                   {
                     value: "Wheel-Chair-Access",
-                    label: "Easy Access",
+                    label: "Accessible",
                     showSelectedCheck: true,
                   },
                   {

@@ -18,7 +18,7 @@ export default function PlacesCard({ attraction, setSelectedAttractions }) {
           attraction.photos[0].photo_reference +
           "&key=" + GOOGLE_API_KEY : "https://upload.wikimedia.org/wikipedia/commons/thumb/6/65/No-Image-Placeholder.svg/330px-No-Image-Placeholder.svg.png?20200912122019"
         }}
-        style={{width:"100%", height: 200, marginBottom: 10, borderWidth: 2, borderColor: "white"}} resizeMode="contain" />
+        style={{width:"100%", height: 200, marginBottom: 10, borderWidth: 2, borderColor: "white"}}  />
         <View style={{flexDirection:'row', flexWrap: "wrap", alignItems: "center"}}>
         <Image source={require('../assets/globe.png')} style={{width: 25, height: 25, marginRight: 10}}></Image>
       <Text>Located at {attraction.vicinity}</Text>

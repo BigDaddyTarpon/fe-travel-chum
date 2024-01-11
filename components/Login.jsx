@@ -89,8 +89,8 @@ export default function Login() {
       <Text style={styles.title} variant="titleMedium">
         {tripName}
       </Text>
-      <Text style={styles.title}>From: {destination}</Text>
-      <Text style={styles.title}>To: {origin}</Text>
+      <Text style={styles.title}>From: {origin}</Text>
+      <Text style={styles.title}>To: {destination}</Text>
       <View
         style={{
           flexDirection: "row",
@@ -174,7 +174,7 @@ export default function Login() {
       <Text style={{ padding: 10 }}>
         We have pre-set the username and password to our guest account. If you
         change the values in these fields our security checks won't allow you to
-        log in, unless you enter correct acount details.
+        log in, unless you enter correct account details.
       </Text>
     </Dialog>
   );
@@ -183,7 +183,7 @@ export default function Login() {
     <>
       <Text style={{ padding: 10 }}>
         Current User:{" "}
-        {isLoggedIn ? auth.currentUser.email : "No User currenty logged in"}
+        {isLoggedIn ? auth.currentUser.email : "No user currently logged in"}
       </Text>
 
       {isLoggedIn ? (
@@ -208,8 +208,6 @@ export default function Login() {
             render={({ field: { onChange, onBlur, value } }) => (
               <TextInput
                 style={{ color: preferences.isThemeDark ? "white" : "black" }}
-                // mode='flat'
-                // style={{ color: preferences.isThemeDark ? 'white' : 'black' }}
                 label="email"
                 placeholder="Email"
                 onBlur={onBlur}
