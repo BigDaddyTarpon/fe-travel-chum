@@ -1,43 +1,57 @@
-# Travel Chum Documentation.
+# Travel Chum
 
 ## Overview:
 Travel Chum is a travel app that has the main function of helping users to plot a trip from an origin to a destination, then select stop off points in order to find places to visit at those stop offs.
 
-This project has this front end app and also has a firebase database to store the data. You should note that any trips you save whilst logged in as our default guest user, will be viewable by anyone who loads the app, with this in mind, please try not to enter any sensitive data into the origin or destination fields.
+This project primarily consists of a React Native-based frontend, a Firebase Firestore database for storing and retrieving trip data, and Firebase Authentication for user logins. NOTE: any trips you save whilst logged in as our default guest user will be viewable by anyone who loads the app - with this in mind, please try not to enter any sensitive data into the origin or destination fields.
 
 ### Tech Stack:
-Javascript
-React Native (Expo)
-Google Firebase database
-Google Firebase authentication
-Google Maps and Places API
+* JavaScript
+* React Native (Expo)
+* Firebase Cloud Firestore
+* Firebase Authentication
+* Google Directions and Places APIs
 
-Link to project on GitHub: https://github.com/SteveRobinson99/fe-travel-chum
+### Prerequisites
 
-Minimum version of Node required to run locally: v20.6.1
+* Minimum version of Node required to run locally: v20.6.1
+* A [Google API Key](https://support.google.com/googleapi/answer/6158862?hl=en) with Places API and Directions API enabled
+* A physical Android device with access to the Google Play Store
+* OR
+* An emulated Android device, set up using a tool like [Android Studio](https://docs.expo.dev/workflow/android-studio-emulator/).
 
 ### Instructions to run locally:
 
-This project is made for android phones.
+The following instructions outline how to run the app on a physical Android device, but a similar process can be followed for emulated devices.
 
-The simplest way to run the app is via your android phone.
+To do this you will need to first install the "Expo Go" app on your android phone from the Google Play Store. Then:
 
-To do this you will need to first install the "Expo Go" app on your android phone from the google play app store.
+1. Open a terminal and navigate to the folder where you wish to install the project
 
-Open a terminal Navigate to the folder where you wish to install the project
-
-Type the following commands: git clone https://github.com/SteveRobinson99/fe-travel-chum.git
+2. Run the following commands to clone the repo and install the necessary dependencies: 
+```
+git clone https://github.com/SteveRobinson99/fe-travel-chum.git
+cd fe-travel-chum
 npm install
+```
+3. Create a file named ```environments.js``` in the root of the project directory and add the following line, replacing the placeholder with your Google API key:\
+```export const GOOGLE_API_KEY="YOUR_API_KEY_HERE"```
+
+4. Run the following command to start the server:
+```
 npm run start
-You should at this point see a QR code.
-You need to open up "Expo Go" on your phone and then choose the option to scan the QR code (make sure the QR code is fully visible on your computer screen)
+```
+5. You should at this point see a QR code in your terminal. Open the Expo Go app on your device, click 'Scan QR Code' and scan the code - the app should now load (NOTE: The bundling process may take some time on first use)
 
-Here is a description of each of the app screens.
 
-### Home:
+### Functionality
+
+The following is a description of the functionality on each of the app's tabs.
+
+#### Home:
 When you first load the app will start at the home screen where you will see a welcome message, with some on screen instructions.
 
-### My Trips:
+#### My Trips:
 This page allows a user to log on and see any saved trips they have along with the places they have chosen to visit.
 
 Once logged in, you can choose to delete a trip by clicking "Delete Trip" or view a trip by choosing "View Trip".
@@ -46,7 +60,7 @@ Each trip has a trip name, the trip from and to locations as well as a timestamp
 
 When you choose to View a trip, you will see the trip name, the origin of the trip, and the destination.  In between the origin and destination, you will see any places you have added to your trip with the name of the place and the location.
 
-### Trip Planner:
+#### Trip Planner:
 Here a user can create a new trip or amend a trip they have currently saved.
 
 An origin and destination autocomplete boxes should be populated along with the amount of stops you'd like on that journey.
@@ -75,3 +89,18 @@ Once saved, you can see your saved trips on the "My Trips" tab, as long as you a
 You may at this point return to the Trip Planner to add any more destinations, as long as the origin, destination and trip name are the same, you can amend a trip that you already have saved by selecting new places to visit and saving the trip again.
 
 Next time you log in to the app, you should see your saved trips.
+
+### Contributors
+
+The team responsible for creating Travel Chum are:
+
+* [@SteveRobinson99](https://github.com/SteveRobinson99)
+* [@sirbacharach](https://github.com/sirbacharach)
+* [@jakerbp](https://github.com/jakerbp)
+* [@DannyClark90](https://github.com/DannyClark90)
+* [@NathanLee3296](https://github.com/NathanLee3296)
+* [@dheat23](https://github.com/dheat23)
+
+### Acknowledgements
+
+This project was created as part of the [Northcoders](https://northcoders.com/) Software Development bootcamp. Thanks to everyone at Northcoders for their support!
