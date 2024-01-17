@@ -3,7 +3,11 @@
 ## Overview:
 Travel Chum is a travel app that has the main function of helping users to plot a trip from an origin to a destination, then select stop off points in order to find places to visit at those stop offs.
 
-This project primarily consists of a React Native-based frontend, a Firebase Firestore database for storing and retrieving trip data, and Firebase Authentication for user logins. NOTE: any trips you save whilst logged in as our default guest user will be viewable by anyone who loads the app - with this in mind, please try not to enter any sensitive data into the origin or destination fields.
+Please feel free to visit our [NorthCoders project page](https://northcoders.com/project-phase/travel-chum), which has a video presentation of the app along with additional information about the app and our team.
+
+This project primarily consists of a React Native-based frontend, a Firebase Firestore database for storing and retrieving trip data, and Firebase Authentication for user logins.
+
+NOTE: any trips you save whilst logged in as our default guest user will be viewable by anyone who loads the app - with this in mind, please try not to enter any sensitive data into the origin or destination fields.
 
 ### Tech Stack:
 * JavaScript
