@@ -1,0 +1,31 @@
+//Dump of the rules in place on the firestore.
+
+rules_version = '2';
+
+service cloud.firestore {
+  match /databases/{database}/documents {
+
+  match /{document=**} {
+      allow read, write: if false;
+    }
+  
+  function isValidTrip(incomingData) {
+  return  (
+  		   incomingData.origin.size() > 0 &&  incomingData.origin is string &&
+         incomingData.destination.size() > 0 &&  incomingData.destination is string &&
+         incomingData.polyline.size() > 0 && 
+         incomingData.tripName.size() > 0 &&  incomingData.tripName is string &&
+         incomingData.userId.size() > 0 &&  incomingData.userId is string &&
+         incomingData.timestamp is timestamp
+					)
+      }
+      
+    match /trips/{trip} {
+      allow create: if (request.resource.data.keys().hasAll(["origin", "destination", "polyline", "tripName", "userId", "timestamp"])) && isValidTrip(request.resource.data)
+      allow read: if true //(request.resource.data.userId == request.auth.uid)
+      allow update: if isValidTrip(request.resource.data)
+      allow delete: if true
+   } 
+    
+	}
+}
