@@ -12,11 +12,13 @@ NOTE: any trips you save whilst logged in as our default guest user will be view
 ### Tech Stack:
 * JavaScript
 * React Native (Expo)
-* Firebase Cloud Firestore
+* Firebase Cloud Firestore*
 * Firebase Authentication
 * Google Directions and Places APIs
 
-### Prerequisites
+*_See ```_firestoreData``` folder for .json database export, screenshot of the Firestore interface and database rules used._
+
+### Prerequisites:
 
 * Minimum version of Node required to run locally: v20.6.1
 * A [Google API Key](https://support.google.com/googleapi/answer/6158862?hl=en) with Places API and Directions API enabled
@@ -94,7 +96,7 @@ You may at this point return to the Trip Planner to add any more destinations, a
 
 Next time you log in to the app, you should see your saved trips.
 
-### Contributors
+## Contributors
 
 The team responsible for creating Travel Chum are:
 
@@ -105,6 +107,6 @@ The team responsible for creating Travel Chum are:
 * [@NathanLee3296](https://github.com/NathanLee3296)
 * [@dheat23](https://github.com/dheat23)
 
-### Acknowledgements
+## Acknowledgements
 
 This project was created as part of the [Northcoders](https://northcoders.com/) Software Development bootcamp. Thanks to everyone at Northcoders for their support!
